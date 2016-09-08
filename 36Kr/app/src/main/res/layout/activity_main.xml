@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+    <!--主界面的布局-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/main_vp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/activity_main_vp_height"
         android:layout_weight="1" />
 
     <android.support.design.widget.TabLayout

@@ -1,5 +1,6 @@
 package com.sunhongxu.a36kr.controler.activity;
 
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -22,6 +23,7 @@ public class MainActivity extends AbsBaseActivity {
     private ViewPager mainVp;
     private MainAdapter mainAdapter;
     private List<Fragment> fragments;
+    private List<String> titles = new ArrayList<>();
 
     //加载布局
     @Override
@@ -45,9 +47,20 @@ public class MainActivity extends AbsBaseActivity {
         fragments.add(new NewsFragment());
         fragments.add(new NewsFragment());
 
-        mainAdapter = new MainAdapter(getSupportFragmentManager(), fragments);
+        titles.add("新闻");
+        titles.add("股权投资");
+        titles.add("发现");
+        titles.add("我的");
+
+        mainAdapter = new MainAdapter(getSupportFragmentManager(), fragments,titles);
         mainVp.setAdapter(mainAdapter);
 
         mainTl.setupWithViewPager(mainVp);
+        mainTl.setTabTextColors(Color.RED,Color.GREEN);
+
+        for (int i = 0; i < mainTl.getTabCount(); i++) {
+            mainTl.getTabAt(i).setCustomView(mainAdapter.getView(i));
+        }
+
     }
 }

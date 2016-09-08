@@ -5,6 +5,7 @@ import com.sunhongxu.a36kr.R;
 /**
  * Created by dllo on 16/9/8.
  * 新闻界面的Fragment
+ *
  * @author sunhongxu
  */
 public class NewsFragment extends AbsBaseFragment {
