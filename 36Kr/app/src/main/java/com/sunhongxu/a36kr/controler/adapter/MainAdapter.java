@@ -46,6 +46,11 @@ public class MainAdapter extends FragmentPagerAdapter {
         return titles.get(position);
     }
 
+    /**
+     * 设置TabLayout的样式
+     * @param position
+     * @return
+     */
     public View getView(int position) {
         View view = LayoutInflater.from(KrApp.getContext()).inflate(R.layout.item_tablayout, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.item_img_tablayout);
