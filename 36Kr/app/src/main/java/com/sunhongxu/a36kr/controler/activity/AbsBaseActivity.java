@@ -1,11 +1,16 @@
 package com.sunhongxu.a36kr.controler.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.sunhongxu.a36kr.R;
 
@@ -16,14 +21,19 @@ import com.sunhongxu.a36kr.R;
  * @author sunhongxu
  */
 public abstract class AbsBaseActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         super.onCreate(savedInstanceState);
         //制定流程
         setContentView(setLayout());
         initView();
         initDatas();
-    }
+}
 
     /**
      * 加载布局

@@ -28,7 +28,6 @@ public class MainActivity extends AbsBaseActivity {
     private ViewPager mainVp;
     private MainAdapter mainAdapter;
     private List<Fragment> fragments;
-    private List<String> titles = new ArrayList<>();
 
     //加载布局
     @Override

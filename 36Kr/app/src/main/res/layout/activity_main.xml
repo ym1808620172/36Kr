@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <!--主界面的布局-->
 
@@ -12,11 +12,15 @@
         android:layout_height="@dimen/activity_main_vp_height"
         android:layout_weight="1" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1b1a1a" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/main_tl"
-        app:tabIndicatorColor="@null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        app:tabIndicatorColor="@null" />
 
-</LinearLayout>
+</FrameLayout>
