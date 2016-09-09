@@ -3,10 +3,15 @@ package com.sunhongxu.a36kr.controler.activity;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.adapter.MainAdapter;
+import com.sunhongxu.a36kr.controler.fragment.DiscoveryFragment;
+import com.sunhongxu.a36kr.controler.fragment.EquityFragment;
+import com.sunhongxu.a36kr.controler.fragment.MineFragment;
 import com.sunhongxu.a36kr.controler.fragment.NewsFragment;
 
 import java.util.ArrayList;
@@ -43,24 +48,46 @@ public class MainActivity extends AbsBaseActivity {
     protected void initDatas() {
         fragments = new ArrayList<>();
         fragments.add(new NewsFragment());
-        fragments.add(new NewsFragment());
-        fragments.add(new NewsFragment());
-        fragments.add(new NewsFragment());
+        fragments.add(new EquityFragment());
+        fragments.add(new DiscoveryFragment());
+        fragments.add(new MineFragment());
 
-        titles.add("新闻");
-        titles.add("股权投资");
-        titles.add("发现");
-        titles.add("我的");
 
-        mainAdapter = new MainAdapter(getSupportFragmentManager(), fragments,titles);
+
+        mainAdapter = new MainAdapter(getSupportFragmentManager(), fragments);
         mainVp.setAdapter(mainAdapter);
 
         mainTl.setupWithViewPager(mainVp);
-        mainTl.setTabTextColors(Color.RED,Color.GREEN);
-
         for (int i = 0; i < mainTl.getTabCount(); i++) {
             mainTl.getTabAt(i).setCustomView(mainAdapter.getView(i));
+            if (i == 0) {
+                mainTl.getTabAt(i).getCustomView().findViewById(R.id.item_tv_tablayout).setSelected(true);
+                mainTl.getTabAt(i).getCustomView().findViewById(R.id.item_img_tablayout).setSelected(true);
+            }
         }
+        mainTl.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // 将离开的tab的textView的select属性设置为true
+                tab.getCustomView().findViewById(R.id.item_img_tablayout).setSelected(true);
+                tab.getCustomView().findViewById(R.id.item_tv_tablayout).setSelected(true);
+                // 将viewpager的item与 tablayout的同步
+                mainVp.setCurrentItem(tab.getPosition());
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // 将离开的tab的textView的select属性设置为false
+                tab.getCustomView().findViewById(R.id.item_img_tablayout).setSelected(false);
+                tab.getCustomView().findViewById(R.id.item_tv_tablayout).setSelected(false);
+                // 将viewpager的item与 tablayout的同步
+                mainVp.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }
