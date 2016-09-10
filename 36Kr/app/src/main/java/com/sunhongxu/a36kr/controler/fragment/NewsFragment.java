@@ -1,13 +1,11 @@
 package com.sunhongxu.a36kr.controler.fragment;
 
 import android.content.Intent;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.sunhongxu.a36kr.R;
 
@@ -38,9 +36,7 @@ public class NewsFragment extends AbsBaseFragment {
     @Override
     protected void initDatas() {
         //设置Fragment外边距为电量栏高度
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) frameLayout.getLayoutParams();
-        params.setMargins(0, MarginTop(), 0, 0);
-        frameLayout.setLayoutParams(params);
+        frameLayout.setPadding(0, MarginTop(), 0, 0);
         //发广播
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,5 +46,10 @@ public class NewsFragment extends AbsBaseFragment {
                 context.sendBroadcast(intent);
             }
         });
+        FragmentManager manager = getChildFragmentManager();
+        //设置默认选中页
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.framelayout_news, new NewsAllFragment());
+        transaction.commit();
     }
 }

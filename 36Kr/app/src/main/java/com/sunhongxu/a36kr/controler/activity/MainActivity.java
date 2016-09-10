@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -19,7 +22,14 @@ import com.sunhongxu.a36kr.controler.fragment.DiscoveryFragment;
 import com.sunhongxu.a36kr.controler.fragment.EquityFragment;
 import com.sunhongxu.a36kr.controler.fragment.MessageFragment;
 import com.sunhongxu.a36kr.controler.fragment.MineFragment;
+import com.sunhongxu.a36kr.controler.fragment.NewsAllFragment;
+import com.sunhongxu.a36kr.controler.fragment.NewsBEndFragment;
+import com.sunhongxu.a36kr.controler.fragment.NewsBigFragment;
+import com.sunhongxu.a36kr.controler.fragment.NewsCapitalFragment;
+import com.sunhongxu.a36kr.controler.fragment.NewsDepthFragment;
+import com.sunhongxu.a36kr.controler.fragment.NewsEarlyFragment;
 import com.sunhongxu.a36kr.controler.fragment.NewsFragment;
+import com.sunhongxu.a36kr.controler.fragment.NewsStudyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,29 +162,47 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
     }
 
     @Override
     public void onClick(View v) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
         switch (v.getId()) {
             case R.id.drawer_img_back:
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_all:
+                transaction.replace(R.id.framelayout_news, new NewsAllFragment());
+                drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_early_phase:
+                transaction.replace(R.id.framelayout_news, new NewsEarlyFragment());
+                drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_B_end:
+                transaction.replace(R.id.framelayout_news, new NewsBEndFragment());
+                drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_big_company:
+                transaction.replace(R.id.framelayout_news, new NewsBigFragment());
+                drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_capital:
+                transaction.replace(R.id.framelayout_news, new NewsCapitalFragment());
+                drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_depth:
+                transaction.replace(R.id.framelayout_news, new NewsDepthFragment());
+                drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_study:
+                transaction.replace(R.id.framelayout_news, new NewsStudyFragment());
+                drawerLayout.closeDrawer(linearLayout);
                 break;
         }
+        transaction.commit();
     }
 
     //广播接收者
