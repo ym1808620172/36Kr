@@ -1,13 +1,16 @@
 package com.sunhongxu.a36kr.controler.fragment;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
 
 /**
  * Created by dllo on 16/9/8.
@@ -17,7 +20,11 @@ import com.sunhongxu.a36kr.R;
  */
 public class NewsFragment extends AbsBaseFragment {
     private FrameLayout frameLayout;
-    private Button textView;
+    private ImageView titleNavigation, titlesActivity;
+    private LinearLayout titles;
+    private TextView titleTv;
+    private ImageView searchImg;
+
 
     //加载布局
     @Override
@@ -29,16 +36,24 @@ public class NewsFragment extends AbsBaseFragment {
     @Override
     protected void initView() {
         frameLayout = byView(R.id.framelayout_news);
-        textView = byView(R.id.news_tv);
+        titleNavigation = byView(R.id.title_img_navigation);
+        titlesActivity = byView(R.id.title_activity);
+        titles = byView(R.id.root_title);
+        titlesActivity.setVisibility(View.GONE);
+        titleTv = byView(R.id.title_tv);
+        searchImg = byView(R.id.title_search);
     }
 
     //加载数据
     @Override
     protected void initDatas() {
+
+        getChildFragmentManager().beginTransaction().replace(R.id.framelayout_news, new NewsAllFragment()).commit();
+
         //设置Fragment外边距为电量栏高度
-        frameLayout.setPadding(0, MarginTop(), 0, 0);
+        titles.setPadding(0, MarginTop(), 0, 0);
         //发广播
-        textView.setOnClickListener(new View.OnClickListener() {
+        titleNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -46,10 +61,9 @@ public class NewsFragment extends AbsBaseFragment {
                 context.sendBroadcast(intent);
             }
         });
-        FragmentManager manager = getChildFragmentManager();
-        //设置默认选中页
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.framelayout_news, new NewsAllFragment());
-        transaction.commit();
+
+
     }
+
+
 }

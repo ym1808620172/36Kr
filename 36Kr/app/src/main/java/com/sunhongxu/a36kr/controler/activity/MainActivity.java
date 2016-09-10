@@ -10,9 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -22,14 +20,14 @@ import com.sunhongxu.a36kr.controler.fragment.DiscoveryFragment;
 import com.sunhongxu.a36kr.controler.fragment.EquityFragment;
 import com.sunhongxu.a36kr.controler.fragment.MessageFragment;
 import com.sunhongxu.a36kr.controler.fragment.MineFragment;
-import com.sunhongxu.a36kr.controler.fragment.NewsAllFragment;
-import com.sunhongxu.a36kr.controler.fragment.NewsBEndFragment;
-import com.sunhongxu.a36kr.controler.fragment.NewsBigFragment;
-import com.sunhongxu.a36kr.controler.fragment.NewsCapitalFragment;
-import com.sunhongxu.a36kr.controler.fragment.NewsDepthFragment;
-import com.sunhongxu.a36kr.controler.fragment.NewsEarlyFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsBEndFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsBigFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsCapitalFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsDepthFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsEarlyFragment;
 import com.sunhongxu.a36kr.controler.fragment.NewsFragment;
-import com.sunhongxu.a36kr.controler.fragment.NewsStudyFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsStudyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +89,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         fragments.add(new MessageFragment());
         fragments.add(new MineFragment());
 
+
         //初始化Adapter
         mainAdapter = new MainAdapter(getSupportFragmentManager(), fragments);
         mainVp.setAdapter(mainAdapter);
@@ -102,7 +101,6 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         BroadIntent();
         //设置监听
         listener();
-
     }
 
     private void listener() {
