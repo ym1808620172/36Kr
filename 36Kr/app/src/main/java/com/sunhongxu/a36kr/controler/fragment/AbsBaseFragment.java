@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.sunhongxu.a36kr.controler.activity.AbsBaseActivity;
+import com.sunhongxu.a36kr.controler.app.KrApp;
 
 /**
  * Created by dllo on 16/9/8.
@@ -75,6 +77,26 @@ public abstract class AbsBaseFragment extends Fragment {
      */
     protected <T extends View> T byView(int resId) {
         return (T) getView().findViewById(resId);
+    }
+
+    /**
+     * 获得电量栏的高度
+     *
+     * @return 电量栏的高度
+     */
+    protected static int MarginTop() {
+        int statusHeight = 0;
+        try {
+            Class clazz = Class.forName("com.android.internal.R$dimen");
+            Object object = clazz.newInstance();
+            int height = Integer.parseInt(clazz.getField("status_bar_height")
+                    .get(object).toString());
+            statusHeight = KrApp.getContext().getResources().getDimensionPixelSize(height);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return statusHeight;
+
     }
 
     /**

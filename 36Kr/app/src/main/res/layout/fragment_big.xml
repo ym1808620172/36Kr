@@ -2,19 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@mipmap/ic_launcher"
     android:orientation="vertical">
-    <!--TabLayout 布局标签布局-->
-    <ImageView
-        android:id="@+id/item_img_tablayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <TextView
-        android:textSize="10sp"
-        android:id="@+id/item_tv_tablayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/textcolor" />
+        android:text="我的" />
 
 </LinearLayout>

@@ -1,26 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
     <!--主界面的布局-->
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/main_vp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_main_vp_height"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1b1a1a" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_vp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_main_vp_height"
+            android:layout_weight="1" />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/main_tl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabIndicatorColor="@null" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1b1a1a" />
 
-</FrameLayout>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_tl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/drawer_view"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/drawer_img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/news_toolbar_icon_back" />
+
+        <LinearLayout
+            android:id="@+id/drawer_all"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="#4763ED" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="全部" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drawer_early_phase"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="#3CAA4F" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="早期项目" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drawer_B_end"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="#4AAAEA" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="B轮后期" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drawer_big_company"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="#438AF9" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="大公司" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drawer_capital"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="#2C3FCD" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="资本" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drawer_depth"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="#CD3751" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="深度" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drawer_study"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="#f03" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="研究" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:background="#f03" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="视频" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+
+
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

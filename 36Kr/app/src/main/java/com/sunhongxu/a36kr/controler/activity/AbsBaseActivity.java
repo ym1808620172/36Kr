@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.app.KrApp;
 
 /**
  * Created by dllo on 16/9/8.
@@ -86,4 +87,24 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
     public void finish() {
         super.finish();
     }
+    /**
+     * 获得电量栏的高度
+     *
+     * @return 电量栏的高度
+     */
+    protected static int MarginTop() {
+        int statusHeight = 0;
+        try {
+            Class clazz = Class.forName("com.android.internal.R$dimen");
+            Object object = clazz.newInstance();
+            int height = Integer.parseInt(clazz.getField("status_bar_height")
+                    .get(object).toString());
+            statusHeight = KrApp.getContext().getResources().getDimensionPixelSize(height);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return statusHeight;
+
+    }
+
 }

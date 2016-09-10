@@ -3,12 +3,15 @@ package com.sunhongxu.a36kr.controler.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.app.KrApp;
+
 import java.util.List;
 
 /**
@@ -17,8 +20,8 @@ import java.util.List;
  */
 public class MainAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
-    private int[] imageViewtitles = new int[]{R.drawable.tabber_news, R.drawable.tabber_equity, R.drawable.tabber_discovery, R.drawable.tabber_mine};
-    private String[] titles = new String[]{"新闻", "股权投资", "发现", "我的"};
+    private int[] imageViewtitles = new int[]{R.drawable.tabber_news, R.drawable.tabber_equity, R.drawable.tabber_discovery, R.drawable.tabber_message, R.drawable.tabber_mine};
+    private String[] titles = new String[]{"新闻", "股权投资", "发现", "消息", "我的"};
 
     public MainAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
@@ -28,6 +31,7 @@ public class MainAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+
         return fragments.get(position);
     }
 
