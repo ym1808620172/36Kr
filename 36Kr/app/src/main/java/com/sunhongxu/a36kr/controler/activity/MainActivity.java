@@ -172,6 +172,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_all:
+
                 transaction.replace(R.id.framelayout_news, new NewsAllFragment());
                 drawerLayout.closeDrawer(linearLayout);
                 break;

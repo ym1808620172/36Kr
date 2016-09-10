@@ -20,7 +20,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#1b1a1a" />
+            android:background="#847f7f" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/main_tl"
@@ -188,7 +188,7 @@
                 android:layout_width="2dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:background="#f03" />
+                android:background="#c28728" />
 
             <TextView
                 android:layout_width="0dp"

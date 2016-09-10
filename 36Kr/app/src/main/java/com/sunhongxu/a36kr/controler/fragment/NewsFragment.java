@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
 
 /**
@@ -18,12 +19,13 @@ import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
  *
  * @author sunhongxu
  */
-public class NewsFragment extends AbsBaseFragment {
+public class NewsFragment extends AbsBaseFragment implements View.OnClickListener {
     private FrameLayout frameLayout;
     private ImageView titleNavigation, titlesActivity;
     private LinearLayout titles;
     private TextView titleTv;
     private ImageView searchImg;
+    private Intent intent;
 
 
     //加载布局
@@ -42,6 +44,8 @@ public class NewsFragment extends AbsBaseFragment {
         titlesActivity.setVisibility(View.GONE);
         titleTv = byView(R.id.title_tv);
         searchImg = byView(R.id.title_search);
+        searchImg.setOnClickListener(this);
+        titleNavigation.setOnClickListener(this);
     }
 
     //加载数据
@@ -52,18 +56,24 @@ public class NewsFragment extends AbsBaseFragment {
 
         //设置Fragment外边距为电量栏高度
         titles.setPadding(0, MarginTop(), 0, 0);
-        //发广播
-        titleNavigation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("com.sunhongxu.a36kr.controler.fragment.NewsFragment");
-                context.sendBroadcast(intent);
-            }
-        });
 
 
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            //发广播
+            case R.id.title_img_navigation:
+                intent = new Intent();
+                intent.setAction("com.sunhongxu.a36kr.controler.fragment.NewsFragment");
+                context.sendBroadcast(intent);
+                break;
+            case R.id.title_search:
+                intent = new Intent(context, SearchActivity.class);
+                context.startActivity(intent);
+                break;
+        }
+    }
 }

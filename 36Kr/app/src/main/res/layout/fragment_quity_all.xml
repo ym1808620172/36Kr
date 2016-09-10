@@ -3,9 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
+
+    <ListView
+        android:id="@+id/equity_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="融资全部"/>
+        android:divider="#aba5a5"
+        android:dividerHeight="10dp"/>
 
 </LinearLayout>

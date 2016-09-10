@@ -1,5 +1,6 @@
 package com.sunhongxu.a36kr.controler.fragment;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.adapter.EquityFragmentAdapter;
 import com.sunhongxu.a36kr.controler.fragment.requity.EquityAllFragment;
 import com.sunhongxu.a36kr.controler.fragment.requity.EquityEndFragment;
@@ -69,6 +71,7 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
         tabLayout.setupWithViewPager(viewPager);
         titles.setPadding(0, MarginTop(), 0, 0);
         titlesActivity.setOnClickListener(this);
+        searchImg.setOnClickListener(this);
     }
 
     @Override
@@ -92,6 +95,10 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
                     titlesActivity.startAnimation(animation);
 
                 }
+                break;
+            case R.id.title_search:
+                Intent intent = new Intent(context, SearchActivity.class);
+                context.startActivity(intent);
                 break;
         }
 
