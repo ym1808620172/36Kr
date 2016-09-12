@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_background"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -26,7 +27,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:hint="搜索新闻/用户/公司"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/search_aty_tv_cancel"
@@ -35,27 +36,54 @@
             android:layout_gravity="center_vertical"
             android:text="取消"
             android:textColor="#3253c2"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/search_no_ll"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:gravity="center_horizontal|center_vertical"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@mipmap/search_ph_search" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="无搜索记录" />-->
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/search_aty_list_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/history_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:text="历史搜索"
             android:textSize="20sp" />
 
         <ListView
             android:id="@+id/search_listview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/search_clear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="清空输入内容"
+            android:textColor="#18689e"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>

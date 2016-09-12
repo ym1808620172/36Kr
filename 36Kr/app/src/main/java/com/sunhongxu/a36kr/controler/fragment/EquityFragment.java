@@ -1,6 +1,7 @@
 package com.sunhongxu.a36kr.controler.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -40,6 +41,15 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
     private ImageView searchImg;
     private boolean isSelete = false;
     private PopupWindow pw;
+
+    public static EquityFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        EquityFragment fragment = new EquityFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected int setLayout() {
@@ -82,7 +92,7 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
                     pw = new PopupWindow();
                     pw.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
                     pw.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-                    View view = LayoutInflater.from(context).inflate(R.layout.titem_itles_aytimg, null);
+                    View view = LayoutInflater.from(context).inflate(R.layout.item_titles_aytimg, null);
                     pw.setContentView(view);
                     pw.showAtLocation(view, Gravity.CENTER, 0, 0);
                     titlesActivity.setImageResource(R.mipmap.common_bounced_icon_error);

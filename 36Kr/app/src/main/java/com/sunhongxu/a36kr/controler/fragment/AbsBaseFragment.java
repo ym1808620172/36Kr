@@ -113,6 +113,4 @@ public abstract class AbsBaseFragment extends Fragment {
         intent.putExtras(extras);
         context.startActivity(intent);
     }
-
-
 }

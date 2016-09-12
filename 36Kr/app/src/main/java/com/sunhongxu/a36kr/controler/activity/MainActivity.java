@@ -6,13 +6,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.adapter.MainAdapter;
@@ -20,14 +21,7 @@ import com.sunhongxu.a36kr.controler.fragment.DiscoveryFragment;
 import com.sunhongxu.a36kr.controler.fragment.EquityFragment;
 import com.sunhongxu.a36kr.controler.fragment.MessageFragment;
 import com.sunhongxu.a36kr.controler.fragment.MineFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsBEndFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsBigFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsCapitalFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsDepthFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsEarlyFragment;
 import com.sunhongxu.a36kr.controler.fragment.NewsFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsStudyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +48,11 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     private LinearLayout drawerCapital;
     private LinearLayout drawerDepth;
     private LinearLayout drawerStudy;
+    private ToChangeFragment changeFragment = new NewsFragment();
+
+    public interface ToChangeFragment {
+        void onToChangeFragment(int index);
+    }
 
     //加载布局
     @Override
@@ -83,11 +82,11 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     protected void initDatas() {
         //添加Fragment
         fragments = new ArrayList<>();
-        fragments.add(new NewsFragment());
-        fragments.add(new EquityFragment());
-        fragments.add(new DiscoveryFragment());
-        fragments.add(new MessageFragment());
-        fragments.add(new MineFragment());
+        fragments.add(NewsFragment.newInstance());
+        fragments.add(EquityFragment.newInstance());
+        fragments.add(DiscoveryFragment.newInstance());
+        fragments.add(MessageFragment.newInstance());
+        fragments.add(MineFragment.newInstance());
 
 
         //初始化Adapter
@@ -140,11 +139,13 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 } else {
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
-                // 将离开的tab的textView的select属性设置为true
+//               将离开的tab的textView的select属性设置为true
                 tab.getCustomView().findViewById(R.id.item_img_tablayout).setSelected(true);
                 tab.getCustomView().findViewById(R.id.item_tv_tablayout).setSelected(true);
                 // 将viewpager的item与 tablayout的同步
                 mainVp.setCurrentItem(tab.getPosition());
+                Log.d("MainActivity", "tab.getPosition():" + tab.getPosition());
+
             }
 
             @Override
@@ -165,44 +166,41 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
         switch (v.getId()) {
             case R.id.drawer_img_back:
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_all:
-
-                transaction.replace(R.id.framelayout_news, new NewsAllFragment());
+                changeFragment.onToChangeFragment(0);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_early_phase:
-                transaction.replace(R.id.framelayout_news, new NewsEarlyFragment());
+                changeFragment.onToChangeFragment(1);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_B_end:
-                transaction.replace(R.id.framelayout_news, new NewsBEndFragment());
+                changeFragment.onToChangeFragment(2);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_big_company:
-                transaction.replace(R.id.framelayout_news, new NewsBigFragment());
+                changeFragment.onToChangeFragment(3);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_capital:
-                transaction.replace(R.id.framelayout_news, new NewsCapitalFragment());
+                changeFragment.onToChangeFragment(4);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_depth:
-                transaction.replace(R.id.framelayout_news, new NewsDepthFragment());
+                changeFragment.onToChangeFragment(5);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_study:
-                transaction.replace(R.id.framelayout_news, new NewsStudyFragment());
+                changeFragment.onToChangeFragment(6);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
         }
-        transaction.commit();
     }
+
 
     //广播接收者
     private class MyBroad extends BroadcastReceiver {
@@ -212,9 +210,32 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         }
     }
 
+    private long exitTime = 0;
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(myBroad);
+    }
+
+    //物理返回键
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
+        }
     }
 }
