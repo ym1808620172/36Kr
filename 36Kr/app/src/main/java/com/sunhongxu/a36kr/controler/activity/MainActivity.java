@@ -48,11 +48,11 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     private LinearLayout drawerCapital;
     private LinearLayout drawerDepth;
     private LinearLayout drawerStudy;
-    private ToChangeFragment changeFragment = new NewsFragment();
 
     public interface ToChangeFragment {
         void onToChangeFragment(int index);
     }
+
 
     //加载布局
     @Override
@@ -171,31 +171,24 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_all:
-                changeFragment.onToChangeFragment(0);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_early_phase:
-                changeFragment.onToChangeFragment(1);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_B_end:
-                changeFragment.onToChangeFragment(2);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_big_company:
-                changeFragment.onToChangeFragment(3);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_capital:
-                changeFragment.onToChangeFragment(4);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_depth:
-                changeFragment.onToChangeFragment(5);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_study:
-                changeFragment.onToChangeFragment(6);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
         }

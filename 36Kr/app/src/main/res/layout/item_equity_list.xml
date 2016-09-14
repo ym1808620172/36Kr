@@ -8,10 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/company_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/company_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="公司名"
@@ -32,6 +33,7 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/company_brief"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="公司类型" />
@@ -44,9 +46,9 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/file_list_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/ic_launcher" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,12 +57,14 @@
         android:orientation="horizontal">
 
         <TextView
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="领投人" />
 
         <TextView
+            android:id="@+id/lead_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="众城投资" />
@@ -73,12 +77,14 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/adcontent_tools"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="创始人" />
 
         <TextView
+            android:id="@+id/adcontent_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="众城投资" />
@@ -90,13 +96,14 @@
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
-        <TextView
+            <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="孵化器" />
 
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="众城投资" />
@@ -121,12 +128,16 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textSize="15sp"
+                    android:textColor="#2a71c9"
+                    android:id="@+id/desc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="募资中" />
 
                 <TextView
+                    android:id="@+id/rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="已募资"
@@ -135,6 +146,7 @@
             </LinearLayout>
 
             <SeekBar
+                android:id="@+id/seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical" />

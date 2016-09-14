@@ -16,21 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sunhongxu.a36kr.R;
-import com.sunhongxu.a36kr.controler.activity.AbsBaseActivity;
-import com.sunhongxu.a36kr.controler.activity.MainActivity;
 import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsBEndFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsBigFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsCapitalFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsDepthFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsEarlyFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsStudyFragment;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
-import com.sunhongxu.a36kr.model.net.VolleyRequest;
 import com.sunhongxu.a36kr.utils.NewsNetHelper;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by dllo on 16/9/8.
@@ -38,7 +27,7 @@ import java.lang.reflect.Field;
  *
  * @author sunhongxu
  */
-public class NewsFragment extends AbsBaseFragment implements View.OnClickListener, VolleyRequest, MainActivity.ToChangeFragment {
+public class NewsFragment extends AbsBaseFragment implements View.OnClickListener {
     private FrameLayout frameLayout;
     private ImageView titleNavigation, titlesActivity;
     private LinearLayout titles;
@@ -84,7 +73,6 @@ public class NewsFragment extends AbsBaseFragment implements View.OnClickListene
         //设置Fragment外边距为电量栏高度
         titles.setPadding(0, MarginTop(), 0, 0);
         //请求数据
-        VolleyInstance.getInstance().startInstance(NewsNetHelper.NEWSHELER, this);
 
     }
 
@@ -93,7 +81,7 @@ public class NewsFragment extends AbsBaseFragment implements View.OnClickListene
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (fragmentManager.getFragments() == null) {
-            transaction.replace(R.id.framelayout_news, new NewsAllFragment());
+            transaction.replace(R.id.framelayout_news, NewsAllFragment.newInstance("all"));
             transaction.commit();
         }
 
@@ -116,49 +104,4 @@ public class NewsFragment extends AbsBaseFragment implements View.OnClickListene
         }
     }
 
-    @Override
-    public void success(String result) {
-        Log.d("NewsFragment", result + "");
-    }
-
-    @Override
-    public void failure() {
-        Log.d("NewsFragment", "请求失败");
-    }
-
-    @Override
-    public void onToChangeFragment(int index) {
-        FragmentManager manager = getChildFragmentManager();
-        FragmentTransaction ft = manager.beginTransaction();
-        switch (index) {
-            case 0:
-                Log.d("NewsFragment", "index:" + index);
-                ft.add(R.id.framelayout_news, new NewsAllFragment());
-                break;
-            case 1:
-                Log.d("NewsFragment", "index:" + index);
-                ft.add(R.id.framelayout_news, new NewsEarlyFragment());
-                break;
-            case 2:
-                Log.d("NewsFragment", "index:" + index);
-                ft.add(R.id.framelayout_news, new NewsBEndFragment());
-                break;
-            case 3:
-                Log.d("NewsFragment", "index:" + index);
-                ft.add(R.id.framelayout_news, new NewsBigFragment());
-                break;
-            case 4:
-                Log.d("NewsFragment", "index:" + index);
-                ft.add(R.id.framelayout_news, new NewsCapitalFragment());
-                break;
-            case 5:
-                Log.d("NewsFragment", "index:" + index);
-                ft.add(R.id.framelayout_news, new NewsStudyFragment());
-                break;
-            case 6:
-                ft.add(R.id.framelayout_news, new NewsDepthFragment());
-        }
-        Log.d("NewsFragment", "manager.getFragments():" + ft);
-//        ft.commit();
-    }
 }

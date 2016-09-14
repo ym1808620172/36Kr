@@ -19,10 +19,10 @@ import android.widget.TextView;
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.adapter.EquityFragmentAdapter;
-import com.sunhongxu.a36kr.controler.fragment.requity.EquityAllFragment;
-import com.sunhongxu.a36kr.controler.fragment.requity.EquityEndFragment;
-import com.sunhongxu.a36kr.controler.fragment.requity.EquityIngFragment;
-import com.sunhongxu.a36kr.controler.fragment.requity.EquitySuccessFragment;
+import com.sunhongxu.a36kr.controler.fragment.equity.EquityAllFragment;
+import com.sunhongxu.a36kr.controler.fragment.equity.EquityEndFragment;
+import com.sunhongxu.a36kr.controler.fragment.equity.EquityIngFragment;
+import com.sunhongxu.a36kr.controler.fragment.equity.EquitySuccessFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +43,9 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
     private PopupWindow pw;
 
     public static EquityFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         EquityFragment fragment = new EquityFragment();
         fragment.setArguments(args);
         return fragment;
@@ -72,7 +72,7 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
     @Override
     protected void initDatas() {
         List<Fragment> datas = new ArrayList<>();
-        datas.add(new EquityAllFragment());
+        datas.add(EquityAllFragment.newInstance("all"));
         datas.add(new EquityIngFragment());
         datas.add(new EquityEndFragment());
         datas.add(new EquitySuccessFragment());
@@ -103,7 +103,6 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
                     isSelete = false;
                     Animation animation = AnimationUtils.loadAnimation(context, R.anim.titleaty_rotate);
                     titlesActivity.startAnimation(animation);
-
                 }
                 break;
             case R.id.title_search:
