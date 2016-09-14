@@ -156,5 +156,10 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
 
     @Override
     public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+        if (discoverVp.getHeight() <= y) {
+            searchImg.setVisibility(View.INVISIBLE);
+        } else {
+            searchImg.setVisibility(View.VISIBLE);
+        }
     }
 }
