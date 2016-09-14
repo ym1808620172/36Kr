@@ -20,9 +20,7 @@ import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.adapter.EquityFragmentAdapter;
 import com.sunhongxu.a36kr.controler.fragment.equity.EquityAllFragment;
-import com.sunhongxu.a36kr.controler.fragment.equity.EquityEndFragment;
-import com.sunhongxu.a36kr.controler.fragment.equity.EquityIngFragment;
-import com.sunhongxu.a36kr.controler.fragment.equity.EquitySuccessFragment;
+import com.sunhongxu.a36kr.utils.ScreenSizeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,9 +71,9 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
     protected void initDatas() {
         List<Fragment> datas = new ArrayList<>();
         datas.add(EquityAllFragment.newInstance("all"));
-        datas.add(new EquityIngFragment());
-        datas.add(new EquityEndFragment());
-        datas.add(new EquitySuccessFragment());
+        datas.add(EquityAllFragment.newInstance("underway"));
+        datas.add(EquityAllFragment.newInstance("raise"));
+        datas.add(EquityAllFragment.newInstance("finish"));
         adapter = new EquityFragmentAdapter(getChildFragmentManager(), datas);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -110,6 +108,5 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
                 context.startActivity(intent);
                 break;
         }
-
     }
 }

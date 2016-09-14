@@ -19,7 +19,6 @@ import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
-import com.sunhongxu.a36kr.utils.NewsNetHelper;
 
 /**
  * Created by dllo on 16/9/8.

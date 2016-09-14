@@ -1,14 +1,19 @@
 package com.sunhongxu.a36kr.controler.adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.model.bean.EquityBean;
@@ -61,13 +66,31 @@ public class EquiteNewsAdapter extends BaseAdapter {
         if (dataBeans != null) {
             int height = ScreenSizeUtils.getScreenSize(context, ScreenSizeUtils.ScreenState.HEIGHT);
             int weight = ScreenSizeUtils.getScreenSize(context, ScreenSizeUtils.ScreenState.WIDTH);
-            Picasso.with(context).load(dataBeans.getCompany_logo()).resize(height / 10, height / 10).into(viewHolder.companyLogo);
-            Picasso.with(context).load(dataBeans.getFile_list_img()).resize(weight, height / 3).into(viewHolder.filelistImg);
-            viewHolder.adcontentPeople.setText(dataBeans.getCf_advantage().get(position).getAdcontent());
+            Picasso.with(context).load(dataBeans.getCompany_logo()).resize(weight / 10, height / 10).into(viewHolder.companyLogo);
+            Picasso.with(context).load(dataBeans.getFile_list_img()).into(viewHolder.filelistImg);
+            viewHolder.adcontentPeople0.setText(dataBeans.getCf_advantage().get(position%dataBeans.getCf_advantage().size()).getAdcontent());
+            viewHolder.adcontentTools0.setText(dataBeans.getCf_advantage().get(position%dataBeans.getCf_advantage().size()).getAdname());
+            viewHolder.adcontentPeople1.setText(dataBeans.getCf_advantage().get(position%dataBeans.getCf_advantage().size()).getAdcontent());
+            viewHolder.adcontentTools1.setText(dataBeans.getCf_advantage().get(position%dataBeans.getCf_advantage().size()).getAdname());
             viewHolder.leadName.setText(dataBeans.getLead_name());
             viewHolder.companyName.setText(dataBeans.getCompany_name());
             viewHolder.companyBrief.setText(dataBeans.getCompany_brief());
-            viewHolder.adcontentTools.setText(dataBeans.getCf_advantage().get(position).getAdname());
+            viewHolder.rate.setText("已募资" + (int) (dataBeans.getRate() * 100) + "%");
+            viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));
+            String descAll = dataBeans.getFundStatus().getDesc();
+            if (descAll.equals("募资中")) {
+                Resources resource = context.getResources();
+                ColorStateList descColor = resource.getColorStateList(R.color.desc_color_ing);
+                viewHolder.desc.setTextColor(descColor);
+                viewHolder.desc.setText(dataBeans.getFundStatus().getDesc());
+            } else {
+                Resources resource = context.getResources();
+                ColorStateList descColor = resource.getColorStateList(R.color.desc_color_end);
+                viewHolder.desc.setTextColor(descColor);
+                viewHolder.desc.setText(dataBeans.getFundStatus().getDesc());
+            }
+
+
         }
         return convertView;
     }
@@ -79,20 +102,25 @@ public class EquiteNewsAdapter extends BaseAdapter {
         private final TextView companyBrief;
         private final ImageView filelistImg;
         private final TextView leadName;
-        private final TextView adcontentPeople;
-        private final TextView adcontentTools;
+        private final TextView adcontentPeople0;
+        private final TextView adcontentTools0;
+        private final TextView adcontentPeople1;
+        private final TextView adcontentTools1;
         private final TextView desc;
         private final TextView rate;
         private final SeekBar seekBar;
 
         public ViewHolder(View view) {
+
             companyLogo = (ImageView) view.findViewById(R.id.company_logo);
             companyName = (TextView) view.findViewById(R.id.company_name);
             companyBrief = (TextView) view.findViewById(R.id.company_brief);
             filelistImg = (ImageView) view.findViewById(R.id.file_list_img);
             leadName = (TextView) view.findViewById(R.id.lead_name);
-            adcontentPeople = (TextView) view.findViewById(R.id.adcontent_people);
-            adcontentTools = (TextView) view.findViewById(R.id.adcontent_tools);
+            adcontentPeople0 = (TextView) view.findViewById(R.id.adcontent_people_0);
+            adcontentTools0 = (TextView) view.findViewById(R.id.adcontent_tools_0);
+            adcontentPeople1 = (TextView) view.findViewById(R.id.adcontent_people_1);
+            adcontentTools1 = (TextView) view.findViewById(R.id.adcontent_tools_1);
             desc = (TextView) view.findViewById(R.id.desc);
             rate = (TextView) view.findViewById(R.id.rate);
             seekBar = (SeekBar) view.findViewById(R.id.seekbar);

@@ -10,7 +10,7 @@ import com.sunhongxu.a36kr.controler.fragment.AbsBaseFragment;
 import com.sunhongxu.a36kr.model.bean.EquityBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
-import com.sunhongxu.a36kr.utils.EquityNetHelper;
+import com.sunhongxu.a36kr.utils.EquityNetUtils;
 
 import java.util.List;
 
@@ -49,13 +49,15 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest 
         listView.setAdapter(adapter);
         Bundle bundle = getArguments();
         String string = bundle.getString("URL");
-        VolleyInstance.getInstance().startInstance(EquityNetHelper.EQUITYHELPER + string + EquityNetHelper.EQUITYHELPEREND, this);
+
+        VolleyInstance.getInstance().startInstance(EquityNetUtils.EQUITYHELPER + string + EquityNetUtils.EQUITYHELPEREND, this);
     }
+
 
     @Override
     public void success(String result) {
         Gson gson = new Gson();
-        EquityBean bean = gson.fromJson(result,EquityBean.class);
+        EquityBean bean = gson.fromJson(result, EquityBean.class);
         List<EquityBean.DataBean.DataBeans> datas = bean.getData().getData();
         adapter.setDatas(datas);
     }
