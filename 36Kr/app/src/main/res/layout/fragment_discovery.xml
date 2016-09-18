@@ -46,6 +46,7 @@
                 android:padding="20dp">
 
                 <LinearLayout
+                    android:id="@+id/start_company"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -66,6 +67,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/study_research"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -87,6 +89,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/activity_btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -261,6 +264,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/check_all"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -275,6 +279,7 @@
                 android:background="#8c8c8c" />
 
             <LinearLayout
+                android:id="@+id/hot_project"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#F2F2F2"
@@ -282,32 +287,36 @@
                 android:padding="10dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/hot_project_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/bj" />
+                    android:layout_marginRight="10dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/hot_project_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="10dp"
                         android:text="修机110"
                         android:textColor="#000"
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/hot_project_brief"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="10dp"
                         android:text="手机服务专家"
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/hot_project_adcontent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="创始人:连续成功创业者"
@@ -453,6 +462,7 @@
                         android:orientation="vertical"
                         android:paddingBottom="10dp"
                         android:paddingLeft="10dp"
+                        android:id="@+id/discover_find_equity"
                         android:paddingTop="10dp">
 
                         <TextView

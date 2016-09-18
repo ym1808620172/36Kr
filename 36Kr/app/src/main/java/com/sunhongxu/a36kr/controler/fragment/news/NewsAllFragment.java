@@ -40,6 +40,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
     private LinearLayout pointLl;
     private List<RotateNewsBean.DataBean.PicsBean> picsBeen;
     private String string;
+    private LinearLayout rootLl;
 
 
     public static NewsAllFragment newInstance(String url) {
@@ -60,6 +61,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
     @Override
     protected void initView() {
         listView = byView(R.id.news_all_listview);
+        rootLl = byView(R.id.root_title);
 
     }
 
@@ -73,6 +75,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
             rotate();
         }
         VolleyInstance.getInstance().startInstance(NewsNetConstants.NEWSHELPER + string + NewsNetConstants.NEWSURLEND, this);
+        rootLl.setVisibility(View.GONE);
     }
 
     private void rotate() {
@@ -82,27 +85,24 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
         pointLl = (LinearLayout) headerView.findViewById(R.id.rorate_point);
         vpAdapter = new RotateVpAdapter(context);
         headerVp.setAdapter(vpAdapter);
-        StringRequest request = new StringRequest(NewsNetConstants.ROTATEURL, new Response.Listener<String>() {
+        VolleyInstance.getInstance().startInstance(NewsNetConstants.ROTATEURL, new VolleyRequest() {
             @Override
-            public void onResponse(String response) {
+            public void success(String result) {
                 Gson gson = new Gson();
-                RotateNewsBean rotateNewsBean = gson.fromJson(response, RotateNewsBean.class);
+                RotateNewsBean rotateNewsBean = gson.fromJson(result, RotateNewsBean.class);
                 picsBeen = rotateNewsBean.getData().getPics();
                 vpAdapter.setDatas(picsBeen);
-                Log.d("NewsAllFragment", "picsBeen.size():" + picsBeen.size());
                 //添加小圆点
                 addPoint(picsBeen.size());
                 //改变小圆点
                 changePoint(picsBeen.size());
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void failure() {
 
             }
         });
-        RequestQueue queue = Volley.newRequestQueue(context);
-        queue.add(request);
         //开始轮播
         handler = new Handler();
         startRotate();

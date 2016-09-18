@@ -9,4 +9,6 @@ public final class DiscoverNetConstants {
     }
 
     public static final String DISCOVERROTATE = "https://rong.36kr.com/api/mobi/roundpics/v4";//轮播图网址
+
+    public static final String FINDPEOPLE = "https://rong.36kr.com/api/mobi/investor?page=1&pageSize=20";//寻找投资人网址
 }

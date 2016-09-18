@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".controler.activity.WelcomeActivity" />
-        <activity android:name=".controler.activity.SearchActivity"></activity>
+        <activity android:name=".controler.activity.SearchActivity" />
+        <activity android:name=".controler.activity.StudyActivity" />
+        <activity android:name=".controler.activity.FindPeopleActivity"></activity>
     </application>
 
 </manifest>

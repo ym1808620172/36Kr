@@ -30,12 +30,12 @@ public class SearchAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return datas != null && datas.size() > 0 ? datas.size() : null;
+        return datas != null && datas.size() > 0 ? datas.size() : 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return datas != null && datas.size() > 0 ? datas.get(position) : 0;
+        return datas != null && datas.size() > 0 ? datas.get(position) : null;
     }
 
     @Override

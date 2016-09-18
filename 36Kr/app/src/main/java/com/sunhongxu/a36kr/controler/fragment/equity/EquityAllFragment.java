@@ -1,16 +1,19 @@
 package com.sunhongxu.a36kr.controler.fragment.equity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.activity.MainActivity;
 import com.sunhongxu.a36kr.controler.adapter.EquiteNewsAdapter;
 import com.sunhongxu.a36kr.controler.fragment.AbsBaseFragment;
 import com.sunhongxu.a36kr.model.bean.EquityBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
 import com.sunhongxu.a36kr.utils.EquityNetConstants;
+import com.sunhongxu.a36kr.view.ReFlashListView;
 
 import java.util.List;
 
@@ -20,7 +23,7 @@ import java.util.List;
  */
 public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest {
 
-    private ListView listView;
+    private ReFlashListView listView;
     private EquiteNewsAdapter adapter;
 
     public static EquityAllFragment newInstance(String url) {
@@ -64,6 +67,24 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest 
 
     @Override
     public void failure() {
+
+    }
+    @Override
+    public void onReflash() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 2; i++) {
+                }
+                // 通知界面显示
+                listView.setInterface(MainActivity.this);
+                listView.setAdapter(adapter);
+                // 通知ListView刷新数据完毕
+                listView.reflshComplete();
+            }
+        },2000);
+        // 获取最新数据
 
     }
 }

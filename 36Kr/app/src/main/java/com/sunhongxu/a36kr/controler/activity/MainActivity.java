@@ -56,6 +56,10 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         void onToChangeFragment(int index);
     }
 
+    public  ViewPager getMainVp() {
+        Log.d("aaa", "mainVp:" + mainVp);
+        return mainVp;
+    }
 
     //加载布局
     @Override
@@ -103,6 +107,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         BroadIntent();
         //设置监听
         listener();
+        linearLayout.setPadding(0, MarginTop(), 0, 0);
     }
 
     private void listener() {
@@ -121,7 +126,6 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.sunhongxu.a36kr.controler.fragment.NewsFragment");
         registerReceiver(myBroad, intentFilter);
-        linearLayout.setPadding(0, MarginTop(), 0, 0);
     }
 
     private void setTabLayout() {
