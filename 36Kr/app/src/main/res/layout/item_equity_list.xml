@@ -41,15 +41,18 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@drawable/shape_equity_btn"
+            android:layout_width="60dp"
+            android:layout_gravity="center"
+            android:layout_height="30dp"
+            android:textColor="#2656c6"
             android:text="关注" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/item_equity_img_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp">
 
         <ImageView
             android:id="@+id/file_list_img"
@@ -128,8 +131,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <LinearLayout
+            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -171,14 +174,14 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/equity_introduction_btn"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginRight="10dp"
-            android:background="#ec230c"
-            android:text="认证"
+            android:background="@drawable/shape_equity_btn"
             android:textColor="#fff"
             android:textSize="20sp" />
     </LinearLayout>
-
-
 </LinearLayout>

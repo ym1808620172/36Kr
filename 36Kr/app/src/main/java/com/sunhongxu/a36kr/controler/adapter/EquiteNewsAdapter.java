@@ -3,21 +3,20 @@ package com.sunhongxu.a36kr.controler.adapter;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.model.bean.EquityBean;
-import com.sunhongxu.a36kr.utils.ScreenSizeUtils;
+import com.sunhongxu.a36kr.utils.ScreenSizeConstants;
 
 import java.util.List;
 
@@ -64,51 +63,56 @@ public class EquiteNewsAdapter extends BaseAdapter {
         }
         EquityBean.DataBean.DataBeans dataBeans = datas.get(position);
         if (dataBeans != null) {
-            int height = ScreenSizeUtils.getScreenSize(context, ScreenSizeUtils.ScreenState.HEIGHT);
-            int weight = ScreenSizeUtils.getScreenSize(context, ScreenSizeUtils.ScreenState.WIDTH);
-            Picasso.with(context).load(dataBeans.getCompany_logo()).resize(weight / 10, height / 10).into(viewHolder.companyLogo);
-            Picasso.with(context).load(dataBeans.getFile_list_img()).into(viewHolder.filelistImg);
-            viewHolder.adcontentPeople0.setText(dataBeans.getCf_advantage().get(position%dataBeans.getCf_advantage().size()).getAdcontent());
-            viewHolder.adcontentTools0.setText(dataBeans.getCf_advantage().get(position%dataBeans.getCf_advantage().size()).getAdname());
-            viewHolder.adcontentPeople1.setText(dataBeans.getCf_advantage().get(position%dataBeans.getCf_advantage().size()).getAdcontent());
-            viewHolder.adcontentTools1.setText(dataBeans.getCf_advantage().get(position%dataBeans.getCf_advantage().size()).getAdname());
-            viewHolder.leadName.setText(dataBeans.getLead_name());
-            viewHolder.companyName.setText(dataBeans.getCompany_name());
-            viewHolder.companyBrief.setText(dataBeans.getCompany_brief());
-            viewHolder.rate.setText("已募资" + (int) (dataBeans.getRate() * 100) + "%");
-            viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));
+            int height = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.HEIGHT);
+            int weight = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.WIDTH);
+            Picasso.with(context).load(dataBeans.getCompany_logo()).resize(weight / 10, height / 10).into(viewHolder.companyLogo);//公司图片
+            Picasso.with(context).load(dataBeans.getFile_list_img()).into(viewHolder.filelistImg);//文件图片
+            viewHolder.adcontentPeople0.setText(dataBeans.getCf_advantage().get(0).getAdcontent());//创始人tag
+            viewHolder.adcontentTools0.setText(dataBeans.getCf_advantage().get(0).getAdname());//创始人名字
+            viewHolder.adcontentPeople1.setText(dataBeans.getCf_advantage().get(1).getAdname());//孵化器tag
+            viewHolder.adcontentTools1.setText(dataBeans.getCf_advantage().get(1).getAdcontent());//孵化器
+            viewHolder.leadName.setText(dataBeans.getLead_name());//领资方
+            viewHolder.companyName.setText(dataBeans.getCompany_name());//公司名字
+            viewHolder.companyBrief.setText(dataBeans.getCompany_brief());//公司类型
+            viewHolder.rate.setText("已募资" + (int) (dataBeans.getRate() * 100) + "%");//完成进度
+            viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));//进度条
             String descAll = dataBeans.getFundStatus().getDesc();
+            //根据类型设置颜色
             if (descAll.equals("募资中")) {
                 Resources resource = context.getResources();
                 ColorStateList descColor = resource.getColorStateList(R.color.desc_color_ing);
-                viewHolder.desc.setTextColor(descColor);
+                viewHolder.desc.setTextColor(descColor);//简介
                 viewHolder.desc.setText(dataBeans.getFundStatus().getDesc());
+                viewHolder.introductionBtn.setText("认购");
+                ColorStateList descColorBtn = resource.getColorStateList(R.color.introduction_color_btn_tv);
+                viewHolder.introductionBtn.setTextColor(descColorBtn);
+                viewHolder.introductionBtn.setBackgroundColor(Color.YELLOW);
             } else {
                 Resources resource = context.getResources();
                 ColorStateList descColor = resource.getColorStateList(R.color.desc_color_end);
-                viewHolder.desc.setTextColor(descColor);
+                viewHolder.desc.setTextColor(descColor);//简介
                 viewHolder.desc.setText(dataBeans.getFundStatus().getDesc());
+                viewHolder.introductionBtn.setText("去看看");
             }
-
-
         }
         return convertView;
     }
 
     class ViewHolder {
 
-        private final ImageView companyLogo;
-        private final TextView companyName;
-        private final TextView companyBrief;
-        private final ImageView filelistImg;
-        private final TextView leadName;
-        private final TextView adcontentPeople0;
-        private final TextView adcontentTools0;
-        private final TextView adcontentPeople1;
-        private final TextView adcontentTools1;
-        private final TextView desc;
-        private final TextView rate;
-        private final SeekBar seekBar;
+        private final ImageView companyLogo;//公司图片
+        private final TextView companyName;//公司名字
+        private final TextView companyBrief;//公司类型
+        private final ImageView filelistImg;//文件图片
+        private final TextView leadName;//领资方
+        private final TextView adcontentPeople0;//创始人tag
+        private final TextView adcontentTools0;//创始人名字
+        private final TextView adcontentPeople1;//孵化器tag
+        private final TextView adcontentTools1;//孵化器
+        private final TextView desc;//简介
+        private final TextView rate;//完成百分比
+        private final SeekBar seekBar;//进度条
+        private final Button introductionBtn;//认购按钮
 
         public ViewHolder(View view) {
 
@@ -124,6 +128,7 @@ public class EquiteNewsAdapter extends BaseAdapter {
             desc = (TextView) view.findViewById(R.id.desc);
             rate = (TextView) view.findViewById(R.id.rate);
             seekBar = (SeekBar) view.findViewById(R.id.seekbar);
+            introductionBtn = (Button) view.findViewById(R.id.equity_introduction_btn);
         }
     }
 }

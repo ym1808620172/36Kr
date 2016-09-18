@@ -1,26 +1,18 @@
 package com.sunhongxu.a36kr.controler.fragment;
 
 import android.os.Handler;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.OverScroller;
-import android.widget.ScrollView;
 
 import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.adapter.RotateVpAdapter;
-import com.sunhongxu.a36kr.model.bean.DiscoverRotateBean;
 import com.sunhongxu.a36kr.model.bean.RotateNewsBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
-import com.sunhongxu.a36kr.utils.DiscoverNetUtils;
+import com.sunhongxu.a36kr.utils.DiscoverNetConstants;
 import com.sunhongxu.a36kr.utils.ScrollViewListener;
 import com.sunhongxu.a36kr.view.ObservableScrollView;
 
@@ -66,7 +58,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         searchImg.setPadding(10, MarginTop() + 10, 10, 10);
         rotateVpAdapter = new RotateVpAdapter(context);
         discoverVp.setAdapter(rotateVpAdapter);
-        VolleyInstance.getInstance().startInstance(DiscoverNetUtils.DISCOVERROTATE, this);
+        VolleyInstance.getInstance().startInstance(DiscoverNetConstants.DISCOVERROTATE, this);
         handler = new Handler();
         startRotate();
     }

@@ -24,7 +24,7 @@ import com.sunhongxu.a36kr.model.bean.NewsAllBean;
 import com.sunhongxu.a36kr.model.bean.RotateNewsBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
-import com.sunhongxu.a36kr.utils.NewsNetUtils;
+import com.sunhongxu.a36kr.utils.NewsNetConstants;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
         if (string.equals("all")) {
             rotate();
         }
-        VolleyInstance.getInstance().startInstance(NewsNetUtils.NEWSHELPER + string + NewsNetUtils.NEWSURLEND, this);
+        VolleyInstance.getInstance().startInstance(NewsNetConstants.NEWSHELPER + string + NewsNetConstants.NEWSURLEND, this);
     }
 
     private void rotate() {
@@ -82,7 +82,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
         pointLl = (LinearLayout) headerView.findViewById(R.id.rorate_point);
         vpAdapter = new RotateVpAdapter(context);
         headerVp.setAdapter(vpAdapter);
-        StringRequest request = new StringRequest(NewsNetUtils.ROTATEURL, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(NewsNetConstants.ROTATEURL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();

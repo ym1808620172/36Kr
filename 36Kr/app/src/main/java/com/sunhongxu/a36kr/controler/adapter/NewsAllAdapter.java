@@ -3,8 +3,6 @@ package com.sunhongxu.a36kr.controler.adapter;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.model.bean.NewsAllBean;
-import com.sunhongxu.a36kr.utils.ScreenSizeUtils;
+import com.sunhongxu.a36kr.utils.ScreenSizeConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,7 +62,7 @@ public class NewsAllAdapter extends BaseAdapter {
         }
         NewsAllBean.DataBean.DataBeans bean = datas.get(position);
         if (bean != null) {
-            int height = ScreenSizeUtils.getScreenSize(context, ScreenSizeUtils.ScreenState.HEIGHT);
+            int height = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.HEIGHT);
             long time = bean.getPublishTime();
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             Date date = new Date(time);

@@ -10,7 +10,7 @@ import com.sunhongxu.a36kr.controler.fragment.AbsBaseFragment;
 import com.sunhongxu.a36kr.model.bean.EquityBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
-import com.sunhongxu.a36kr.utils.EquityNetUtils;
+import com.sunhongxu.a36kr.utils.EquityNetConstants;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest 
         Bundle bundle = getArguments();
         String string = bundle.getString("URL");
 
-        VolleyInstance.getInstance().startInstance(EquityNetUtils.EQUITYHELPER + string + EquityNetUtils.EQUITYHELPEREND, this);
+        VolleyInstance.getInstance().startInstance(EquityNetConstants.EQUITYHELPER + string + EquityNetConstants.EQUITYHELPEREND, this);
     }
 
 

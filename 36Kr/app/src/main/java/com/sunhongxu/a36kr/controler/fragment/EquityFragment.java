@@ -20,7 +20,6 @@ import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.adapter.EquityFragmentAdapter;
 import com.sunhongxu.a36kr.controler.fragment.equity.EquityAllFragment;
-import com.sunhongxu.a36kr.utils.ScreenSizeUtils;
 
 import java.util.ArrayList;
 import java.util.List;

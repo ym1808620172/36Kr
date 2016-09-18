@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -22,6 +23,7 @@ import com.sunhongxu.a36kr.controler.fragment.EquityFragment;
 import com.sunhongxu.a36kr.controler.fragment.MessageFragment;
 import com.sunhongxu.a36kr.controler.fragment.MineFragment;
 import com.sunhongxu.a36kr.controler.fragment.NewsFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsVpFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     private LinearLayout drawerCapital;
     private LinearLayout drawerDepth;
     private LinearLayout drawerStudy;
+    private ToChangeFragment changeFragment = new NewsVpFragment();
 
     public interface ToChangeFragment {
         void onToChangeFragment(int index);
@@ -171,9 +174,12 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_all:
+                NewsVpFragment.newInstance();
+                changeFragment.onToChangeFragment(0);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_early_phase:
+                changeFragment.onToChangeFragment(1);
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_B_end:

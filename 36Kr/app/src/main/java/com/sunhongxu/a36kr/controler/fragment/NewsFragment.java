@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -16,8 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.activity.MainActivity;
 import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsVpFragment;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 
 /**
@@ -33,13 +37,14 @@ public class NewsFragment extends AbsBaseFragment implements View.OnClickListene
     private TextView titleTv;
     private ImageView searchImg;
     private Intent intent;
+    private NewsVpFragment vpFragment;
+    private Runnable runnable;
+    private ViewPager viewPager;
+    private FragmentManager fragmentManager;
 
     public static NewsFragment newInstance() {
 
-        Bundle args = new Bundle();
-
         NewsFragment fragment = new NewsFragment();
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -73,15 +78,30 @@ public class NewsFragment extends AbsBaseFragment implements View.OnClickListene
         titles.setPadding(0, MarginTop(), 0, 0);
         //请求数据
 
+
     }
 
+    private Handler handler;
 
     private void setFragment() {
-        FragmentManager fragmentManager = getChildFragmentManager();
+        fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (fragmentManager.getFragments() == null) {
-            transaction.replace(R.id.framelayout_news, NewsAllFragment.newInstance("all"));
-            transaction.commit();
+        transaction.replace(R.id.framelayout_news, NewsVpFragment.newInstance(), "tag");
+        transaction.commit();
+        if (fragmentManager.executePendingTransactions()) {
+            vpFragment = (NewsVpFragment) fragmentManager.findFragmentByTag("tag");
+            handler = new Handler();
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    viewPager = vpFragment.getViewPager();
+                    if (viewPager == null) {
+                        handler.postDelayed(runnable, 100);
+                    }
+                    Log.d("xxx", "viewPager:" + viewPager);
+                }
+            };
+            handler.postDelayed(runnable, 100);
         }
 
     }
@@ -102,5 +122,6 @@ public class NewsFragment extends AbsBaseFragment implements View.OnClickListene
                 break;
         }
     }
+
 
 }

@@ -10,7 +10,7 @@ import com.sunhongxu.a36kr.controler.app.KrApp;
  * Created by dllo on 16/9/13.
  * 获取屏幕尺寸帮助类
  */
-public class ScreenSizeUtils {
+public final class ScreenSizeConstants {
     public enum ScreenState {
         WIDTH, HEIGHT;
     }
