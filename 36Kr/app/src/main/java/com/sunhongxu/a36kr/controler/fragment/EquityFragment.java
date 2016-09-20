@@ -29,30 +29,29 @@ import java.util.List;
  */
 public class EquityFragment extends AbsBaseFragment implements View.OnClickListener {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private EquityFragmentAdapter adapter;
-    private ImageView titleNavigation, titlesActivity;
-    private LinearLayout titles;
-    private TextView titleTv;
-    private ImageView searchImg;
-    private boolean isSelete = false;
-    private PopupWindow pw;
+    private TabLayout tabLayout;//定义TanLayout
+    private ViewPager viewPager;//定义ViewPager
+    private EquityFragmentAdapter adapter;//定义股权投资主界面的Fragment
+    private ImageView titleNavigation, titlesActivity;//定义标题栏的活动图片
+    private LinearLayout titles;//定义标题栏布局
+    private TextView titleTv;//定义标题栏文字
+    private ImageView searchImg;//定义标题栏搜索图片
+    private boolean isSelete = false;//为活动图片按钮定义选择状态
+    private PopupWindow pw;//定义PopupWindow
 
+    //Fragment的复用
     public static EquityFragment newInstance() {
-
-        Bundle args = new Bundle();
-
         EquityFragment fragment = new EquityFragment();
-        fragment.setArguments(args);
         return fragment;
     }
 
+    //绑定布局
     @Override
     protected int setLayout() {
         return R.layout.fragment_equity;
     }
 
+    //初始化组件
     @Override
     protected void initView() {
         tabLayout = byView(R.id.equit_tab);
@@ -66,17 +65,24 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
         titleTv.setText("股权投资");
     }
 
+    //加载数据
     @Override
     protected void initDatas() {
+        //定义一个装Fragment的数据
         List<Fragment> datas = new ArrayList<>();
+        //用Fragment的复用传过去对应的网址
         datas.add(EquityAllFragment.newInstance("all"));
         datas.add(EquityAllFragment.newInstance("underway"));
         datas.add(EquityAllFragment.newInstance("raise"));
         datas.add(EquityAllFragment.newInstance("finish"));
+        //初始化适配器
         adapter = new EquityFragmentAdapter(getChildFragmentManager(), datas);
+        //绑定适配器，tablayout与ViewPager联动
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        //设置标题的内边距，上端是电量栏的距离
         titles.setPadding(0, MarginTop(), 0, 0);
+        //设置监听
         titlesActivity.setOnClickListener(this);
         searchImg.setOnClickListener(this);
     }
@@ -85,17 +91,23 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.title_activity:
+                //当状态为false时，弹出PopWindow，当转太为true时，图片换为X号图片
                 if (!isSelete) {
+                    //初始化Pop并加载自定义布局
                     pw = new PopupWindow();
                     pw.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
                     pw.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
                     View view = LayoutInflater.from(context).inflate(R.layout.item_titles_aytimg, null);
                     pw.setContentView(view);
+                    //设置Pop位置为中间
                     pw.showAtLocation(view, Gravity.CENTER, 0, 0);
+                    //设置图片为礼物的图片
                     titlesActivity.setImageResource(R.mipmap.common_bounced_icon_error);
                     isSelete = true;
                 } else {
+                    //关闭Pop
                     pw.dismiss();
+                    //换图片，将状态设为false并且加动画
                     titlesActivity.setImageResource(R.mipmap.nav_icon_activity);
                     isSelete = false;
                     Animation animation = AnimationUtils.loadAnimation(context, R.anim.titleaty_rotate);
@@ -103,8 +115,8 @@ public class EquityFragment extends AbsBaseFragment implements View.OnClickListe
                 }
                 break;
             case R.id.title_search:
-                Intent intent = new Intent(context, SearchActivity.class);
-                context.startActivity(intent);
+                //跳转到搜索界面
+                goTo(SearchActivity.class);
                 break;
         }
     }

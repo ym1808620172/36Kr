@@ -2,6 +2,8 @@ package com.sunhongxu.a36kr.controler.fragment.equity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -10,10 +12,11 @@ import com.sunhongxu.a36kr.controler.activity.MainActivity;
 import com.sunhongxu.a36kr.controler.adapter.EquiteNewsAdapter;
 import com.sunhongxu.a36kr.controler.fragment.AbsBaseFragment;
 import com.sunhongxu.a36kr.model.bean.EquityBean;
+import com.sunhongxu.a36kr.model.bean.NewsAllBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
 import com.sunhongxu.a36kr.utils.EquityNetConstants;
-import com.sunhongxu.a36kr.view.ReFlashListView;
+import com.sunhongxu.a36kr.utils.NewsNetConstants;
 
 import java.util.List;
 
@@ -21,10 +24,13 @@ import java.util.List;
  * Created by dllo on 16/9/10.
  * 全部Fragment
  */
-public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest {
+public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest, SwipeRefreshLayout.OnRefreshListener {
 
-    private ReFlashListView listView;
+    private ListView listView;
     private EquiteNewsAdapter adapter;
+    private SwipeRefreshLayout refreshLayout;
+    private List<EquityBean.DataBean.DataBeans> datas;
+    private String string;
 
     public static EquityAllFragment newInstance(String url) {
 
@@ -43,6 +49,7 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest 
     @Override
     protected void initView() {
         listView = byView(R.id.equity_list_view);
+        refreshLayout = byView(R.id.quity_swipe);
 
     }
 
@@ -51,8 +58,12 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest 
         adapter = new EquiteNewsAdapter(context);
         listView.setAdapter(adapter);
         Bundle bundle = getArguments();
-        String string = bundle.getString("URL");
-
+        string = bundle.getString("URL");
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setColorSchemeResources(android.R.color.holo_orange_dark,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
         VolleyInstance.getInstance().startInstance(EquityNetConstants.EQUITYHELPER + string + EquityNetConstants.EQUITYHELPEREND, this);
     }
 
@@ -61,7 +72,7 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest 
     public void success(String result) {
         Gson gson = new Gson();
         EquityBean bean = gson.fromJson(result, EquityBean.class);
-        List<EquityBean.DataBean.DataBeans> datas = bean.getData().getData();
+        datas = bean.getData().getData();
         adapter.setDatas(datas);
     }
 
@@ -69,22 +80,28 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest 
     public void failure() {
 
     }
-    @Override
-    public void onReflash() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 2; i++) {
-                }
-                // 通知界面显示
-                listView.setInterface(MainActivity.this);
-                listView.setAdapter(adapter);
-                // 通知ListView刷新数据完毕
-                listView.reflshComplete();
-            }
-        },2000);
-        // 获取最新数据
 
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                refreshLayout.setRefreshing(false);
+                VolleyInstance.getInstance().startInstance(EquityNetConstants.EQUITYHELPER + string + EquityNetConstants.EQUITYHELPEREND, new VolleyRequest() {
+                    @Override
+                    public void success(String result) {
+                        Gson gson = new Gson();
+                        EquityBean equityBean = gson.fromJson(result, EquityBean.class);
+                        datas = equityBean.getData().getData();
+                        adapter.setDatas(datas);
+                    }
+
+                    @Override
+                    public void failure() {
+
+                    }
+                });
+
+            }
+        },3000);
     }
 }

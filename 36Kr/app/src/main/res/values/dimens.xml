@@ -3,5 +3,28 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <!--主界面-->
-    <dimen name="activity_main_vp_height">0dp</dimen>
+    <dimen name="activity_weight_suit">0dp</dimen>
+    <!--抽屉-->
+    <dimen name="drawer_view_width">200dp</dimen>
+    <dimen name="drawer_img_back_marginleft">20dp</dimen>
+    <dimen name="drawer_textview_news_width">2dp</dimen>
+    <dimen name="drawer_textview_marginleft">30dp</dimen>
+    <!--标题-->
+    <dimen name="title_height">70dp</dimen>
+    <dimen name="title_padding">10dp</dimen>
+    <dimen name="title_weight_suit">0dp</dimen>
+    <dimen name="titlt_tv_size">20sp</dimen>
+    <!--标题活动Pop-->
+    <dimen name="title_atying_tv_size">30sp</dimen>
+    <dimen name="title_ayting_margin">30dp</dimen>
+    <!--TabLayout 布局标签-->
+    <dimen name="item_tab_layout_tv">10sp</dimen>
+
+    <!--新闻界面ListView行布局-->
+    <dimen name="item_news_list_padding">10dp</dimen>
+    <dimen name="item_news_list_weight_suit">0dp</dimen>
+    <dimen name="news_title_tv_size">15sp</dimen>
+    <dimen name="news_other_tv_size">10sp</dimen>
+    <!--新闻界面的头布局-->
+    <dimen name="item_header_news">200dp</dimen>
 </resources>

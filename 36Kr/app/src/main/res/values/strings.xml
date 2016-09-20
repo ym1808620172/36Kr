@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">36氪</string>
+    <!--z主界面-->
+    <string name="drawer_tv_all">全部</string>
+    <string name="drawer_tv_early">早期项目</string>
+    <string name="drawer_tv_b_end">B轮后期</string>
+    <string name="drawer_tv_big">大公司</string>
+    <string name="drawer_tv_capital">资本</string>
+    <string name="drawer_tv_depth">深度</string>
+    <string name="drawer_tv_study">研究</string>
+    <string name="drawer_tv_tv">视频</string>
+    <!--标题-->
+    <string name="title_tv">早期项目</string>
+    <!--标题活动Pop-->
+    <string name="title_atying">关注投资人</string>
+
 </resources>

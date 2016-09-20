@@ -2,27 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_title"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="@dimen/title_height"
     android:background="@drawable/shape_background"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="@dimen/title_padding">
+    <!--标题-->
 
     <ImageView
         android:id="@+id/title_img_navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/title_padding"
         android:src="@mipmap/nav_icon_navigation" />
 
     <TextView
         android:id="@+id/title_tv"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/title_weight_suit"
         android:layout_height="wrap_content"
         android:layout_weight="6"
         android:gravity="center"
-        android:text="早期项目"
-        android:textSize="20sp" />
+        android:text="@string/title_tv"
+        android:textSize="@dimen/titlt_tv_size" />
 
     <ImageView
         android:id="@+id/title_activity"
@@ -32,7 +33,7 @@
 
     <ImageView
         android:id="@+id/title_search"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/title_weight_suit"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:src="@mipmap/nav_icon_search" />

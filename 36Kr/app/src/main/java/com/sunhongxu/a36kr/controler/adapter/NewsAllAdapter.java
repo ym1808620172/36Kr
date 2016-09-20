@@ -25,9 +25,11 @@ import java.util.List;
 public class NewsAllAdapter extends BaseAdapter {
     private Context context;
     private List<NewsAllBean.DataBean.DataBeans> datas;
+    private String string;
 
-    public NewsAllAdapter(Context context) {
+    public NewsAllAdapter(Context context, String string) {
         this.context = context;
+        this.string = string;
     }
 
     public void setDatas(List<NewsAllBean.DataBean.DataBeans> datas) {
@@ -70,6 +72,13 @@ public class NewsAllAdapter extends BaseAdapter {
             viewHoler.time.setText(fromatTimt);
             viewHoler.author.setText(bean.getUser().getName());
             viewHoler.title.setText(bean.getTitle());
+            if (string!=null){
+                if (string.equals("all")){
+                    viewHoler.column.setVisibility(View.VISIBLE);
+                }else {
+                    viewHoler.column.setVisibility(View.INVISIBLE);
+                }
+            }
             String column = bean.getColumnId();
             Resources resource = context.getResources();
             switch (column) {
@@ -103,22 +112,29 @@ public class NewsAllAdapter extends BaseAdapter {
                     viewHoler.column.setTextColor(cslB);
                     viewHoler.column.setText(bean.getColumnName());
                     break;
-
                 case "25":
                     ColorStateList cslStudy = resource.getColorStateList(R.color.columnearly);
                     viewHoler.column.setTextColor(cslStudy);
                     viewHoler.column.setText(bean.getColumnName());
                     break;
-
+                case "102":
+                    ColorStateList cslCool = resource.getColorStateList(R.color.columbig);
+                    viewHoler.column.setTextColor(cslCool);
+                    viewHoler.column.setText(bean.getColumnName());
+                    break;
+                case "103":
+                    ColorStateList cslFriend = resource.getColorStateList(R.color.columbig);
+                    viewHoler.column.setTextColor(cslFriend);
+                    viewHoler.column.setText(bean.getColumnName());
+                    break;
             }
-
             Picasso.with(context).load(bean.getFeatureImg()).resize(height / 6, height / 8).into(viewHoler.imageView);
-
         }
         return convertView;
     }
 
-    class ViewHoler {
+
+    public class ViewHoler {
 
         private ImageView imageView;
         private TextView author;

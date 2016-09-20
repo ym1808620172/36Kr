@@ -23,7 +23,8 @@ import com.sunhongxu.a36kr.controler.fragment.EquityFragment;
 import com.sunhongxu.a36kr.controler.fragment.MessageFragment;
 import com.sunhongxu.a36kr.controler.fragment.MineFragment;
 import com.sunhongxu.a36kr.controler.fragment.NewsFragment;
-import com.sunhongxu.a36kr.controler.fragment.news.NewsVpFragment;
+import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
+import com.sunhongxu.a36kr.utils.IOpenDrawer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,36 +35,28 @@ import java.util.List;
  *
  * @author sunhongxu
  */
-public class MainActivity extends AbsBaseActivity implements View.OnClickListener {
-    private TabLayout mainTl;
-    private ViewPager mainVp;
-    private MainAdapter mainAdapter;
-    private List<Fragment> fragments;
-    private DrawerLayout drawerLayout;
-    private LinearLayout linearLayout;
-    private MyBroad myBroad;
-    private ImageView imageViewReturn;
-    private LinearLayout drawerAll;
-    private LinearLayout drawerEarlyPhase;
-    private LinearLayout drawerBEnd;
-    private LinearLayout drawerBigCompany;
-    private LinearLayout drawerCapital;
-    private LinearLayout drawerDepth;
-    private LinearLayout drawerStudy;
-    private ToChangeFragment changeFragment = new NewsVpFragment();
-
-    public interface ToChangeFragment {
-        void onToChangeFragment(int index);
-    }
-
-    public  ViewPager getMainVp() {
-        Log.d("aaa", "mainVp:" + mainVp);
-        return mainVp;
-    }
+public class MainActivity extends AbsBaseActivity implements View.OnClickListener, IOpenDrawer {
+    private TabLayout mainTl;//定义TabLayout
+    private ViewPager mainVp;//定义主界面的ViewPager
+    private MainAdapter mainAdapter;//定义主界面的适配器
+    private List<Fragment> datas;
+    private DrawerLayout drawerLayout;//定义抽屉
+    private LinearLayout linearLayout;//抽屉界面的根布局
+    private ImageView imageViewReturn;//抽屉的返回按钮图片
+    private LinearLayout drawerAll;//抽屉全部
+    private LinearLayout drawerEarlyPhase;//抽屉早期
+    private LinearLayout drawerBEnd;//抽屉B轮后
+    private LinearLayout drawerBigCompany;//抽屉大公司
+    private LinearLayout drawerCapital;//抽屉资本
+    private LinearLayout drawerDepth;//抽屉深度
+    private LinearLayout drawerStudy;//抽屉研究
+    private NewsFragment fragment;//定义NewsFragment
 
     //加载布局
     @Override
     protected int setLayout() {
+        //初始化Fragment
+        fragment = NewsFragment.newInstance();
         return R.layout.activity_main;
     }
 
@@ -88,28 +81,28 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     @Override
     protected void initDatas() {
         //添加Fragment
-        fragments = new ArrayList<>();
-        fragments.add(NewsFragment.newInstance());
-        fragments.add(EquityFragment.newInstance());
-        fragments.add(DiscoveryFragment.newInstance());
-        fragments.add(MessageFragment.newInstance());
-        fragments.add(MineFragment.newInstance());
+        datas = new ArrayList<>();
+        datas.add(fragment);
+        datas.add(EquityFragment.newInstance());
+        datas.add(DiscoveryFragment.newInstance());
+        datas.add(MessageFragment.newInstance());
+        datas.add(MineFragment.newInstance());
 
 
         //初始化Adapter
-        mainAdapter = new MainAdapter(getSupportFragmentManager(), fragments);
+        mainAdapter = new MainAdapter(getSupportFragmentManager(), datas);
         mainVp.setAdapter(mainAdapter);
         //设置TabLayout与ViewPager联动
         mainTl.setupWithViewPager(mainVp);
         //设置TabLayout滑动监听
         setTabLayout();
-        //注册广播
-        BroadIntent();
         //设置监听
         listener();
+        //设置抽屉的内边距，MarginTop：电量栏的高度
         linearLayout.setPadding(0, MarginTop(), 0, 0);
     }
 
+    //设置监听
     private void listener() {
         imageViewReturn.setOnClickListener(this);
         drawerAll.setOnClickListener(this);
@@ -121,16 +114,11 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         drawerStudy.setOnClickListener(this);
     }
 
-    private void BroadIntent() {
-        myBroad = new MyBroad();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.sunhongxu.a36kr.controler.fragment.NewsFragment");
-        registerReceiver(myBroad, intentFilter);
-    }
-
     private void setTabLayout() {
+        //设置当前页
         for (int i = 0; i < mainTl.getTabCount(); i++) {
             mainTl.getTabAt(i).setCustomView(mainAdapter.getView(i));
+            //当当前页为0时，设置当前页为true
             if (i == 0) {
                 mainTl.getTabAt(i).getCustomView().findViewById(R.id.item_tv_tablayout).setSelected(true);
                 mainTl.getTabAt(i).getCustomView().findViewById(R.id.item_img_tablayout).setSelected(true);
@@ -178,48 +166,50 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_all:
-                NewsVpFragment.newInstance();
-                changeFragment.onToChangeFragment(0);
+                //用回调的方法加载新闻界面对应布局
+                fragment.changeFragment(NewsAllFragment.newInstance("all"));
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_early_phase:
-                changeFragment.onToChangeFragment(1);
+                fragment.changeFragment(NewsAllFragment.newInstance("67"));
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_B_end:
+                fragment.changeFragment(NewsAllFragment.newInstance("68"));
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_big_company:
+                fragment.changeFragment(NewsAllFragment.newInstance("23"));
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_capital:
+                fragment.changeFragment(NewsAllFragment.newInstance("69"));
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_depth:
+                fragment.changeFragment(NewsAllFragment.newInstance("70"));
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_study:
+                fragment.changeFragment(NewsAllFragment.newInstance("71"));
                 drawerLayout.closeDrawer(linearLayout);
                 break;
         }
     }
 
-
-    //广播接收者
-    private class MyBroad extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
+    @Override
+    public void onIOpenDrawer(int index) {
+        if (index == 0) {
             drawerLayout.openDrawer(linearLayout);
+        }
+        if (index == 1) {
+            mainVp.setCurrentItem(1);
         }
     }
 
+
     private long exitTime = 0;
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(myBroad);
-    }
 
     //物理返回键
     @Override

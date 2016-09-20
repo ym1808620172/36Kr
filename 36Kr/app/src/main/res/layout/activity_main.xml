@@ -5,225 +5,217 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!--主界面的布局-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+        <!--ViewPager-->
         <android.support.v4.view.ViewPager
             android:id="@+id/main_vp"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/activity_main_vp_height"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#847f7f" />
-
+        <!--TabLayout-->
         <android.support.design.widget.TabLayout
             android:id="@+id/main_tl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabIndicatorColor="@null" />
     </LinearLayout>
-
+    <!--抽屉-->
     <LinearLayout
         android:id="@+id/drawer_view"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/drawer_view_width"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:background="#fff"
+        android:background="@color/drawer_view_background"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/drawer_img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/drawer_img_back_marginleft"
             android:src="@mipmap/news_toolbar_icon_back" />
 
         <LinearLayout
             android:id="@+id/drawer_all"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="2dp"
+                android:layout_width="@dimen/drawer_textview_news_width"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:background="#4763ED" />
+                android:layout_marginLeft="@dimen/drawer_textview_marginleft"
+                android:background="@color/drawer_tv_background_all" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/activity_weight_suit"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="全部" />
+                android:text="@string/drawer_tv_all" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/drawer_early_phase"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="2dp"
+                android:layout_width="@dimen/drawer_textview_news_width"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:background="#3CAA4F" />
+                android:layout_marginLeft="@dimen/drawer_textview_marginleft"
+                android:background="@color/drawer_tv_background_early" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/activity_weight_suit"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="早期项目" />
+                android:text="@string/drawer_tv_early" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/drawer_B_end"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="2dp"
+                android:layout_width="@dimen/drawer_textview_news_width"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:background="#4AAAEA" />
+                android:layout_marginLeft="@dimen/drawer_textview_marginleft"
+                android:background="@color/drawer_tv_background_b_end" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/activity_weight_suit"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="B轮后期" />
+                android:text="@string/drawer_tv_b_end" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/drawer_big_company"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="2dp"
+                android:layout_width="@dimen/drawer_textview_news_width"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:background="#438AF9" />
+                android:layout_marginLeft="@dimen/drawer_textview_marginleft"
+                android:background="@color/drawer_tv_background_big" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/activity_weight_suit"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="大公司" />
+                android:text="@string/drawer_tv_big" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/drawer_capital"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="2dp"
+                android:layout_width="@dimen/drawer_textview_news_width"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:background="#2C3FCD" />
+                android:layout_marginLeft="@dimen/drawer_textview_marginleft"
+                android:background="@color/drawer_tv_bacjground_capital" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/activity_weight_suit"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="资本" />
+                android:text="@string/drawer_tv_capital" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/drawer_depth"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="2dp"
+                android:layout_width="@dimen/drawer_textview_news_width"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:background="#CD3751" />
+                android:layout_marginLeft="@dimen/drawer_textview_marginleft"
+                android:background="@color/drawer_tv_bacjground_depth" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/activity_weight_suit"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="深度" />
+                android:text="@string/drawer_tv_depth" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/drawer_study"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="2dp"
+                android:layout_width="@dimen/drawer_textview_news_width"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:background="#c28728" />
+                android:layout_marginLeft="@dimen/drawer_textview_marginleft"
+                android:background="@color/drawer_tv_bacjground_study" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/activity_weight_suit"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="研究" />
+                android:text="@string/drawer_tv_study" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="2dp"
+                android:layout_width="@dimen/drawer_textview_news_width"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/drawer_textview_marginleft"
                 android:background="#f03" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="@dimen/activity_weight_suit"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="视频" />
+                android:text="@string/drawer_tv_tv" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="2" />
-
-
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

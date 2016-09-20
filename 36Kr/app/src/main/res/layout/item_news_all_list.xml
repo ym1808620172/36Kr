@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="@dimen/item_news_list_padding">
+    <!--新闻界面ListView行布局-->
 
     <ImageView
         android:id="@+id/news_all_list_img"
@@ -11,23 +12,22 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="@dimen/item_news_list_weight_suit"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:paddingLeft="10dp"
+        android:paddingLeft="@dimen/item_news_list_padding"
         android:orientation="vertical"
         >
 
         <TextView
             android:id="@+id/news_all_list_title"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/item_news_list_weight_suit"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="111"
-            android:textColor="#000"
-            android:textSize="15sp" />
+            android:textColor="@color/news_title_tv_color"
+            android:textSize="@dimen/news_title_tv_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,22 +38,21 @@
                 android:id="@+id/news_all_list_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="111"
-                android:textSize="10sp" />
+                android:textSize="@dimen/news_other_tv_size" />
 
             <TextView
                 android:id="@+id/news_all_list_time"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/item_news_list_weight_suit"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:textSize="10sp" />
+                android:paddingLeft="@dimen/item_news_list_padding"
+                android:textSize="@dimen/news_other_tv_size" />
 
             <TextView
                 android:id="@+id/news_all_list_column"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10sp" />
+                android:textSize="@dimen/news_other_tv_size" />
         </LinearLayout>
     </LinearLayout>
 

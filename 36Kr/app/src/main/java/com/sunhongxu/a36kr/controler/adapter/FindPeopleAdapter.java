@@ -51,6 +51,7 @@ public class FindPeopleAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d("aaaa", "convertView:" );
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_find_people_list, parent, false);
@@ -64,7 +65,6 @@ public class FindPeopleAdapter extends BaseAdapter {
         int weight = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.WIDTH);
         if (dataBeans != null) {
             viewHolder.nameTv.setText(dataBeans.getUser().getName());
-
             if (dataBeans.getFocusIndustry().size() == 0) {
                 viewHolder.domainTv.setText("未披露");
             } else {

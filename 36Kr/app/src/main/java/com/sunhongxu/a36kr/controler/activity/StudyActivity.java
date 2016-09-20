@@ -46,7 +46,7 @@ public class StudyActivity extends AbsBaseActivity implements VolleyRequest, Vie
 
     @Override
     protected void initDatas() {
-        allAdapter = new NewsAllAdapter(this);
+        allAdapter = new NewsAllAdapter(this, null);
         VolleyInstance.getInstance().startInstance(NewsNetConstants.NEWSHELPER + "71" + NewsNetConstants.NEWSURLEND, this);
         listView.setAdapter(allAdapter);
         //设置标题栏

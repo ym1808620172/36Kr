@@ -5,15 +5,15 @@
     android:background="@mipmap/iv_indstry_intro"
     android:gravity="bottom"
     android:orientation="vertical">
-
+    <!--标题活动Pop-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:background="#D7493B"
+        android:layout_margin="@dimen/title_ayting_margin"
+        android:background="@color/title_ayting_backgroung_color"
         android:gravity="center_horizontal"
-        android:text="关注投资人"
-        android:textColor="#fff"
-        android:textSize="30dp" />
+        android:text="@string/title_atying"
+        android:textColor="@color/title_atying_tv_color"
+        android:textSize="@dimen/title_atying_tv_size" />
 
 </LinearLayout>

@@ -3,9 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <include layout="@layout/item_titles" />
-
     <FrameLayout
         android:id="@+id/framelayout_news"
         android:layout_width="match_parent"

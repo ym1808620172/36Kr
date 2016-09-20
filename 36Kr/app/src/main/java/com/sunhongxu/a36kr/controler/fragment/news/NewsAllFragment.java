@@ -1,22 +1,22 @@
 package com.sunhongxu.a36kr.controler.fragment.news;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.adapter.NewsAllAdapter;
 import com.sunhongxu.a36kr.controler.adapter.RotateVpAdapter;
 import com.sunhongxu.a36kr.controler.fragment.AbsBaseFragment;
@@ -24,25 +24,41 @@ import com.sunhongxu.a36kr.model.bean.NewsAllBean;
 import com.sunhongxu.a36kr.model.bean.RotateNewsBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
+import com.sunhongxu.a36kr.utils.IOpenDrawer;
 import com.sunhongxu.a36kr.utils.NewsNetConstants;
 
 import java.util.List;
 
 /**
  * Created by dllo on 16/9/10.
+ * 新闻界面Fragment
  */
-public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
+public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private NewsAllAdapter allAdapter;
-    private ListView listView;
-    private RotateVpAdapter vpAdapter;
-    private ViewPager headerVp;
-    private LinearLayout pointLl;
-    private List<RotateNewsBean.DataBean.PicsBean> picsBeen;
-    private String string;
-    private LinearLayout rootLl;
+    private NewsAllAdapter allAdapter;//定义适配器
+    private ListView listView;//dingyiListView
+    private RotateVpAdapter vpAdapter;//定义轮播图适配器
+    private ViewPager headerVp;//定义头布局ViewPager
+    private LinearLayout pointLl;//定义轮播图小圆点样式
+    private List<RotateNewsBean.DataBean.PicsBean> picsBeen;//定义轮播图数组
+    private String string;//定义传过来的网址
+    private ImageView titleNavigation, titlesActivity;
+    private LinearLayout titles;
+    private Intent intent;
+    private TextView titleTv;
+    private ImageView searchImg;
+    private IOpenDrawer iOpenDrawer;
+    private SwipeRefreshLayout swipeLayout;
+    private List<NewsAllBean.DataBean.DataBeans> dataBeanses;
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //将接口赋值为context对象
+        iOpenDrawer = (IOpenDrawer) context;
+    }
+    //Fragment的复用
     public static NewsAllFragment newInstance(String url) {
 
         Bundle args = new Bundle();
@@ -60,37 +76,81 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
 
     @Override
     protected void initView() {
+        swipeLayout = byView(R.id.swipe_container);
         listView = byView(R.id.news_all_listview);
-        rootLl = byView(R.id.root_title);
+        titleNavigation = byView(R.id.title_img_navigation);
+        titlesActivity = byView(R.id.title_activity);
+        titles = byView(R.id.root_title);
+        titlesActivity.setVisibility(View.GONE);
+        titleTv = byView(R.id.title_tv);
+        searchImg = byView(R.id.title_search);
+        searchImg.setOnClickListener(this);
+        titleNavigation.setOnClickListener(this);
 
     }
 
     @Override
     protected void initDatas() {
-        allAdapter = new NewsAllAdapter(context);
-        listView.setAdapter(allAdapter);
+        //获取Bundle包裹化
         Bundle bundle = getArguments();
+        //根据网址判断是哪个界面，是否添加头布局
         string = bundle.getString("url");
-        if (string.equals("all")) {
-            rotate();
-        }
+        //设置下拉刷新监听
+        swipeLayout.setOnRefreshListener(this);
+        //设施swipeLayout颜色
+        swipeLayout.setColorSchemeResources(android.R.color.holo_orange_dark,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        //初始化适配器
+        allAdapter = new NewsAllAdapter(context, string);
+        //listView绑定适配器
+        listView.setAdapter(allAdapter);
+        //Volley解析数据
         VolleyInstance.getInstance().startInstance(NewsNetConstants.NEWSHELPER + string + NewsNetConstants.NEWSURLEND, this);
-        rootLl.setVisibility(View.GONE);
+        //设置Fragment外边距为电量栏高度
+        titles.setPadding(0, MarginTop(), 0, 0);
+        //根据url判断是哪个类型的新闻并设置标题文字
+        setTitleTv();
+    }
+
+    private void setTitleTv() {
+        if (string.equals("all")) {
+            titleTv.setText("全部");
+            rotate();
+        } else if (string.equals("67")) {
+            titleTv.setText("早期项目");
+        } else if (string.equals("68")) {
+            titleTv.setText("B轮后期");
+        } else if (string.equals("23")) {
+            titleTv.setText("大公司");
+        } else if (string.equals("69")) {
+            titleTv.setText("资本");
+        } else if (string.equals("70")) {
+            titleTv.setText("深度");
+        } else if (string.equals("71")) {
+            titleTv.setText("研究");
+        }
     }
 
     private void rotate() {
+        //添加头布局
         View headerView = LayoutInflater.from(context).inflate(R.layout.item_header, null);
         listView.addHeaderView(headerView);
         headerVp = (ViewPager) headerView.findViewById(R.id.header_vp);
         pointLl = (LinearLayout) headerView.findViewById(R.id.rorate_point);
+        //初始化适配器并绑定
         vpAdapter = new RotateVpAdapter(context);
         headerVp.setAdapter(vpAdapter);
+        //网络请求数据
         VolleyInstance.getInstance().startInstance(NewsNetConstants.ROTATEURL, new VolleyRequest() {
             @Override
             public void success(String result) {
+                //Gson数据解析
                 Gson gson = new Gson();
                 RotateNewsBean rotateNewsBean = gson.fromJson(result, RotateNewsBean.class);
                 picsBeen = rotateNewsBean.getData().getPics();
+                //将数据设置到适配器
                 vpAdapter.setDatas(picsBeen);
                 //添加小圆点
                 addPoint(picsBeen.size());
@@ -109,15 +169,17 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
     }
 
 
-    private Handler handler;
-    private Runnable rotateRunnable;
-    private boolean isStart = false;
+    private Handler handler;//定义handler
+    private Runnable rotateRunnable;//定义Runnable
+    private boolean isStart = false;//判断是否开始轮播
 
     private void startRotate() {
         rotateRunnable = new Runnable() {
             @Override
             public void run() {
+                //获得当前页
                 int index = headerVp.getCurrentItem();
+                //设置当前页并++
                 headerVp.setCurrentItem(++index);
                 if (isStart) {
                     handler.postDelayed(rotateRunnable, 3000);
@@ -127,18 +189,18 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
         handler.postDelayed(rotateRunnable, 3000);
     }
 
-
     @Override
     public void success(String result) {
         Gson gson = new Gson();
         NewsAllBean datas = gson.fromJson(result, NewsAllBean.class);
-        List<NewsAllBean.DataBean.DataBeans> dataBeanses = datas.getData().getData();
+        dataBeanses = datas.getData().getData();
+        Log.d("aaa", "dataBeanses.size():" + dataBeanses.size());
         allAdapter.setDatas(dataBeanses);
-        Log.d("NewsAllFragment", string);
 
     }
 
     private void changePoint(final int size) {
+        //ViewPage的滑动监听
         headerVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -147,6 +209,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
 
             @Override
             public void onPageSelected(int position) {
+                //根据当前位置设置小圆点
                 if (isStart) {
                     for (int i = 0; i < size; i++) {
                         ImageView pointIv = (ImageView) pointLl.getChildAt(i);
@@ -162,7 +225,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
             }
         });
     }
-
+    //添加小圆点
     private void addPoint(int size) {
         for (int i = 0; i < size; i++) {
             ImageView pointIv = new ImageView(context);
@@ -182,18 +245,55 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest {
 
     @Override
     public void failure() {
-
     }
-
+    //在界面生成时将状态设为true
     @Override
     public void onResume() {
         super.onResume();
         isStart = true;
     }
-
+    //在界面暂停时设为false
     @Override
     public void onPause() {
         super.onPause();
         isStart = false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.title_img_navigation:
+                iOpenDrawer.onIOpenDrawer(0);
+                break;
+            case R.id.title_search:
+                intent = new Intent(context, SearchActivity.class);
+                context.startActivity(intent);
+                break;
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                swipeLayout.setRefreshing(false);
+                VolleyInstance.getInstance().startInstance(NewsNetConstants.NEWSHELPER + string + NewsNetConstants.NEWSURLEND, new VolleyRequest() {
+                    @Override
+                    public void success(String result) {
+                        Gson gson = new Gson();
+                        NewsAllBean datas = gson.fromJson(result, NewsAllBean.class);
+                        dataBeanses = datas.getData().getData();
+                        Log.d("aaa", "dataBeanses.size():" + dataBeanses.size());
+                        allAdapter.setDatas(dataBeanses);
+                    }
+
+                    @Override
+                    public void failure() {
+
+                    }
+                });
+
+            }
+        },3000);
     }
 }

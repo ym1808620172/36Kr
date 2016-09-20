@@ -3,5 +3,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
+    <!--抽屉-->
+    <color name="drawer_view_background">#fff</color>
+    <color name="drawer_tv_background_all">#4763ED</color>
+    <color name="drawer_tv_background_early">#3CAA4F</color>
+    <color name="drawer_tv_background_b_end">#4AAAEA</color>
+    <color name="drawer_tv_background_big">#438AF9</color>
+    <color name="drawer_tv_bacjground_capital">#2C3FCD</color>
+    <color name="drawer_tv_bacjground_depth">#CD3751</color>
+    <color name="drawer_tv_bacjground_study">#c2872d</color>
+    <!--标题活动Pop-->
+    <color name="title_ayting_backgroung_color">#D7493B</color>
+    <color name="title_atying_tv_color">#fff</color>
+    <!--新闻界面ListView行布局-->
+    <color name="news_title_tv_color">#000</color>
 </resources>

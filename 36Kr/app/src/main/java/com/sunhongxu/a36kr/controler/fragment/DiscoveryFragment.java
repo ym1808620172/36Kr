@@ -1,5 +1,6 @@
 package com.sunhongxu.a36kr.controler.fragment;
 
+import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -28,6 +29,7 @@ import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
 import com.sunhongxu.a36kr.utils.DiscoverNetConstants;
 import com.sunhongxu.a36kr.utils.EquityNetConstants;
+import com.sunhongxu.a36kr.utils.IOpenDrawer;
 import com.sunhongxu.a36kr.utils.NewsNetConstants;
 import com.sunhongxu.a36kr.utils.ScreenSizeConstants;
 import com.sunhongxu.a36kr.utils.ScrollViewListener;
@@ -41,14 +43,14 @@ import java.util.List;
  */
 public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest, ScrollViewListener, View.OnClickListener {
 
-    private ViewPager discoverVp;
-    private RotateVpAdapter rotateVpAdapter;
-    private Handler handler;
+    private ViewPager discoverVp;//定义发现界面的ViewPager,用于轮播图
+    private RotateVpAdapter rotateVpAdapter;//定义轮播图适配器
+    private Handler handler;//定义Handler
     private Runnable rotateRunnable;
-    private boolean isStart = false;
-    private LinearLayout discoverPoint;
-    private ImageView searchImg;
-    private ObservableScrollView observable;
+    private boolean isStart = false;//设置开始状态为false
+    private LinearLayout discoverPoint;//定义小圆点布局
+    private ImageView searchImg;//定义搜索图片
+    private ObservableScrollView observable;//定义自定义ScrollView
     private LinearLayout studyResearch;
     private LinearLayout activityBtn;
     private TextView checkAll;
@@ -57,17 +59,24 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
     private TextView hotProgectName;
     private TextView hotProgectBrief;
     private LinearLayout findEquity;
+    private IOpenDrawer iOpenDrawer;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        iOpenDrawer = (IOpenDrawer) context;
+    }
 
     public static DiscoveryFragment newInstance() {
         DiscoveryFragment fragment = new DiscoveryFragment();
         return fragment;
     }
-
+    //绑定布局
     @Override
     protected int setLayout() {
         return R.layout.fragment_discovery;
     }
-
+    //初始化组件
     @Override
     protected void initView() {
         discoverVp = byView(R.id.discover_vp);
@@ -86,7 +95,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         setListener();
 
     }
-
+    //设置监听
     private void setListener() {
         checkAll.setOnClickListener(this);
         studyResearch.setOnClickListener(this);
@@ -104,6 +113,13 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         discoverVp.setAdapter(rotateVpAdapter);
         VolleyInstance.getInstance().startInstance(DiscoverNetConstants.DISCOVERROTATE, this);
         handler = new Handler();
+        //热门项目,获取股权投资界面数据的第一个
+        hotProgect();
+        //开始轮播
+        startRotate();
+    }
+
+    private void hotProgect() {
         VolleyInstance.getInstance().startInstance(EquityNetConstants.EQUITYHELPER + "underway" + EquityNetConstants.EQUITYHELPEREND, new VolleyRequest() {
             @Override
             public void success(String result) {
@@ -123,6 +139,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
 
             }
         });
+
     }
 
     private void startRotate() {
@@ -145,11 +162,13 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         RotateNewsBean discoverRotateBean = gson.fromJson(result, RotateNewsBean.class);
         List<RotateNewsBean.DataBean.PicsBean> picsBeen = discoverRotateBean.getData().getPics();
         rotateVpAdapter.setDatas(picsBeen);
+        //添加小圆点
         addPoint(picsBeen.size());
+        //改变小圆点
         changePoint(picsBeen.size());
 
     }
-
+    //改变小圆点
     private void changePoint(final int size) {
         discoverVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -174,7 +193,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         });
     }
 
-
+    //添加小圆点
     private void addPoint(int size) {
         for (int i = 0; i < size; i++) {
             ImageView pointIv = new ImageView(context);
@@ -196,20 +215,24 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
 
     }
 
+    //在界面生成时将状态设为true
     @Override
     public void onResume() {
         super.onResume();
         isStart = true;
     }
 
+    //在界面暂停时设为false
     @Override
     public void onPause() {
         super.onPause();
         isStart = false;
     }
 
+    //ScrollView的滑动监听
     @Override
     public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+        //当滑动高度小与轮播图高度时候设置搜索按钮为可见
         if (discoverVp.getHeight() <= y) {
             searchImg.setVisibility(View.INVISIBLE);
         } else {
@@ -226,6 +249,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
             case R.id.activity_btn:
                 break;
             case R.id.check_all:
+                iOpenDrawer.onIOpenDrawer(1);
                 break;
             case R.id.discover_search:
                 goTo(SearchActivity.class);
