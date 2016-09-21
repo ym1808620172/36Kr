@@ -19,25 +19,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 搜索界面
+ */
+
 public class SearchActivity extends AbsBaseActivity implements View.OnClickListener {
 
 
-    private LinearLayout linearLayout;
-    private ImageView searchImg;
-    private TextView searchTv;
-    private EditText searchEt;
-    private SearchAdapter searchAdapter;
-    private LinearLayout listViewLl;
-    private ListView listView;
-    private TextView historyTv;
-    private LinearLayout searchLl;
-    private boolean isHave = false;
+    private LinearLayout linearLayout;//定义界面布局
+    private ImageView searchImg;//定义搜索图片
+    private TextView searchTv;//定义取消的Tv
+    private EditText searchEt;//定义Et
+    private SearchAdapter searchAdapter;//定义适配器
+    private ListView listView;//定义ListView
+    private LinearLayout searchLl;//定义无搜索记录的布局
+    private boolean isHave = false;//定义是否有数据
 
+    //绑定布局
     @Override
     protected int setLayout() {
         return R.layout.activity_search;
     }
 
+    //初始化组件并设置监听
     @Override
     protected void initView() {
         linearLayout = byView(R.id.search_root_ll);
@@ -47,46 +51,60 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
         searchImg.setOnClickListener(this);
         searchTv.setOnClickListener(this);
         listView = byView(R.id.search_listview);
-        listViewLl = byView(R.id.search_aty_list_ll);
-        historyTv = byView(R.id.history_tv);
         searchLl = byView(R.id.search_no_ll);
-
     }
 
+    //加载数据
     @Override
     protected void initDatas() {
+        //设置布局内边距的上边距为电量栏高度
         linearLayout.setPadding(0, MarginTop(), 0, 0);
+        //定义Sp
         SharedPreferences preferences = getSharedPreferences("text", MODE_PRIVATE);
+        //取值,如果没有值将isHave设为默认值false
         isHave = preferences.getBoolean("ishave", false);
+        //如果isHave为true说明有搜索记录,将搜索记录设置给设配器
         if (isHave) {
+            //定义设配器并绑定
             searchAdapter = new SearchAdapter(this);
             listView.setAdapter(searchAdapter);
+            //将sp里的值全部取出
             Map<String, ?> a = preferences.getAll();
+            //将sp里的Map类型的值转为List型数组
             List<String> mapKeyList = new ArrayList(a.keySet());
+//            定义一个List型数组
             List<SearchBean> datas = new ArrayList<>();
+            //用一个循环,0到List数组的长度,将数据添加到List<SearchBean>里
             for (int i = 0; i < mapKeyList.size(); i++) {
+                //将ishave数据移除数组
                 mapKeyList.remove("ishave");
                 SearchBean sb = new SearchBean();
+                //设置数据
                 sb.setContent(mapKeyList.get(i));
                 datas.add(sb);
             }
             searchAdapter.setDatas(datas);
+            //将没有搜索记录的去掉
             searchLl.setVisibility(View.GONE);
         }
         //添加清理文字的尾布局,并设监听
         addFooter();
     }
-
+    //添加清理文字的尾布局,并设监听
     private void addFooter() {
+        //注入布局
         View view = getLayoutInflater().inflate(R.layout.item_fooder_search, null);
+        //初始化取消的Tv并设置监听
         TextView searchClean = (TextView) view.findViewById(R.id.search_clear);
         searchClean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //将sp清空
                 SharedPreferences preferences = getSharedPreferences("text", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
                 editor.commit();
+                //设置无搜索记录布局为可见
                 searchLl.setVisibility(View.VISIBLE);
             }
         });
@@ -96,21 +114,25 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        //获得Et的内容
         String contentEt = searchEt.getText().toString();
         switch (v.getId()) {
             case R.id.search_aty_img:
+                //如果内容是空的Toast
                 if (contentEt.isEmpty()) {
                     Toast.makeText(this, "请输入内容", Toast.LENGTH_SHORT).show();
                 } else {
+                    //不为空的话将内容存储到sp里,key值也为内容
                     SharedPreferences preferences = getSharedPreferences("text", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString(contentEt, contentEt);
+                    //将是否有值存为true
                     editor.putBoolean("ishave", true);
                     editor.commit();
                 }
-
                 break;
             case R.id.search_aty_tv_cancel:
+                //结束界面
                 finish();
                 break;
 

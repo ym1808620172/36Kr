@@ -22,6 +22,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/13.
+ * 股权投资界面新闻的适配器
  */
 public class EquiteNewsAdapter extends BaseAdapter {
     private Context context;
@@ -65,17 +66,28 @@ public class EquiteNewsAdapter extends BaseAdapter {
         if (dataBeans != null) {
             int height = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.HEIGHT);
             int weight = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.WIDTH);
-            Picasso.with(context).load(dataBeans.getCompany_logo()).resize(weight / 10, height / 10).into(viewHolder.companyLogo);//公司图片
-            Picasso.with(context).load(dataBeans.getFile_list_img()).into(viewHolder.filelistImg);//文件图片
-            viewHolder.adcontentPeople0.setText(dataBeans.getCf_advantage().get(0).getAdcontent());//创始人tag
-            viewHolder.adcontentTools0.setText(dataBeans.getCf_advantage().get(0).getAdname());//创始人名字
-            viewHolder.adcontentPeople1.setText(dataBeans.getCf_advantage().get(1).getAdname());//孵化器tag
-            viewHolder.adcontentTools1.setText(dataBeans.getCf_advantage().get(1).getAdcontent());//孵化器
-            viewHolder.leadName.setText(dataBeans.getLead_name());//领资方
-            viewHolder.companyName.setText(dataBeans.getCompany_name());//公司名字
-            viewHolder.companyBrief.setText(dataBeans.getCompany_brief());//公司类型
-            viewHolder.rate.setText("已募资" + (int) (dataBeans.getRate() * 100) + "%");//完成进度
-            viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));//进度条
+            //公司图片
+            Picasso.with(context).load(dataBeans.getCompany_logo()).resize(weight / 10, height / 10).into(viewHolder.companyLogo);
+            //文件图片
+            Picasso.with(context).load(dataBeans.getFile_list_img()).into(viewHolder.filelistImg);
+            //创始人tag
+            viewHolder.adcontentPeople0.setText(dataBeans.getCf_advantage().get(0).getAdcontent());
+            //创始人名字
+            viewHolder.adcontentTools0.setText(dataBeans.getCf_advantage().get(0).getAdname());
+            //孵化器tag
+            viewHolder.adcontentPeople1.setText(dataBeans.getCf_advantage().get(1).getAdname());
+            //孵化器
+            viewHolder.adcontentTools1.setText(dataBeans.getCf_advantage().get(1).getAdcontent());
+            //领资方
+            viewHolder.leadName.setText(dataBeans.getLead_name());
+            //公司名字
+            viewHolder.companyName.setText(dataBeans.getCompany_name());
+            //公司类型
+            viewHolder.companyBrief.setText(dataBeans.getCompany_brief());
+            //完成进度
+            viewHolder.rate.setText("已募资" + (int) (dataBeans.getRate() * 100) + "%");
+            //进度条
+            viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));
             String descAll = dataBeans.getFundStatus().getDesc();
             //根据类型设置颜色
             if (descAll.equals("募资中")) {

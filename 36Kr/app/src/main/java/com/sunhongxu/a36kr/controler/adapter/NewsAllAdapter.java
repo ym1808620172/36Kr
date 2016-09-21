@@ -22,12 +22,14 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/13.
+ * 新闻界面的新闻Fragment的适配器
  */
 public class NewsAllAdapter extends BaseAdapter {
     private Context context;
     private List<NewsAllBean.DataBean.DataBeans> datas;
     private String string;
 
+    //构造方法,将不同的网址传入设配器
     public NewsAllAdapter(Context context, String string) {
         this.context = context;
         this.string = string;
@@ -66,13 +68,18 @@ public class NewsAllAdapter extends BaseAdapter {
         NewsAllBean.DataBean.DataBeans bean = datas.get(position);
         if (bean != null) {
             int height = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.HEIGHT);
+            //获得时间并转型
             long time = bean.getPublishTime();
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             Date date = new Date(time);
             String fromatTimt = sdf.format(date);
+            //设置时间
             viewHoler.time.setText(fromatTimt);
+            //设置作者名字
             viewHoler.author.setText(bean.getUser().getName());
+            //设置标题
             viewHoler.title.setText(bean.getTitle());
+            //根据网址的不同,判断是否需要显示新闻类型
             if (string!=null){
                 if (string.equals("all")){
                     viewHoler.column.setVisibility(View.VISIBLE);
@@ -80,6 +87,7 @@ public class NewsAllAdapter extends BaseAdapter {
                     viewHoler.column.setVisibility(View.INVISIBLE);
                 }
             }
+            //获得根据ColumnId判断文字的颜色
             String column = bean.getColumnId();
             Resources resource = context.getResources();
             switch (column) {
@@ -129,6 +137,7 @@ public class NewsAllAdapter extends BaseAdapter {
                     viewHoler.column.setText(bean.getColumnName());
                     break;
             }
+            //设置新闻的图片
             Picasso.with(context).load(bean.getFeatureImg()).resize(height / 6, height / 8).into(viewHoler.imageView);
         }
         return convertView;
@@ -137,11 +146,11 @@ public class NewsAllAdapter extends BaseAdapter {
 
     public class ViewHoler {
 
-        private ImageView imageView;
-        private TextView author;
-        private TextView column;
-        private TextView title;
-        private TextView time;
+        private ImageView imageView;//定义新闻的图片
+        private TextView author;//定义新闻的作者
+        private TextView column;//定义新闻的内容
+        private TextView title;//定义新闻的标题
+        private TextView time;//定义新闻的时间
 
         public ViewHoler(View view) {
             imageView = (ImageView) view.findViewById(R.id.news_all_list_img);

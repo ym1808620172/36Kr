@@ -26,4 +26,11 @@ public final class NetConstants {
     public static final String NEWSHELPER = "https://rong.36kr.com/api/mobi/news?pageSize=20&columnId=";//新闻界面前半部分
     public static final String NEWSURLEND = "&pagingAction=up";//新闻界面后半部分
     public static final String ROTATEURL = "https://rong.36kr.com/api/mobi/roundpics/v4";//新闻界面轮播图
+    /**
+     * 新闻详情页网址
+     */
+    public static final String DETAILSURL = "http://rong.36kr.com/api/mobi/news/";//详情页前半部分
+    /**
+     * 
+     */
 }

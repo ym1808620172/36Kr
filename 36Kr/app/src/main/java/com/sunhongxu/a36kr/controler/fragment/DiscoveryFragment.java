@@ -32,6 +32,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/8.
+ * 发现界面
  */
 public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest, ScrollViewListener, View.OnClickListener {
 
@@ -45,17 +46,18 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
     private ObservableScrollView observable;//定义自定义ScrollView
     private LinearLayout studyResearch;
     private LinearLayout activityBtn;
-    private TextView checkAll;
-    private ImageView discoverSearch;
-    private ImageView hotProgectImg;
-    private TextView hotProgectName;
-    private TextView hotProgectBrief;
+    private TextView checkAll;//定义查看全部Tv
+    private ImageView discoverSearch;//定义搜索图片
+    private ImageView hotProgectImg;//定义热门项目里的图片
+    private TextView hotProgectName;//定义热门项目里的公司名
+    private TextView hotProgectBrief;//创始人名
     private LinearLayout findEquity;
-    private IOpenDrawer iOpenDrawer;
+    private IOpenDrawer iOpenDrawer;//定义接口
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        //将context赋值给接口
         iOpenDrawer = (IOpenDrawer) context;
     }
 
@@ -102,10 +104,12 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
 
     @Override
     protected void initDatas() {
-
+        //设置搜索图片高度
         searchImg.setPadding(10, MarginTop() + 10, 10, 10);
+        //初始化适配器
         rotateVpAdapter = new RotateVpAdapter(context);
         discoverVp.setAdapter(rotateVpAdapter);
+        //网络请求数据
         VolleyInstance.getInstance().startInstance(NetConstants.DISCOVERROTATE, this);
         handler = new Handler();
         //热门项目,获取股权投资界面数据的第一个
@@ -240,18 +244,23 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.study_research:
+                //跳转到36氪研究院界面
                 goTo(StudyActivity.class);
                 break;
             case R.id.activity_btn:
+                //跳转到近期活动界面
                 goTo(RecentAtyActivity.class);
                 break;
             case R.id.check_all:
+                //用接口回调方法将界面设为第二个界面
                 iOpenDrawer.onIOpenDrawer(1);
                 break;
             case R.id.discover_search:
+                //跳到搜索界面
                 goTo(SearchActivity.class);
                 break;
             case R.id.discover_find_equity:
+                //跳到寻找投资人界面
                 goTo(FindPersonActivity.class);
                 break;
         }

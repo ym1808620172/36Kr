@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/12.
+ * 搜索界面适配器
  */
 public class SearchAdapter extends BaseAdapter {
     private Context context;
@@ -55,13 +56,14 @@ public class SearchAdapter extends BaseAdapter {
         }
         SearchBean searchBean = (SearchBean) getItem(position);
         if (searchBean != null) {
+            //将ListView的行布局设置数据
             viewHolder.textView.setText(searchBean.getContent());
         }
         return convertView;
     }
 
     class ViewHolder {
-        private TextView textView;
+        private TextView textView;//定义ListView行布局
 
         public ViewHolder(View view) {
             textView = (TextView) view.findViewById(R.id.search_list_tv);

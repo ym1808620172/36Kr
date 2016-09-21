@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/10.
- * 全部Fragment
+ * 股权投资全部Fragment
  */
 public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest, SwipeRefreshLayout.OnRefreshListener {
 

@@ -6,6 +6,7 @@ import com.sunhongxu.a36kr.R;
 
 /**
  * Created by dllo on 16/9/10.
+ * 消息界面
  */
 public class MessageFragment extends AbsBaseFragment {
     public static MessageFragment newInstance() {

@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/10.
+ * 股权投资界面,用于ViewPager滑动改变界面
  */
 public class EquityFragmentAdapter extends FragmentPagerAdapter {
     private String[] titles = new String[]{"全部", "募资中", "募资完成", "融资完成"};

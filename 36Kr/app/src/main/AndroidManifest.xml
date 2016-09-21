@@ -26,7 +26,8 @@
         <activity android:name=".controler.activity.LoginActivity" />
         <activity android:name=".controler.activity.EquityPersonActivity" />
         <activity android:name=".controler.activity.BusinessPersonActivity" />
-        <activity android:name=".controler.activity.SetActivity"></activity>
+        <activity android:name=".controler.activity.SetActivity" />
+        <activity android:name=".controler.activity.NewsDetailsActivity"></activity>
     </application>
 
 </manifest>

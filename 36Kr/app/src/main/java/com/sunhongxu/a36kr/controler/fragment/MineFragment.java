@@ -7,12 +7,12 @@ import com.sunhongxu.a36kr.R;
 
 /**
  * Created by dllo on 16/9/8.
+ * 我的界面
  */
 public class MineFragment extends AbsBaseFragment {
     public static MineFragment newInstance() {
         
         Bundle args = new Bundle();
-        
         MineFragment fragment = new MineFragment();
         fragment.setArguments(args);
         return fragment;

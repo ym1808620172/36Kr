@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/20.
+ * 近期活动的实体类
  */
 public class RecentAtyBean {
 

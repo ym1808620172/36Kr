@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/20.
+ * 近期活动的适配器
  */
 public class RecentAtyAdapter extends BaseAdapter {
     private Context context;
@@ -58,11 +59,17 @@ public class RecentAtyAdapter extends BaseAdapter {
         }
         RecentAtyBean.DataBean.DataBeans dataBeans = dataBeanses.get(position);
         if (dataBeans != null) {
+            //设置新闻内容
             viewHolder.recentContentTv.setText(dataBeans.getActivityDesc());
+            //设置新闻标题
             viewHolder.recentTvTitle.setText(dataBeans.getActivityName());
+            //设置新闻地点
             viewHolder.recentWhere.setText(dataBeans.getActivityCity());
+            //设置新闻时间
             viewHolder.recentTime.setText(dataBeans.getActivityTime());
+            //设置图片
             Picasso.with(context).load(dataBeans.getActivityImg()).into(viewHolder.recentImgBig);
+            //根据Status设置背景颜色
             String Status = dataBeans.getActivityStatus();
             switch (Status) {
                 case "报名中":
@@ -84,12 +91,12 @@ public class RecentAtyAdapter extends BaseAdapter {
 
     class ViewHolder {
 
-        private final ImageView recentImgBig;
-        private final TextView recentTvTitle;
-        private final TextView recentContentTv;
-        private final TextView recentNowTv;
-        private final TextView recentWhere;
-        private final TextView recentTime;
+        private final ImageView recentImgBig;//定义图片
+        private final TextView recentTvTitle;//定义活动标题
+        private final TextView recentContentTv;//定义活动内容
+        private final TextView recentNowTv;//定义是是否还在包名的Tv
+        private final TextView recentWhere;//定义活动位置的Tv
+        private final TextView recentTime;//定义活动时间的Tv
 
         public ViewHolder(View view) {
             recentImgBig = (ImageView) view.findViewById(R.id.item_recent_img_big);

@@ -14,12 +14,10 @@ import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
  *
  * @author sunhongxu
  */
-public class NewsFragment extends AbsBaseFragment  {
+public class NewsFragment extends AbsBaseFragment {
 
-    private FrameLayout frameLayout;
 
-    private FragmentManager fragmentManager;
-
+    //复用Fragment
     public static NewsFragment newInstance() {
         NewsFragment fragment = new NewsFragment();
         return fragment;
@@ -34,7 +32,6 @@ public class NewsFragment extends AbsBaseFragment  {
     //初始化控件
     @Override
     protected void initView() {
-        frameLayout = byView(R.id.framelayout_news);
 
     }
 
@@ -44,11 +41,15 @@ public class NewsFragment extends AbsBaseFragment  {
         //设置默认页
         setFragment();
     }
+
     public void changeFragment(Fragment fragment) {
+        //替换界面,数据为从主界面传过来的Fragment
         getChildFragmentManager().beginTransaction().replace(R.id.framelayout_news, fragment).commit();
     }
+
     private void setFragment() {
-        fragmentManager = getChildFragmentManager();
+        //设置默认页为全部新闻界面
+        FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.framelayout_news, NewsAllFragment.newInstance("all"));
         transaction.commit();

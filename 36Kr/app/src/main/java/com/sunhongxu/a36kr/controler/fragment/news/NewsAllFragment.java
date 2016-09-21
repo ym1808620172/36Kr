@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.activity.NewsDetailsActivity;
 import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.adapter.NewsAllAdapter;
 import com.sunhongxu.a36kr.controler.adapter.RotateVpAdapter;
@@ -33,7 +35,7 @@ import java.util.List;
  * Created by dllo on 16/9/10.
  * 新闻界面Fragment
  */
-public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private NewsAllAdapter allAdapter;//定义适配器
     private ListView listView;//dingyiListView
@@ -44,7 +46,6 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
     private String string;//定义传过来的网址
     private ImageView titleNavigation, titlesActivity;//定义标题栏的图片
     private LinearLayout titles;//定义标题栏的布局
-    private Intent intent;//定义Intent
     private TextView titleTv;
     private ImageView searchImg;
     private IOpenDrawer iOpenDrawer;//定义接口,用于回调打开抽屉
@@ -67,12 +68,14 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         fragment.setArguments(args);
         return fragment;
     }
+
     //绑定布局
     @Override
     protected int setLayout() {
         return R.layout.fragment_all_news;
 
     }
+
     //初始化组件
     @Override
     protected void initView() {
@@ -88,6 +91,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         titleNavigation.setOnClickListener(this);
 
     }
+
     //加载数据
     @Override
     protected void initDatas() {
@@ -112,8 +116,11 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         titles.setPadding(0, MarginTop(), 0, 0);
         //根据url判断是哪个类型的新闻并设置标题文字
         setTitleTv();
+        //定义ListView行点击事件
+        listView.setOnItemClickListener(this);
     }
 
+    //根据url判断是哪个类型的新闻并设置标题文字
     private void setTitleTv() {
         if (string.equals("all")) {
             titleTv.setText("全部");
@@ -163,8 +170,8 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
 
             }
         });
-        //开始轮播
         handler = new Handler();
+        //开始轮播
         startRotate();
     }
 
@@ -173,6 +180,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
     private Runnable rotateRunnable;//定义Runnable
     private boolean isStart = false;//判断是否开始轮播
 
+    //开始轮播
     private void startRotate() {
         rotateRunnable = new Runnable() {
             @Override
@@ -194,11 +202,11 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         Gson gson = new Gson();
         NewsAllBean datas = gson.fromJson(result, NewsAllBean.class);
         dataBeanses = datas.getData().getData();
-        Log.d("aaa", "dataBeanses.size():" + dataBeanses.size());
         allAdapter.setDatas(dataBeanses);
 
     }
 
+    //改变小圆点
     private void changePoint(final int size) {
         //ViewPage的滑动监听
         headerVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -266,11 +274,12 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.title_img_navigation:
+                //用接口回调法打开抽屉
                 iOpenDrawer.onIOpenDrawer(0);
                 break;
             case R.id.title_search:
-                intent = new Intent(context, SearchActivity.class);
-                context.startActivity(intent);
+                //跳到搜索界面
+                goTo(SearchActivity.class);
                 break;
         }
     }
@@ -298,5 +307,16 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
 
             }
         }, 3000);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //获取点击对应行的实体类数据
+        NewsAllBean.DataBean.DataBeans dataBeans = (NewsAllBean.DataBean.DataBeans) parent.getItemAtPosition(position);
+        String FeedId = dataBeans.getFeedId();
+        Bundle bundle = new Bundle();
+        bundle.putString("FeedId", FeedId);
+        //用ListView的行点击事件,跳转到详情页界面,将需要拼接的网址传过去
+        goTo(NewsDetailsActivity.class, bundle);
     }
 }
