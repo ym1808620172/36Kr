@@ -54,7 +54,7 @@ public class FindPeopleAdapter extends BaseAdapter {
         Log.d("aaaa", "convertView:" );
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_find_people_list, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_find_person_list, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {

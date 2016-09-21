@@ -3,23 +3,16 @@ package com.sunhongxu.a36kr.controler.fragment;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.sunhongxu.a36kr.R;
-import com.sunhongxu.a36kr.controler.activity.FindPeopleActivity;
-import com.sunhongxu.a36kr.controler.activity.MainActivity;
+import com.sunhongxu.a36kr.controler.activity.FindPersonActivity;
+import com.sunhongxu.a36kr.controler.activity.RecentAtyActivity;
 import com.sunhongxu.a36kr.controler.activity.SearchActivity;
 import com.sunhongxu.a36kr.controler.activity.StudyActivity;
 import com.sunhongxu.a36kr.controler.adapter.RotateVpAdapter;
@@ -27,10 +20,9 @@ import com.sunhongxu.a36kr.model.bean.EquityBean;
 import com.sunhongxu.a36kr.model.bean.RotateNewsBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
-import com.sunhongxu.a36kr.utils.DiscoverNetConstants;
-import com.sunhongxu.a36kr.utils.EquityNetConstants;
+import com.sunhongxu.a36kr.utils.NetConstants;
+
 import com.sunhongxu.a36kr.utils.IOpenDrawer;
-import com.sunhongxu.a36kr.utils.NewsNetConstants;
 import com.sunhongxu.a36kr.utils.ScreenSizeConstants;
 import com.sunhongxu.a36kr.utils.ScrollViewListener;
 import com.sunhongxu.a36kr.view.ObservableScrollView;
@@ -71,11 +63,13 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         DiscoveryFragment fragment = new DiscoveryFragment();
         return fragment;
     }
+
     //绑定布局
     @Override
     protected int setLayout() {
         return R.layout.fragment_discovery;
     }
+
     //初始化组件
     @Override
     protected void initView() {
@@ -95,6 +89,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         setListener();
 
     }
+
     //设置监听
     private void setListener() {
         checkAll.setOnClickListener(this);
@@ -111,7 +106,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         searchImg.setPadding(10, MarginTop() + 10, 10, 10);
         rotateVpAdapter = new RotateVpAdapter(context);
         discoverVp.setAdapter(rotateVpAdapter);
-        VolleyInstance.getInstance().startInstance(DiscoverNetConstants.DISCOVERROTATE, this);
+        VolleyInstance.getInstance().startInstance(NetConstants.DISCOVERROTATE, this);
         handler = new Handler();
         //热门项目,获取股权投资界面数据的第一个
         hotProgect();
@@ -120,7 +115,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
     }
 
     private void hotProgect() {
-        VolleyInstance.getInstance().startInstance(EquityNetConstants.EQUITYHELPER + "underway" + EquityNetConstants.EQUITYHELPEREND, new VolleyRequest() {
+        VolleyInstance.getInstance().startInstance(NetConstants.EQUITYHELPER + "underway" + NetConstants.EQUITYHELPEREND, new VolleyRequest() {
             @Override
             public void success(String result) {
                 int height = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.HEIGHT);
@@ -168,6 +163,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         changePoint(picsBeen.size());
 
     }
+
     //改变小圆点
     private void changePoint(final int size) {
         discoverVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -247,6 +243,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
                 goTo(StudyActivity.class);
                 break;
             case R.id.activity_btn:
+                goTo(RecentAtyActivity.class);
                 break;
             case R.id.check_all:
                 iOpenDrawer.onIOpenDrawer(1);
@@ -255,7 +252,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
                 goTo(SearchActivity.class);
                 break;
             case R.id.discover_find_equity:
-                goTo(FindPeopleActivity.class);
+                goTo(FindPersonActivity.class);
                 break;
         }
     }

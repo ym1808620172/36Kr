@@ -166,7 +166,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 drawerLayout.closeDrawer(linearLayout);
                 break;
             case R.id.drawer_all:
-                //用回调的方法加载新闻界面对应布局
+                //用回调的方法加载新闻界面对应布局,并传入对应的需要拼接的网址
                 fragment.changeFragment(NewsAllFragment.newInstance("all"));
                 drawerLayout.closeDrawer(linearLayout);
                 break;

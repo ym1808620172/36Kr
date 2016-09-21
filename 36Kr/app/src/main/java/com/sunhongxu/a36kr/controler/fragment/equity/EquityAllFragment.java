@@ -3,20 +3,16 @@ package com.sunhongxu.a36kr.controler.fragment.equity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
-import com.sunhongxu.a36kr.controler.activity.MainActivity;
 import com.sunhongxu.a36kr.controler.adapter.EquiteNewsAdapter;
 import com.sunhongxu.a36kr.controler.fragment.AbsBaseFragment;
 import com.sunhongxu.a36kr.model.bean.EquityBean;
-import com.sunhongxu.a36kr.model.bean.NewsAllBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
-import com.sunhongxu.a36kr.utils.EquityNetConstants;
-import com.sunhongxu.a36kr.utils.NewsNetConstants;
+import com.sunhongxu.a36kr.utils.NetConstants;
 
 import java.util.List;
 
@@ -64,7 +60,7 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        VolleyInstance.getInstance().startInstance(EquityNetConstants.EQUITYHELPER + string + EquityNetConstants.EQUITYHELPEREND, this);
+        VolleyInstance.getInstance().startInstance(NetConstants.EQUITYHELPER + string + NetConstants.EQUITYHELPEREND, this);
     }
 
 
@@ -86,7 +82,7 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest,
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 refreshLayout.setRefreshing(false);
-                VolleyInstance.getInstance().startInstance(EquityNetConstants.EQUITYHELPER + string + EquityNetConstants.EQUITYHELPEREND, new VolleyRequest() {
+                VolleyInstance.getInstance().startInstance(NetConstants.EQUITYHELPER + string + NetConstants.EQUITYHELPEREND, new VolleyRequest() {
                     @Override
                     public void success(String result) {
                         Gson gson = new Gson();

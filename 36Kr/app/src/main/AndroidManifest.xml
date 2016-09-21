@@ -21,7 +21,12 @@
         <activity android:name=".controler.activity.WelcomeActivity" />
         <activity android:name=".controler.activity.SearchActivity" />
         <activity android:name=".controler.activity.StudyActivity" />
-        <activity android:name=".controler.activity.FindPeopleActivity"></activity>
+        <activity android:name=".controler.activity.FindPersonActivity" />
+        <activity android:name=".controler.activity.RecentAtyActivity" />
+        <activity android:name=".controler.activity.LoginActivity" />
+        <activity android:name=".controler.activity.EquityPersonActivity" />
+        <activity android:name=".controler.activity.BusinessPersonActivity" />
+        <activity android:name=".controler.activity.SetActivity"></activity>
     </application>
 
 </manifest>

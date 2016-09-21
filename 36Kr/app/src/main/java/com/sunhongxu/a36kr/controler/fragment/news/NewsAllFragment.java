@@ -25,7 +25,7 @@ import com.sunhongxu.a36kr.model.bean.RotateNewsBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
 import com.sunhongxu.a36kr.utils.IOpenDrawer;
-import com.sunhongxu.a36kr.utils.NewsNetConstants;
+import com.sunhongxu.a36kr.utils.NetConstants;
 
 import java.util.List;
 
@@ -42,14 +42,14 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
     private LinearLayout pointLl;//定义轮播图小圆点样式
     private List<RotateNewsBean.DataBean.PicsBean> picsBeen;//定义轮播图数组
     private String string;//定义传过来的网址
-    private ImageView titleNavigation, titlesActivity;
-    private LinearLayout titles;
-    private Intent intent;
+    private ImageView titleNavigation, titlesActivity;//定义标题栏的图片
+    private LinearLayout titles;//定义标题栏的布局
+    private Intent intent;//定义Intent
     private TextView titleTv;
     private ImageView searchImg;
-    private IOpenDrawer iOpenDrawer;
-    private SwipeRefreshLayout swipeLayout;
-    private List<NewsAllBean.DataBean.DataBeans> dataBeanses;
+    private IOpenDrawer iOpenDrawer;//定义接口,用于回调打开抽屉
+    private SwipeRefreshLayout swipeLayout;//定义Swipe,下拉刷新
+    private List<NewsAllBean.DataBean.DataBeans> dataBeanses;//定义数据数组
 
 
     @Override
@@ -58,22 +58,22 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         //将接口赋值为context对象
         iOpenDrawer = (IOpenDrawer) context;
     }
+
     //Fragment的复用
     public static NewsAllFragment newInstance(String url) {
-
         Bundle args = new Bundle();
         args.putSerializable("url", url);
         NewsAllFragment fragment = new NewsAllFragment();
         fragment.setArguments(args);
         return fragment;
     }
-
+    //绑定布局
     @Override
     protected int setLayout() {
         return R.layout.fragment_all_news;
 
     }
-
+    //初始化组件
     @Override
     protected void initView() {
         swipeLayout = byView(R.id.swipe_container);
@@ -88,7 +88,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         titleNavigation.setOnClickListener(this);
 
     }
-
+    //加载数据
     @Override
     protected void initDatas() {
         //获取Bundle包裹化
@@ -107,7 +107,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         //listView绑定适配器
         listView.setAdapter(allAdapter);
         //Volley解析数据
-        VolleyInstance.getInstance().startInstance(NewsNetConstants.NEWSHELPER + string + NewsNetConstants.NEWSURLEND, this);
+        VolleyInstance.getInstance().startInstance(NetConstants.NEWSHELPER + string + NetConstants.NEWSURLEND, this);
         //设置Fragment外边距为电量栏高度
         titles.setPadding(0, MarginTop(), 0, 0);
         //根据url判断是哪个类型的新闻并设置标题文字
@@ -143,7 +143,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         vpAdapter = new RotateVpAdapter(context);
         headerVp.setAdapter(vpAdapter);
         //网络请求数据
-        VolleyInstance.getInstance().startInstance(NewsNetConstants.ROTATEURL, new VolleyRequest() {
+        VolleyInstance.getInstance().startInstance(NetConstants.ROTATEURL, new VolleyRequest() {
             @Override
             public void success(String result) {
                 //Gson数据解析
@@ -225,6 +225,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
             }
         });
     }
+
     //添加小圆点
     private void addPoint(int size) {
         for (int i = 0; i < size; i++) {
@@ -246,12 +247,14 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
     @Override
     public void failure() {
     }
+
     //在界面生成时将状态设为true
     @Override
     public void onResume() {
         super.onResume();
         isStart = true;
     }
+
     //在界面暂停时设为false
     @Override
     public void onPause() {
@@ -277,7 +280,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 swipeLayout.setRefreshing(false);
-                VolleyInstance.getInstance().startInstance(NewsNetConstants.NEWSHELPER + string + NewsNetConstants.NEWSURLEND, new VolleyRequest() {
+                VolleyInstance.getInstance().startInstance(NetConstants.NEWSHELPER + string + NetConstants.NEWSURLEND, new VolleyRequest() {
                     @Override
                     public void success(String result) {
                         Gson gson = new Gson();
@@ -294,6 +297,6 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
                 });
 
             }
-        },3000);
+        }, 3000);
     }
 }

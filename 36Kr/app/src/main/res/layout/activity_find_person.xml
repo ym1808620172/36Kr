@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.sunhongxu.a36kr.controler.activity.FindPeopleActivity">
+    tools:context=".controler.activity.FindPersonActivity">
 
     <include layout="@layout/item_find_title" />
 
