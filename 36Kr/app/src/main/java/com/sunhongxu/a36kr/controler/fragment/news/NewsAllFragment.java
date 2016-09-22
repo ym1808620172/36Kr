@@ -314,8 +314,10 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         //获取点击对应行的实体类数据
         NewsAllBean.DataBean.DataBeans dataBeans = (NewsAllBean.DataBean.DataBeans) parent.getItemAtPosition(position);
         String FeedId = dataBeans.getFeedId();
+        String title = dataBeans.getTitle();
         Bundle bundle = new Bundle();
         bundle.putString("FeedId", FeedId);
+        bundle.putString("title", title);
         //用ListView的行点击事件,跳转到详情页界面,将需要拼接的网址传过去
         goTo(NewsDetailsActivity.class, bundle);
     }

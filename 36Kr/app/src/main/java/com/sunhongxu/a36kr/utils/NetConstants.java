@@ -31,6 +31,8 @@ public final class NetConstants {
      */
     public static final String DETAILSURL = "http://rong.36kr.com/api/mobi/news/";//详情页前半部分
     /**
-     * 
+     * 作者详情页
      */
+    public static final String AUTHORREGION ="https://rong.36kr.com/api/mobi/news/";//前半部分
+    public static final String AUTHORREGIONEND ="/author-region";//后半部分
 }
