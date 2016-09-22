@@ -19,6 +19,7 @@ import com.sunhongxu.a36kr.utils.ScreenSizeConstants;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 /**
  * Created by dllo on 16/9/13.
@@ -71,19 +72,40 @@ public class NewsAllAdapter extends BaseAdapter {
             //获得时间并转型
             long time = bean.getPublishTime();
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            Date date = new Date(time);
-            String fromatTimt = sdf.format(date);
+            Date nowTime = new Date(System.currentTimeMillis());
+            long timeLong = nowTime.getTime();
+            long minTime = timeLong - time;
+            if (minTime < 3600000) {
+                if (minTime / 60000 > 0) {
+                    viewHoler.time.setText(minTime / 60000 + "分钟前");
+                } else {
+                    viewHoler.time.setText(minTime / 60 + "秒前");
+                }
+            } else if ((3600000 * 48) < minTime && minTime < (3600000 * 72)) {
+                viewHoler.time.setText("前天");
+            } else if ((3600000 * 24) < minTime && minTime < (3600000 * 48)) {
+                viewHoler.time.setText("昨天");
+            } else if (3600000 < minTime && minTime < (3600000 * 24)) {
+                Date date = new Date(time);
+                String fromatTimt = sdf.format(date);
+                viewHoler.time.setText(fromatTimt);
+            } else {
+                SimpleDateFormat sdfOther = new SimpleDateFormat("MM月dd号");
+                Date otherData = new Date(time);
+                String OtherTime = sdfOther.format(otherData);
+                viewHoler.time.setText(OtherTime);
+            }
+
             //设置时间
-            viewHoler.time.setText(fromatTimt);
             //设置作者名字
             viewHoler.author.setText(bean.getUser().getName());
             //设置标题
             viewHoler.title.setText(bean.getTitle());
             //根据网址的不同,判断是否需要显示新闻类型
-            if (string!=null){
-                if (string.equals("all")){
+            if (string != null) {
+                if (string.equals("all")) {
                     viewHoler.column.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     viewHoler.column.setVisibility(View.INVISIBLE);
                 }
             }
@@ -134,6 +156,11 @@ public class NewsAllAdapter extends BaseAdapter {
                 case "103":
                     ColorStateList cslFriend = resource.getColorStateList(R.color.columbig);
                     viewHoler.column.setTextColor(cslFriend);
+                    viewHoler.column.setText(bean.getColumnName());
+                    break;
+                default:
+                    ColorStateList cslDefault = resource.getColorStateList(R.color.columbig);
+                    viewHoler.column.setTextColor(cslDefault);
                     viewHoler.column.setText(bean.getColumnName());
                     break;
             }

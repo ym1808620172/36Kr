@@ -98,6 +98,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         setTabLayout();
         //设置监听
         listener();
+        drawerLayout.setFocusable(false);
         //设置抽屉的内边距，MarginTop：电量栏的高度
         linearLayout.setPadding(0, MarginTop(), 0, 0);
     }

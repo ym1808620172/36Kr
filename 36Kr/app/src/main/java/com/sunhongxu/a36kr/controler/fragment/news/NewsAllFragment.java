@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,14 +29,16 @@ import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
 import com.sunhongxu.a36kr.utils.IOpenDrawer;
 import com.sunhongxu.a36kr.utils.NetConstants;
+import com.sunhongxu.a36kr.view.RefreshLayout;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by dllo on 16/9/10.
  * 新闻界面Fragment
  */
-public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
+public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener, RefreshLayout.OnLoadListener {
 
     private NewsAllAdapter allAdapter;//定义适配器
     private ListView listView;//dingyiListView
@@ -49,8 +52,10 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
     private TextView titleTv;
     private ImageView searchImg;
     private IOpenDrawer iOpenDrawer;//定义接口,用于回调打开抽屉
-    private SwipeRefreshLayout swipeLayout;//定义Swipe,下拉刷新
+    private com.sunhongxu.a36kr.view.RefreshLayout swipeLayout;//定义Swipe,下拉刷新
     private List<NewsAllBean.DataBean.DataBeans> dataBeanses;//定义数据数组
+
+    int a = 0;
 
 
     @Override
@@ -118,6 +123,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         setTitleTv();
         //定义ListView行点击事件
         listView.setOnItemClickListener(this);
+        swipeLayout.setOnLoadListener(this);
     }
 
     //根据url判断是哪个类型的新闻并设置标题文字
@@ -199,6 +205,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
 
     @Override
     public void success(String result) {
+        Log.d("xxx", result);
         Gson gson = new Gson();
         NewsAllBean datas = gson.fromJson(result, NewsAllBean.class);
         dataBeanses = datas.getData().getData();
@@ -286,9 +293,10 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
+
+        new Thread(new Runnable() {
+            @Override
             public void run() {
-                swipeLayout.setRefreshing(false);
                 VolleyInstance.getInstance().startInstance(NetConstants.NEWSHELPER + string + NetConstants.NEWSURLEND, new VolleyRequest() {
                     @Override
                     public void success(String result) {
@@ -297,6 +305,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
                         dataBeanses = datas.getData().getData();
                         Log.d("aaa", "dataBeanses.size():" + dataBeanses.size());
                         allAdapter.setDatas(dataBeanses);
+                        swipeLayout.setRefreshing(false);
                     }
 
                     @Override
@@ -304,9 +313,8 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
 
                     }
                 });
-
             }
-        }, 3000);
+        }).start();
     }
 
     @Override
@@ -318,7 +326,48 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         Bundle bundle = new Bundle();
         bundle.putString("FeedId", FeedId);
         bundle.putString("title", title);
+        TextView textView = (TextView) view.findViewById(R.id.news_all_list_time);
+        String time = textView.getText().toString();
+        bundle.putString("time",time);
         //用ListView的行点击事件,跳转到详情页界面,将需要拼接的网址传过去
         goTo(NewsDetailsActivity.class, bundle);
+    }
+
+
+    @Override
+    public void onLoad() {
+        a++;
+        Log.d("xxx", "a:" + a);
+        final String URL = NetConstants.NEWSHELPER + string + NetConstants.NEWSURLEND;
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(URL);
+        int index = buffer.indexOf("20");
+        int more = 0, how = 20;
+        for (int i = 0; i < a; i++) {
+            how = how + 10;
+        }
+        more = how;
+        String end = String.valueOf(more);
+        final String endUrl = String.valueOf(buffer.replace(index, index + 2, end));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                VolleyInstance.getInstance().startInstance(endUrl, new VolleyRequest() {
+                    @Override
+                    public void success(String result) {
+                        Gson gson = new Gson();
+                        NewsAllBean datas = gson.fromJson(result, NewsAllBean.class);
+                        dataBeanses = datas.getData().getData();
+                        allAdapter.setDatas(dataBeanses);
+                        swipeLayout.setLoading(false);
+                    }
+
+                    @Override
+                    public void failure() {
+
+                    }
+                });
+            }
+        }).start();
     }
 }

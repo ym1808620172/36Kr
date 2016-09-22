@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.widget.SwipeRefreshLayout
+        <com.sunhongxu.a36kr.view.RefreshLayout
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -16,7 +16,7 @@
                 android:id="@+id/news_all_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </com.sunhongxu.a36kr.view.RefreshLayout>
     </FrameLayout>
 
 </LinearLayout>

@@ -35,4 +35,9 @@ public final class NetConstants {
      */
     public static final String AUTHORREGION ="https://rong.36kr.com/api/mobi/news/";//前半部分
     public static final String AUTHORREGIONEND ="/author-region";//后半部分
+    /**
+     * 搜索网址
+     */
+    public static final String SEARCHNET = "https://rong.36kr.com/api/mobi/news/search?keyword=";//前半部分
+    public static final String SEARCHNETEND = "&page=1&pageSize=20";//后半部分网址
 }

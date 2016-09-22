@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/search_et_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
@@ -52,6 +53,7 @@
             android:src="@mipmap/search_ph_search" />
 
         <TextView
+            android:id="@+id/history_search_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="无搜索记录" />

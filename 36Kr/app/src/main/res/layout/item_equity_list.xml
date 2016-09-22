@@ -169,19 +169,23 @@
                 android:layout_gravity="center_vertical"
                 android:max="100"
                 android:progress="50"
+                style="@style/Widget.SeekBar.Normal"
+                android:secondaryProgress="100"
                 android:thumb="@null" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/equity_introduction_btn"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/shape_equity_btn"
-            android:textColor="#fff"
-            android:textSize="20sp" />
+            android:layout_height="match_parent">
+            <Button
+                android:layout_margin="10dp"
+                android:id="@+id/equity_introduction_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/shape_equity_btn_go"
+                android:textColor="#1b1a1a"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

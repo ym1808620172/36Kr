@@ -213,7 +213,8 @@
                 android:text="@string/drawer_tv_tv" />
         </LinearLayout>
 
-        <View
+        <Button
+            android:background="@color/drawer_view_background"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="2" />

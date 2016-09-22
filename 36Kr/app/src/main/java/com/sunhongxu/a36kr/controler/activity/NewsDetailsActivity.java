@@ -56,6 +56,7 @@ public class NewsDetailsActivity extends AbsBaseActivity implements VolleyReques
     private PopupWindow popupWindow;
     private TextView webTvTime;
     private TextView webTvTitle;
+    private ImageView detailsBackImg;
 
     @Override
     protected void onResume() {
@@ -78,60 +79,56 @@ public class NewsDetailsActivity extends AbsBaseActivity implements VolleyReques
         authorContent = byView(R.id.author_content);
         webTvTime = byView(R.id.webview_tv_time);
         webTvTitle = byView(R.id.webview_tv_title);
+        detailsBackImg = byView(R.id.details_back_img);
     }
 
     @Override
     protected void initDatas() {
         Intent intent = getIntent();
-        String FeedId = intent.getStringExtra("FeedId");
-        String title = intent.getStringExtra("title");
-        webTvTitle.setText(title);
-        detailsLl.setPadding(0, MarginTop(), 10, 0);
-        WebSettings webSettings = webView.getSettings();
-        //让WebView可以执行JavaScript
-        webSettings.setJavaScriptEnabled(true);
-        //让JavaScript可以自定打开windows
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        //设置可以缓存
-        webSettings.setAppCacheEnabled(true);
-        //设置缓存模式
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        //设置缓存路径
-        webSettings.setAppCachePath("");
-        //设置屏幕自适应
-        webSettings.setSupportZoom(false);
-        //设置图片自适应
-        webSettings.setUseWideViewPort(false);
-        //支持内容重新布局
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webSettings.setDefaultTextEncodingName("UTF-8");
-        //设置屏幕可控
-        webSettings.setDisplayZoomControls(true);
-        final int height = ScreenSizeConstants.getScreenSize(this, ScreenSizeConstants.ScreenState.HEIGHT);
-        final int width = ScreenSizeConstants.getScreenSize(this, ScreenSizeConstants.ScreenState.WIDTH);
-        VolleyInstance.getInstance().startInstance(NetConstants.DETAILSURL + FeedId, this);
-        VolleyInstance.getInstance().startInstance(NetConstants.AUTHORREGION + FeedId + NetConstants.AUTHORREGIONEND, new VolleyRequest() {
-            @Override
-            public void success(String result) {
-                Gson gson = new Gson();
-                AuthorRegionBean authorRegionBean = gson.fromJson(result, AuthorRegionBean.class);
-                String Avatar = authorRegionBean.getData().getAvatar();
-                Picasso.with(NewsDetailsActivity.this).load(Avatar).resize(height / 10, width / 10).into(detailsCircleimg);
-                String name = authorRegionBean.getData().getName();
-                authorName.setText(name);
-                String Abstract = authorRegionBean.getData().getBrief();
-                contentAbstract.setText(Abstract);
-                totalCount = authorRegionBean.getData().getTotalCount();
-                totalView = authorRegionBean.getData().getTotalView();
-                articleBeen = authorRegionBean.getData().getLatestArticle();
-            }
+        if (intent != null) {
+            String FeedId = intent.getStringExtra("FeedId");
+            String title = intent.getStringExtra("title");
+            String time = intent.getStringExtra("time");
+            webTvTime.setText(time);
 
-            @Override
-            public void failure() {
+            webTvTitle.setText(title);
+            detailsLl.setPadding(0, MarginTop(), 10, 0);
+            WebSettings webSettings = webView.getSettings();
+            //设置WebView属性
+            setWebSetting(webSettings);
 
-            }
-        });
+            final int height = ScreenSizeConstants.getScreenSize(this, ScreenSizeConstants.ScreenState.HEIGHT);
+            final int width = ScreenSizeConstants.getScreenSize(this, ScreenSizeConstants.ScreenState.WIDTH);
+            VolleyInstance.getInstance().startInstance(NetConstants.DETAILSURL + FeedId, this);
+            VolleyInstance.getInstance().startInstance(NetConstants.AUTHORREGION + FeedId + NetConstants.AUTHORREGIONEND, new VolleyRequest() {
+                @Override
+                public void success(String result) {
+                    Gson gson = new Gson();
+                    AuthorRegionBean authorRegionBean = gson.fromJson(result, AuthorRegionBean.class);
+                    String Avatar = authorRegionBean.getData().getAvatar();
+                    Picasso.with(NewsDetailsActivity.this).load(Avatar).resize(height / 10, width / 10).into(detailsCircleimg);
+                    String name = authorRegionBean.getData().getName();
+                    authorName.setText(name);
+                    String Abstract = authorRegionBean.getData().getBrief();
+                    contentAbstract.setText(Abstract);
+                    totalCount = authorRegionBean.getData().getTotalCount();
+                    totalView = authorRegionBean.getData().getTotalView();
+                    articleBeen = authorRegionBean.getData().getLatestArticle();
+                }
+
+                @Override
+                public void failure() {
+
+                }
+            });
+            //设置监听
+            setListener();
+        }
+    }
+
+    private void setListener() {
         authorContent.setOnClickListener(this);
+        detailsBackImg.setOnClickListener(this);
     }
 
     @Override
@@ -141,11 +138,7 @@ public class NewsDetailsActivity extends AbsBaseActivity implements VolleyReques
         String content = detailsBean.getData().getContent();
         if (content != null) {
             webView.loadData(content, "text/html; charset=UTF-8", null);
-            long time = detailsBean.getData().getPublishTime();
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            Date date = new Date(time);
-            String fromatTimt = sdf.format(date);
-            webTvTime.setText(fromatTimt);
+
         }
     }
 
@@ -182,6 +175,9 @@ public class NewsDetailsActivity extends AbsBaseActivity implements VolleyReques
                     popupWindow.dismiss();
                     isopen = false;
                 }
+                break;
+            case R.id.details_back_img:
+                finish();
                 break;
         }
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +90,7 @@ public class EquiteNewsAdapter extends BaseAdapter {
             //进度条
             viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));
             String descAll = dataBeans.getFundStatus().getDesc();
+            Log.d("aaa", descAll);
             //根据类型设置颜色
             if (descAll.equals("募资中")) {
                 Resources resource = context.getResources();
@@ -98,8 +100,9 @@ public class EquiteNewsAdapter extends BaseAdapter {
                 viewHolder.introductionBtn.setText("认购");
                 ColorStateList descColorBtn = resource.getColorStateList(R.color.introduction_color_btn_tv);
                 viewHolder.introductionBtn.setTextColor(descColorBtn);
-                viewHolder.introductionBtn.setBackgroundColor(Color.YELLOW);
-            } else {
+                viewHolder.introductionBtn.setBackgroundColor(R.color.desc_color_back);
+            } else if (descAll.equals("融资完成")||descAll.equals("融资成功")){
+                Log.d("aaa", "执行这个");
                 Resources resource = context.getResources();
                 ColorStateList descColor = resource.getColorStateList(R.color.desc_color_end);
                 viewHolder.desc.setTextColor(descColor);//简介

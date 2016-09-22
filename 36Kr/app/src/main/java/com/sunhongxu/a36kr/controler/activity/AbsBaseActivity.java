@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
 
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.app.KrApp;
@@ -78,6 +79,34 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
         intent.putExtras(extras);
         startActivity(intent);
 
+    }
+    /**
+     * 设置WebView属性
+     */
+    protected void setWebSetting(WebSettings webSettings){
+        // 让WebView能够执行javaScript
+        webSettings.setJavaScriptEnabled(true);
+        // 让JavaScript可以自动打开windows
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        // 设置缓存
+        webSettings.setAppCacheEnabled(true);
+        // 设置缓存模式,一共有四种模式
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        // 设置缓存路径
+        webSettings.setAppCachePath("");
+        // 支持缩放(适配到当前屏幕)
+        webSettings.setSupportZoom(false);
+        // 将图片调整到合适的大小
+        webSettings.setUseWideViewPort(false);
+        // 支持内容重新布局,一共有四种方式
+        // 默认的是NARROW_COLUMNS
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // 设置可以被显示的屏幕控制
+        webSettings.setDisplayZoomControls(true);
+        //支持内容重新布局
+        webSettings.setDefaultTextEncodingName("UTF-8");
+        //设置屏幕可控
+        webSettings.setDisplayZoomControls(true);
     }
 
     /**

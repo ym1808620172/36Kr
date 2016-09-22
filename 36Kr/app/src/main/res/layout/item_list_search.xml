@@ -8,9 +8,7 @@
         android:id="@+id/search_list_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="111"
-        android:layout_gravity="center_vertical"
-        android:textSize="20sp" />
+        android:padding="10dp"
+        android:textSize="18sp" />
 
 </LinearLayout>

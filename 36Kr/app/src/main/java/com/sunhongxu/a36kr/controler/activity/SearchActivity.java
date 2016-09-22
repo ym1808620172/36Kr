@@ -2,18 +2,30 @@ package com.sunhongxu.a36kr.controler.activity;
 
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.adapter.NewsAllAdapter;
 import com.sunhongxu.a36kr.controler.adapter.SearchAdapter;
+import com.sunhongxu.a36kr.model.bean.NewsAllBean;
 import com.sunhongxu.a36kr.model.bean.SearchBean;
+import com.sunhongxu.a36kr.model.net.VolleyInstance;
+import com.sunhongxu.a36kr.model.net.VolleyRequest;
+import com.sunhongxu.a36kr.utils.NetConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +46,16 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
     private ListView listView;//定义ListView
     private LinearLayout searchLl;//定义无搜索记录的布局
     private boolean isHave = false;//定义是否有数据
+    //自动更新进度任务
+    private Runnable changeRunnable;
+    //发布任务的消息处理者
+    private Handler handler;//引包 android.os
+    private PopupWindow popupWindow;
+    private String etContent;
+    private LinearLayout serachEtLl;
+    private NewsAllAdapter newsAllAdapter;
+    private boolean startSearch = false;
+    private TextView searchHistoryTv;
 
     //绑定布局
     @Override
@@ -52,6 +74,8 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
         searchTv.setOnClickListener(this);
         listView = byView(R.id.search_listview);
         searchLl = byView(R.id.search_no_ll);
+        serachEtLl = byView(R.id.search_et_ll);
+        searchHistoryTv = byView(R.id.history_search_tv);
     }
 
     //加载数据
@@ -89,7 +113,81 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
         }
         //添加清理文字的尾布局,并设监听
         addFooter();
+        //实例化handler
+        handler = new Handler();
+        //搜索的设置,弹出Pop
+        searchPop();
+        //启动任务
+        //1秒之后启动任务
+        handler.postDelayed(changeRunnable, 1000);
     }
+
+    private void searchPop() {
+        changeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                etContent = searchEt.getText().toString();
+                if (!etContent.isEmpty() && !startSearch) {
+                    popupWindow = new PopupWindow();
+                    popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+                    popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+                    final View view = getLayoutInflater().inflate(R.layout.item_search_list_pop, null);
+                    final ListView PopList = (ListView) view.findViewById(R.id.item_search_list_pop);
+                    newsAllAdapter = new NewsAllAdapter(SearchActivity.this, null);
+                    PopList.setAdapter(newsAllAdapter);
+                    VolleyInstance.getInstance().startInstance(NetConstants.SEARCHNET + etContent + NetConstants.SEARCHNETEND, new VolleyRequest() {
+                        @Override
+                        public void success(String result) {
+                            Gson gson = new Gson();
+                            NewsAllBean allBean = gson.fromJson(result, NewsAllBean.class);
+                            List<NewsAllBean.DataBean.DataBeans> dataBeanses = allBean.getData().getData();
+                            if (dataBeanses.size() > 0) {
+                                if (dataBeanses.size() > 3) {
+                                    newsAllAdapter.setDatas(dataBeanses.subList(0, 3)
+                                    );
+                                } else {
+                                    newsAllAdapter.setDatas(dataBeanses);
+                                }
+                                PopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        Log.d("aaa", "点击了");
+                                    }
+                                });
+                                startSearch = true;
+                                popupWindow.setContentView(view);
+                                popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
+                            } else {
+                                listView.setVisibility(View.GONE);
+                                searchHistoryTv.setText("搜索无结果");
+                            }
+                        }
+
+                        @Override
+                        public void failure() {
+
+                        }
+                    });
+
+                }
+                if (etContent.isEmpty()&&startSearch) {
+                    popupWindow.dismiss();
+                }
+                handler.postDelayed(changeRunnable, 1000);
+            }
+        };
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (!etContent.isEmpty()) {
+            handler.removeCallbacks(changeRunnable);
+            searchEt.getText().clear();
+            popupWindow.dismiss();
+        }
+    }
+
     //添加清理文字的尾布局,并设监听
     private void addFooter() {
         //注入布局
@@ -138,4 +236,5 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
 
         }
     }
+
 }
