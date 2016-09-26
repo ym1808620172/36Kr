@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
@@ -41,7 +42,7 @@ public class RecentAtyActivity extends AbsBaseActivity implements View.OnClickLi
     @Override
     protected void initView() {
         backImg = byView(R.id.find_people_back_img);
-        ImageView imageViewTitle = byView(R.id.visibity);
+        TextView imageViewTitle = byView(R.id.visibity);
         imageViewTitle.setVisibility(View.INVISIBLE);
         rootTitle = byView(R.id.recent_aty_root);
         backImg.setOnClickListener(this);

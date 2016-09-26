@@ -3,6 +3,7 @@ package com.sunhongxu.a36kr.controler.activity;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +27,8 @@ import com.sunhongxu.a36kr.model.bean.SearchBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
 import com.sunhongxu.a36kr.utils.NetConstants;
+import com.sunhongxu.a36kr.view.LoginEditText;
+import com.sunhongxu.a36kr.view.SearchEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +44,7 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
     private LinearLayout linearLayout;//定义界面布局
     private ImageView searchImg;//定义搜索图片
     private TextView searchTv;//定义取消的Tv
-    private EditText searchEt;//定义Et
+    private SearchEditText searchEt;//定义Et
     private SearchAdapter searchAdapter;//定义适配器
     private ListView listView;//定义ListView
     private LinearLayout searchLl;//定义无搜索记录的布局
@@ -50,7 +53,7 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
     private Runnable changeRunnable;
     //发布任务的消息处理者
     private Handler handler;//引包 android.os
-    private PopupWindow popupWindow;
+    private PopupWindow popupWindow = new PopupWindow();
     private String etContent;
     private LinearLayout serachEtLl;
     private NewsAllAdapter newsAllAdapter;
@@ -117,8 +120,8 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
         handler = new Handler();
         //搜索的设置,弹出Pop
         searchPop();
-        //启动任务
-        //1秒之后启动任务
+//        启动任务
+//        1秒之后启动任务
         handler.postDelayed(changeRunnable, 1000);
     }
 
@@ -128,7 +131,6 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
             public void run() {
                 etContent = searchEt.getText().toString();
                 if (!etContent.isEmpty() && !startSearch) {
-                    popupWindow = new PopupWindow();
                     popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
                     popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
                     final View view = getLayoutInflater().inflate(R.layout.item_search_list_pop, null);
@@ -145,18 +147,31 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
                                 if (dataBeanses.size() > 3) {
                                     newsAllAdapter.setDatas(dataBeanses.subList(0, 3)
                                     );
+                                    popupWindow.setContentView(view);
+                                    popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
                                 } else {
                                     newsAllAdapter.setDatas(dataBeanses);
+                                    popupWindow.setContentView(view);
+                                    popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
                                 }
                                 PopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        Log.d("aaa", "点击了");
+                                        NewsAllBean.DataBean.DataBeans dataBeans = (NewsAllBean.DataBean.DataBeans) parent.getItemAtPosition(position);
+                                        String FeedId = dataBeans.getFeedId();
+                                        String title = dataBeans.getTitle();
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("FeedId", FeedId);
+                                        bundle.putString("title", title);
+                                        TextView textView = (TextView) view.findViewById(R.id.news_all_list_time);
+                                        String time = textView.getText().toString();
+                                        bundle.putString("time", time);
+                                        //用ListView的行点击事件,跳转到详情页界面,将需要拼接的网址传过去
+                                        goTo(SearchActivity.this, NewsDetailsActivity.class, bundle);
                                     }
                                 });
-                                startSearch = true;
-                                popupWindow.setContentView(view);
-                                popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
+
+
                             } else {
                                 listView.setVisibility(View.GONE);
                                 searchHistoryTv.setText("搜索无结果");
@@ -170,7 +185,7 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
                     });
 
                 }
-                if (etContent.isEmpty()&&startSearch) {
+                if (etContent.isEmpty() && popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 }
                 handler.postDelayed(changeRunnable, 1000);
@@ -184,7 +199,9 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
         if (!etContent.isEmpty()) {
             handler.removeCallbacks(changeRunnable);
             searchEt.getText().clear();
-            popupWindow.dismiss();
+            if (popupWindow.isShowing()) {
+                popupWindow.dismiss();
+            }
         }
     }
 
@@ -231,6 +248,10 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
                 break;
             case R.id.search_aty_tv_cancel:
                 //结束界面
+                if (searchEt.getText() == null) {
+                    handler.removeCallbacks(changeRunnable);
+                    searchEt.getText().clear();
+                }
                 finish();
                 break;
 

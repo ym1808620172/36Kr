@@ -19,7 +19,9 @@ import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.model.bean.EquityBean;
 import com.sunhongxu.a36kr.utils.ScreenSizeConstants;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dllo on 16/9/13.
@@ -28,11 +30,12 @@ import java.util.List;
 public class EquiteNewsAdapter extends BaseAdapter {
     private Context context;
     private List<EquityBean.DataBean.DataBeans> datas;
+    private static Map<Integer, Boolean> isSelector;
 
     public EquiteNewsAdapter(Context context) {
         this.context = context;
-    }
 
+    }
     public void setDatas(List<EquityBean.DataBean.DataBeans> datas) {
         this.datas = datas;
         notifyDataSetChanged();
@@ -90,9 +93,10 @@ public class EquiteNewsAdapter extends BaseAdapter {
             //进度条
             viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));
             String descAll = dataBeans.getFundStatus().getDesc();
-            Log.d("aaa", descAll);
+            Log.d("aaaa", descAll+position);
             //根据类型设置颜色
             if (descAll.equals("募资中")) {
+                viewHolder.introductionBtn.setSelected(true);
                 Resources resource = context.getResources();
                 ColorStateList descColor = resource.getColorStateList(R.color.desc_color_ing);
                 viewHolder.desc.setTextColor(descColor);//简介
@@ -100,14 +104,16 @@ public class EquiteNewsAdapter extends BaseAdapter {
                 viewHolder.introductionBtn.setText("认购");
                 ColorStateList descColorBtn = resource.getColorStateList(R.color.introduction_color_btn_tv);
                 viewHolder.introductionBtn.setTextColor(descColorBtn);
-                viewHolder.introductionBtn.setBackgroundColor(R.color.desc_color_back);
-            } else if (descAll.equals("融资完成")||descAll.equals("融资成功")){
-                Log.d("aaa", "执行这个");
+            } else  {
+                Log.d("aaaa", "执行了"+position);
+                viewHolder.introductionBtn.setSelected(false);
                 Resources resource = context.getResources();
                 ColorStateList descColor = resource.getColorStateList(R.color.desc_color_end);
                 viewHolder.desc.setTextColor(descColor);//简介
                 viewHolder.desc.setText(dataBeans.getFundStatus().getDesc());
                 viewHolder.introductionBtn.setText("去看看");
+                ColorStateList descColorBtn = resource.getColorStateList(R.color.introduction_color_btn_tv_end);
+                viewHolder.introductionBtn.setTextColor(descColorBtn);
             }
         }
         return convertView;

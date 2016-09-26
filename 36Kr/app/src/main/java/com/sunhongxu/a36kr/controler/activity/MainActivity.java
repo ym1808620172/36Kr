@@ -1,15 +1,9 @@
 package com.sunhongxu.a36kr.controler.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +18,9 @@ import com.sunhongxu.a36kr.controler.fragment.MessageFragment;
 import com.sunhongxu.a36kr.controler.fragment.MineFragment;
 import com.sunhongxu.a36kr.controler.fragment.NewsFragment;
 import com.sunhongxu.a36kr.controler.fragment.news.NewsAllFragment;
+import com.sunhongxu.a36kr.controler.fragment.VideoFragment;
 import com.sunhongxu.a36kr.utils.IOpenDrawer;
+import com.sunhongxu.a36kr.utils.NetConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +47,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     private LinearLayout drawerDepth;//抽屉深度
     private LinearLayout drawerStudy;//抽屉研究
     private NewsFragment fragment;//定义NewsFragment
+    private LinearLayout drawerTv;//定义抽屉视频
 
     //加载布局
     @Override
@@ -75,6 +72,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         drawerCapital = byView(R.id.drawer_capital);
         drawerDepth = byView(R.id.drawer_depth);
         drawerStudy = byView(R.id.drawer_study);
+        drawerTv = byView(R.id.drawer_tv);
     }
 
     //加载数据
@@ -113,6 +111,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         drawerCapital.setOnClickListener(this);
         drawerDepth.setOnClickListener(this);
         drawerStudy.setOnClickListener(this);
+        drawerTv.setOnClickListener(this);
     }
 
     private void setTabLayout() {
@@ -139,8 +138,10 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 tab.getCustomView().findViewById(R.id.item_img_tablayout).setSelected(true);
                 tab.getCustomView().findViewById(R.id.item_tv_tablayout).setSelected(true);
                 // 将viewpager的item与 tablayout的同步
-                mainVp.setCurrentItem(tab.getPosition());
-                Log.d("MainActivity", "tab.getPosition():" + tab.getPosition());
+                mainVp.setCurrentItem(tab.getPosition(), false);
+                if (mainVp.getCurrentItem() == 3) {
+                    goTo(MainActivity.this, LoginActivity.class);
+                }
 
             }
 
@@ -193,6 +194,10 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 break;
             case R.id.drawer_study:
                 fragment.changeFragment(NewsAllFragment.newInstance("71"));
+                drawerLayout.closeDrawer(linearLayout);
+                break;
+            case R.id.drawer_tv:
+                fragment.changeFragment(VideoFragment.newInstance(NetConstants.VideoView));
                 drawerLayout.closeDrawer(linearLayout);
                 break;
         }

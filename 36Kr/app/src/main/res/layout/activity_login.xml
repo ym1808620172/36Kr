@@ -4,19 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.sunhongxu.a36kr.controler.activity.LoginActivity">
 
     <RelativeLayout
+        android:id="@+id/login_root"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="10dp"
-        android:background="#2b53d7"
-        android:layout_weight="1">
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src=""/>-->
+        android:layout_weight="1"
+        android:background="#3861e6"
+        >
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/news_krtv_close" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/login_icon_logo" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/login_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabSelectedTextColor="#fff"
+            app:tabTextColor="#898686"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/login_vp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>

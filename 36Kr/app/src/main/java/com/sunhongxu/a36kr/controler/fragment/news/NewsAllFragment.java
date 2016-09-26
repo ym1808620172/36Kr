@@ -205,7 +205,6 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
 
     @Override
     public void success(String result) {
-        Log.d("xxx", result);
         Gson gson = new Gson();
         NewsAllBean datas = gson.fromJson(result, NewsAllBean.class);
         dataBeanses = datas.getData().getData();
@@ -337,7 +336,6 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
     @Override
     public void onLoad() {
         a++;
-        Log.d("xxx", "a:" + a);
         final String URL = NetConstants.NEWSHELPER + string + NetConstants.NEWSURLEND;
         StringBuffer buffer = new StringBuffer();
         buffer.append(URL);

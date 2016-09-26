@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
     <style name="Widget.SeekBar.Normal" parent="@android:style/Widget.SeekBar">
         <item name="android:maxHeight">8.0dip</item>
@@ -15,5 +16,6 @@
         <item name="android:minHeight">8.0dip</item>
         <item name="android:thumbOffset">10.0dip</item>
     </style>
+
 
 </resources>

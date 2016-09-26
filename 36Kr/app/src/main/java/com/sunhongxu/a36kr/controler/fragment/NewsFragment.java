@@ -47,6 +47,7 @@ public class NewsFragment extends AbsBaseFragment {
         getChildFragmentManager().beginTransaction().replace(R.id.framelayout_news, fragment).commit();
     }
 
+
     private void setFragment() {
         //设置默认页为全部新闻界面
         FragmentManager fragmentManager = getChildFragmentManager();

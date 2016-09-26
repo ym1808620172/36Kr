@@ -3,6 +3,7 @@ package com.sunhongxu.a36kr.controler.fragment;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.activity.BusinessPersonActivity;
+import com.sunhongxu.a36kr.controler.activity.EquityPersonActivity;
 import com.sunhongxu.a36kr.controler.activity.FindPersonActivity;
 import com.sunhongxu.a36kr.controler.activity.RecentAtyActivity;
 import com.sunhongxu.a36kr.controler.activity.SearchActivity;
@@ -53,6 +56,10 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
     private TextView hotProgectBrief;//创始人名
     private LinearLayout findEquity;
     private IOpenDrawer iOpenDrawer;//定义接口
+    private LinearLayout hotProgect;
+    private LinearLayout business;
+    private LinearLayout hotProgectContent;
+    private LinearLayout myPersonLl;
 
     @Override
     public void onAttach(Context context) {
@@ -87,6 +94,10 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         hotProgectName = byView(R.id.hot_project_name);
         hotProgectBrief = byView(R.id.hot_project_brief);
         findEquity = byView(R.id.discover_find_equity);
+        hotProgect = byView(R.id.hot_project);
+        business = byView(R.id.bussiness_person);
+        hotProgectContent = byView(R.id.hot_project_content);
+        myPersonLl = byView(R.id.my_eq_person_ll);
         //设置监听
         setListener();
 
@@ -100,6 +111,8 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         observable.setScrollViewListener(this);
         discoverSearch.setOnClickListener(this);
         findEquity.setOnClickListener(this);
+        business.setOnClickListener(this);
+        myPersonLl.setOnClickListener(this);
     }
 
     @Override
@@ -126,11 +139,18 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
                 int weight = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.WIDTH);
                 Gson gson = new Gson();
                 EquityBean equityBean = gson.fromJson(result, EquityBean.class);
-                List<EquityBean.DataBean.DataBeans> dataBeanses = equityBean.getData().getData();
-                EquityBean.DataBean.DataBeans dataBeans = dataBeanses.get(0);
-                Picasso.with(context).load(dataBeans.getCompany_logo()).resize(weight / 6, height / 6).into(hotProgectImg);
-                hotProgectName.setText("创始人:" + dataBeans.getCompany_name());
-                hotProgectBrief.setText(dataBeans.getCompany_brief());
+                List<EquityBean.DataBean.DataBeans> dataBeanses = equityBean.getData().getDatas();
+                if (dataBeanses.size() > 0) {
+                    EquityBean.DataBean.DataBeans dataBeans = dataBeanses.get(0);
+                    Picasso.with(context).load(dataBeans.getCompany_logo()).resize(weight / 6, height / 6).into(hotProgectImg);
+                    hotProgectName.setText("创始人:" + dataBeans.getCompany_name());
+                    hotProgectBrief.setText(dataBeans.getCompany_brief());
+                    hotProgect.setVisibility(View.VISIBLE);
+                    hotProgectContent.setVisibility(View.VISIBLE);
+                } else {
+                    hotProgect.setVisibility(View.GONE);
+                    hotProgectContent.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -262,6 +282,12 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
             case R.id.discover_find_equity:
                 //跳到寻找投资人界面
                 goTo(FindPersonActivity.class);
+                break;
+            case R.id.bussiness_person:
+                goTo(BusinessPersonActivity.class);
+                break;
+            case R.id.my_eq_person_ll:
+                goTo(EquityPersonActivity.class);
                 break;
         }
     }

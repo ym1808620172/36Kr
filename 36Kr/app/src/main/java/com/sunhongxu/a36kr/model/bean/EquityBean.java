@@ -98,11 +98,11 @@ public class EquityBean {
             this.pageSize = pageSize;
         }
 
-        public List<DataBeans> getData() {
+        public List<DataBeans> getDatas() {
             return data;
         }
 
-        public void setData(List<DataBeans> data) {
+        public void setDatas(List<DataBeans> data) {
             this.data = data;
         }
 

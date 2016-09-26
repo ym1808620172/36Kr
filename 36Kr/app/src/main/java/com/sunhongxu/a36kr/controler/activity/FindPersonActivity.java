@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
@@ -43,7 +44,7 @@ public class FindPersonActivity extends AbsBaseActivity implements VolleyRequest
     protected void initView() {
         listView = byView(R.id.find_people_list);
         backImg = byView(R.id.find_people_back_img);
-        ImageView imageViewTitle = byView(R.id.visibity);
+        TextView imageViewTitle = byView(R.id.visibity);
         imageViewTitle.setVisibility(View.INVISIBLE);
         rootTitle = byView(R.id.find_people_root);
         refreshLayout = byView(R.id.find_people_swipe);

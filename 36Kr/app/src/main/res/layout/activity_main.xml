@@ -193,6 +193,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/drawer_tv"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_weight_suit"
             android:layout_weight="1"

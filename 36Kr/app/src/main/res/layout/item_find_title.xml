@@ -18,6 +18,7 @@
             android:src="@mipmap/news_toolbar_icon_back" />
 
         <TextView
+            android:id="@+id/title_find_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -25,11 +26,13 @@
             android:text="寻找投资人"
             android:textSize="20sp" />
 
-        <ImageView
+        <TextView
+            android:gravity="center"
             android:id="@+id/visibity"
+            android:textColor="#0d2fd7"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/news_toolbar_icon_back" />
+            android:text="111111" />
     </LinearLayout>
 
 </LinearLayout>

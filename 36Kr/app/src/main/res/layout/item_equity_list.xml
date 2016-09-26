@@ -52,13 +52,12 @@
     <LinearLayout
         android:id="@+id/item_equity_img_root"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/file_list_img"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#f03"
+            android:layout_height="200dp"
             android:scaleType="fitXY" />
     </LinearLayout>
 
@@ -150,7 +149,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="募资中"
                     android:textSize="15sp" />
 
                 <TextView
@@ -184,7 +182,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:background="@drawable/shape_equity_btn_go"
-                android:textColor="#1b1a1a"
                 android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>

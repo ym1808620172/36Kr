@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <stroke
-        android:width="0.01dp"
-        android:color="#111112" />
-    <corners android:radius="5dp"/>
-
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <!-- 填充的颜色 -->
+            <solid
+                android:color="#c71411"/>
+            <!-- 设置按钮的四个角为弧形 -->
+            <!-- android:radius 弧形的半径 -->
+            <corners android:radius="5dip" />
+        </shape>
+    </item>
+    <item android:state_selected="false">
+        <shape android:shape="rectangle">
+            <!-- 填充的颜色 -->
+            <!--<solid-->
+                <!--android:width="0.01dp"-->
+                <!--android:color="#fff"/>-->
+            <stroke
+                android:width="0.01dp"
+                android:color="#393737" />
+            <!-- 设置按钮的四个角为弧形 -->
+            <!-- android:radius 弧形的半径 -->
+            <corners android:radius="5dip" />
+        </shape>
+    </item>
+</selector>

@@ -72,7 +72,7 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest,
     public void success(String result) {
         Gson gson = new Gson();
         EquityBean bean = gson.fromJson(result, EquityBean.class);
-        datas = bean.getData().getData();
+        datas = bean.getData().getDatas();
         adapter.setDatas(datas);
     }
 
@@ -91,7 +91,7 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest,
                     public void success(String result) {
                         Gson gson = new Gson();
                         EquityBean equityBean = gson.fromJson(result, EquityBean.class);
-                        datas = equityBean.getData().getData();
+                        datas = equityBean.getData().getDatas();
                         adapter.setDatas(datas);
                         refreshLayout.setRefreshing(false);
                     }
@@ -128,7 +128,7 @@ public class EquityAllFragment extends AbsBaseFragment implements VolleyRequest,
                     public void success(String result) {
                         Gson gson = new Gson();
                         EquityBean equityBean = gson.fromJson(result, EquityBean.class);
-                        datas = equityBean.getData().getData();
+                        datas = equityBean.getData().getDatas();
                         adapter.setDatas(datas);
                         refreshLayout.setLoading(false);
                     }

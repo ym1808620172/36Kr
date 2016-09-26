@@ -121,7 +121,7 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
      *
      * @return 电量栏的高度
      */
-    protected static int MarginTop() {
+    public static int MarginTop() {
         int statusHeight = 0;
         try {
             Class clazz = Class.forName("com.android.internal.R$dimen");

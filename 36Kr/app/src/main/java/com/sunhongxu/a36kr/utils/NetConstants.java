@@ -40,4 +40,8 @@ public final class NetConstants {
      */
     public static final String SEARCHNET = "https://rong.36kr.com/api/mobi/news/search?keyword=";//前半部分
     public static final String SEARCHNETEND = "&page=1&pageSize=20";//后半部分网址
+    /**
+     * 视频界面网址:用的是内涵段子...
+     */
+    public static final String VideoView = "http://ic.snssdk.com/neihan/stream/mix/v1/?content_type=-104";
 }

@@ -250,6 +250,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/hot_project"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#F2F2F2"
@@ -279,7 +280,7 @@
                 android:background="#8c8c8c" />
 
             <LinearLayout
-                android:id="@+id/hot_project"
+                android:id="@+id/hot_project_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#F2F2F2"
@@ -487,6 +488,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/bussiness_person"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_background"
@@ -513,6 +515,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/my_eq_person_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_background"
