@@ -27,4 +27,28 @@
     <dimen name="news_other_tv_size">10sp</dimen>
     <!--新闻界面的头布局-->
     <dimen name="item_header_news">200dp</dimen>
+    <!--寻找投资人的标题-->
+    <dimen name="item_find_title_layout_padding">10sp</dimen>
+    <dimen name="title_find_tv_size">20sp</dimen>
+    <!--我是创业者-->
+    <dimen name="business_person_layout_padding">15dp</dimen>
+    <dimen name="business_person_weight_suit">0dp</dimen>
+    <dimen name="business_person_tv_margin_left">10dp</dimen>
+    <!--登录界面-->
+    <dimen name="login_weight_suit">0dp</dimen>
+    <!--我是专业投资人界面-->
+    <dimen name="my_equity_person_layout_padding">15dp</dimen>
+    <dimen name="my_equity_person_weight_suit">0dp</dimen>
+    <dimen name="my_equity_person_tv_margin_left">10dp</dimen>
+    <!--新闻详情页-->
+    <dimen name="news_details_padding">10dp</dimen>
+    <dimen name="news_details_padding_buttom">20dp</dimen>
+    <dimen name="news_details_margin_left">5dp</dimen>
+    <dimen name="news_details_margin_buttom_tv_title">10dp</dimen>
+    <dimen name="news_details_margin_buttom_tv_time">30dp</dimen>
+    <dimen name="news_details_tv_title_size">20sp</dimen>
+    <dimen name="news_details_tv_time_size">12sp</dimen>
+    <dimen name="news_details_author_name_tv_size">15sp</dimen>
+
+
 </resources>

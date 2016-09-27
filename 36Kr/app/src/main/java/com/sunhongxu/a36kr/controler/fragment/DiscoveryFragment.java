@@ -114,7 +114,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         business.setOnClickListener(this);
         myPersonLl.setOnClickListener(this);
     }
-
+    //加载数据
     @Override
     protected void initDatas() {
         //设置搜索图片高度
@@ -130,7 +130,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
         //开始轮播
         startRotate();
     }
-
+    //热门项目
     private void hotProgect() {
         VolleyInstance.getInstance().startInstance(NetConstants.EQUITYHELPER + "underway" + NetConstants.EQUITYHELPEREND, new VolleyRequest() {
             @Override
@@ -161,6 +161,7 @@ public class DiscoveryFragment extends AbsBaseFragment implements VolleyRequest,
 
     }
 
+    //开始轮播
     private void startRotate() {
         rotateRunnable = new Runnable() {
             @Override

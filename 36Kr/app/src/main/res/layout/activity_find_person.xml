@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".controler.activity.FindPersonActivity">
-
+    <!--寻找投资人-->
     <include layout="@layout/item_find_title" />
 
     <com.sunhongxu.a36kr.view.RefreshLayout

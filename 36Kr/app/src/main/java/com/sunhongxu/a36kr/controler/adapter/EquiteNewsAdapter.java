@@ -30,7 +30,6 @@ import java.util.Map;
 public class EquiteNewsAdapter extends BaseAdapter {
     private Context context;
     private List<EquityBean.DataBean.DataBeans> datas;
-    private static Map<Integer, Boolean> isSelector;
 
     public EquiteNewsAdapter(Context context) {
         this.context = context;

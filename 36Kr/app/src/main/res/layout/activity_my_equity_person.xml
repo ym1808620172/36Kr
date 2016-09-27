@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:id="@+id/my_eq_person"
     android:layout_height="match_parent">
-
+    <!--我是专业投资人界面-->
     <include layout="@layout/item_find_title" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="@dimen/my_equity_person_layout_padding">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -19,11 +19,11 @@
             android:src="@mipmap/discovery_icon_insight" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/my_equity_person_weight_suit"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/my_equity_person_tv_margin_left"
             android:layout_weight="1"
-            android:text="36氪指数" />
+            android:text="@string/my_equity_person_index" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="@dimen/my_equity_person_layout_padding">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -43,11 +43,11 @@
             android:src="@mipmap/discovery_icon_explosive1" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/my_equity_person_weight_suit"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/my_equity_person_tv_margin_left"
             android:layout_weight="1"
-            android:text="最具爆发力项目" />
+            android:text="@string/my_equity_person_explosive_power" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="@dimen/my_equity_person_layout_padding">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -67,11 +67,11 @@
             android:src="@mipmap/discovery_icon_new_research" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/my_equity_person_weight_suit"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/my_equity_person_tv_margin_left"
             android:layout_weight="1"
-            android:text="最新涌现的项目" />
+            android:text="@string/my_equity_person_new_progect" />
 
         <ImageView
             android:layout_width="wrap_content"

@@ -73,13 +73,15 @@ public class NewsAllAdapter extends BaseAdapter {
             long time = bean.getPublishTime();
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             Date nowTime = new Date(System.currentTimeMillis());
+            //获得当前时间
             long timeLong = nowTime.getTime();
             long minTime = timeLong - time;
+            //根据时间差判断显示的时间是什么....
             if (minTime < 3600000) {
                 if (minTime / 60000 > 0) {
                     viewHoler.time.setText(minTime / 60000 + "分钟前");
                 } else {
-                    viewHoler.time.setText(minTime / 60 + "秒前");
+                    viewHoler.time.setText(minTime /1000 + "秒前");
                 }
             } else if ((3600000 * 48) < minTime && minTime < (3600000 * 72)) {
                 viewHoler.time.setText("前天");

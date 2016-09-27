@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.sunhongxu.a36kr.controler.activity.LoginActivity">
-
+    <!--登录界面-->
     <RelativeLayout
         android:id="@+id/login_root"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/login_weight_suit"
         android:layout_weight="1"
-        android:background="#3861e6"
-        >
+        android:background="@color/login_background">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -30,15 +29,15 @@
             android:id="@+id/login_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabSelectedTextColor="#fff"
-            app:tabTextColor="#898686"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            app:tabSelectedTextColor="@color/login_tab_text_selected"
+            app:tabTextColor="@color/login_tab_text" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/login_vp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/login_weight_suit"
         android:layout_weight="1" />
 
 </LinearLayout>

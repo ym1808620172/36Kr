@@ -51,7 +51,6 @@ public class FindPeopleAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("aaaa", "convertView:" );
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_find_person_list, parent, false);
@@ -64,20 +63,28 @@ public class FindPeopleAdapter extends BaseAdapter {
         int height = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.HEIGHT);
         int weight = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.WIDTH);
         if (dataBeans != null) {
+            //设置名字
             viewHolder.nameTv.setText(dataBeans.getUser().getName());
+            //如果领域的数组长度为0的时候,设置Tv为:未披露
             if (dataBeans.getFocusIndustry().size() == 0) {
                 viewHolder.domainTv.setText("未披露");
             } else {
+                //不为空的时候,先定义的一空格字符串
                 String focusIndustry = " ";
                 for (int i = 0; i < dataBeans.getFocusIndustry().size(); i++) {
+                    //根据数组长度获得数组里的内容
                     String datas = dataBeans.getFocusIndustry().get(i);
+                    //用数组里的内容挨个拼接字符串
                     focusIndustry = datas + " "+ focusIndustry ;
                 }
+                //设置领域Tv的内容
                 viewHolder.domainTv.setText(focusIndustry);
             }
+            //同样,阶段数据长度为0的时候,设置Tv为:未披露
             if (dataBeans.getInvestPhases().size() == 0) {
                 viewHolder.phaseTv.setText("未披露");
             } else {
+                //根据数组长度获得数组里的内容
                 String investPhases = "";
                 for (int i = 0; i < dataBeans.getInvestPhases().size(); i++) {
                     String datas = dataBeans.getInvestPhases().get(i);
@@ -85,9 +92,11 @@ public class FindPeopleAdapter extends BaseAdapter {
                 }
                 viewHolder.phaseTv.setText(investPhases);
             }
+            //获得头像的Url,不为空的时候设置头像
             if (dataBeans.getUser().getAvatar() != null) {
                 Picasso.with(context).load(dataBeans.getUser().getAvatar()).resize(weight / 10, height / 10).into(viewHolder.img);
             } else {
+                //如果为空的时候设置这个头像0.0可以点击去看看
                 viewHolder.img.setImageResource(R.mipmap.bj);
             }
         }
@@ -95,10 +104,10 @@ public class FindPeopleAdapter extends BaseAdapter {
     }
 
     public class ViewHolder {
-        private final TextView nameTv;
-        private final TextView domainTv;
-        private final TextView phaseTv;
-        private final ImageView img;
+        private final TextView nameTv;//定义寻找投资人名字
+        private final TextView domainTv;//定义寻找投资人的领域
+        private final TextView phaseTv;//定义寻找投资人的阶段
+        private final ImageView img;//定义寻找投资人头像
 
         public ViewHolder(View view) {
             nameTv = (TextView) view.findViewById(R.id.item_find_people_name);

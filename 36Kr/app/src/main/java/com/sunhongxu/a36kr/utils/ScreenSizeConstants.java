@@ -12,7 +12,7 @@ import com.sunhongxu.a36kr.controler.app.KrApp;
  */
 public final class ScreenSizeConstants {
     public enum ScreenState {
-        WIDTH, HEIGHT;
+        WIDTH, HEIGHT
     }
 
     public static int getScreenSize(Context context, ScreenState state) {

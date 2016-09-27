@@ -123,6 +123,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         setTitleTv();
         //定义ListView行点击事件
         listView.setOnItemClickListener(this);
+        //定义上拉加载的监听
         swipeLayout.setOnLoadListener(this);
     }
 
@@ -145,7 +146,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
             titleTv.setText("研究");
         }
     }
-
+    //添加轮播图
     private void rotate() {
         //添加头布局
         View headerView = LayoutInflater.from(context).inflate(R.layout.item_header, null);
@@ -169,6 +170,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
                 addPoint(picsBeen.size());
                 //改变小圆点
                 changePoint(picsBeen.size());
+
             }
 
             @Override
@@ -289,13 +291,14 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
                 break;
         }
     }
-
+    //下拉刷新
     @Override
     public void onRefresh() {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //重新请求网络数据
                 VolleyInstance.getInstance().startInstance(NetConstants.NEWSHELPER + string + NetConstants.NEWSURLEND, new VolleyRequest() {
                     @Override
                     public void success(String result) {
@@ -315,7 +318,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
             }
         }).start();
     }
-
+    //ListView的行点击事件
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //获取点击对应行的实体类数据
@@ -332,24 +335,34 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
         goTo(NewsDetailsActivity.class, bundle);
     }
 
-
+    //上啦加载
     @Override
     public void onLoad() {
         a++;
+        //定义网址
         final String URL = NetConstants.NEWSHELPER + string + NetConstants.NEWSURLEND;
+        //定义StringBuffer,字符串查询等
         StringBuffer buffer = new StringBuffer();
+        //添加数据
         buffer.append(URL);
+        //查找20在的位置,20为加载多少了条数据,加载就让他+10
         int index = buffer.indexOf("20");
+        //定义加载了多少条数据
         int more = 0, how = 20;
         for (int i = 0; i < a; i++) {
+            //上啦几次,加几个10
             how = how + 10;
         }
+        //将how赋给另一个参数
         more = how;
+        //转为String类型
         String end = String.valueOf(more);
-        final String endUrl = String.valueOf(buffer.replace(index, index + 2, end));
+        //20替换为改变后的数
+        final String endUrl = String.valueOf(buffer.replace(index,index+2,end));
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //用新的网址请求网络数据并解析
                 VolleyInstance.getInstance().startInstance(endUrl, new VolleyRequest() {
                     @Override
                     public void success(String result) {

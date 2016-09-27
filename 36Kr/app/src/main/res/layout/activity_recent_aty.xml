@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.sunhongxu.a36kr.controler.activity.RecentAtyActivity">
-
+    <!--近期活动界面-->
     <include layout="@layout/item_find_title" />
 
     <com.sunhongxu.a36kr.view.RefreshLayout

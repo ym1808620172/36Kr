@@ -28,7 +28,8 @@
         <activity android:name=".controler.activity.BusinessPersonActivity" />
         <activity android:name=".controler.activity.SetActivity" />
         <activity android:name=".controler.activity.NewsDetailsActivity" />
-        <activity android:name=".controler.activity.StudyDetailsActivity"></activity>
+        <activity android:name=".controler.activity.RotateDerailsActivity" />
+
     </application>
 
 </manifest>

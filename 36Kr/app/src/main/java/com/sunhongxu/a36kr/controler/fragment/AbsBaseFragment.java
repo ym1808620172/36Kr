@@ -2,6 +2,7 @@ package com.sunhongxu.a36kr.controler.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,7 @@ public abstract class AbsBaseFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
     }
+
 
     @Nullable
     @Override

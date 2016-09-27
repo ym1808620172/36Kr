@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--我是创业者-->
     <include layout="@layout/item_find_title" />
 
     <LinearLayout
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="@dimen/business_person_layout_padding">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -20,11 +20,11 @@
             android:src="@mipmap/discovery_icon_item1" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/business_person_weight_suit"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/business_person_tv_margin_left"
             android:layout_weight="1"
-            android:text="项目动态" />
+            android:text="@string/business_person_project_tv" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="@dimen/business_person_layout_padding">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -45,11 +45,11 @@
             android:src="@mipmap/news_icon_seek" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/business_person_weight_suit"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/business_person_tv_margin_left"
             android:layout_weight="1"
-            android:text="寻求报道" />
+            android:text="@string/business_person_report_tv" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="@dimen/business_person_layout_padding">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -70,11 +70,11 @@
             android:src="@mipmap/find_icon_entrepreneurship_financing" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/business_person_weight_suit"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/business_person_tv_margin_left"
             android:layout_weight="1"
-            android:text="申请融资" />
+            android:text="@string/business_person_financing_tv" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="@dimen/business_person_layout_padding">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -95,11 +95,11 @@
             android:src="@mipmap/find_icon_entrepreneurship_signup" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/business_person_weight_suit"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/business_person_tv_margin_left"
             android:layout_weight="1"
-            android:text="氪空间报名" />
+            android:text="@string/business_person_apply_tv" />
 
         <ImageView
             android:layout_width="wrap_content"

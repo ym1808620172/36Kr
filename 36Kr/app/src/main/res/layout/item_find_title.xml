@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+    <!--寻找投资人的标题-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="@dimen/item_find_title_layout_padding">
 
         <ImageView
             android:id="@+id/find_people_back_img"
@@ -23,16 +24,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="寻找投资人"
-            android:textSize="20sp" />
+            android:text="@string/title_find_tv"
+            android:textSize="@dimen/title_find_tv_size" />
 
         <TextView
             android:gravity="center"
             android:id="@+id/visibity"
-            android:textColor="#0d2fd7"
+            android:textColor="@color/visibity_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="111111" />
+            android:text="@string/visibity_tv" />
     </LinearLayout>
 
 </LinearLayout>

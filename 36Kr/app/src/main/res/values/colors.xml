@@ -17,4 +17,13 @@
     <color name="title_atying_tv_color">#fff</color>
     <!--新闻界面ListView行布局-->
     <color name="news_title_tv_color">#000</color>
+    <!--寻找投资人-->
+    <color name="visibity_tv">#0d2fd7</color>
+    <!--登录界面-->
+    <color name="login_background">#3861e6</color>
+    <color name="login_tab_text">#898686</color>
+    <color name="login_tab_text_selected">#fff</color>
+    <color name="news_details_author_tv">#15c23b</color>
+    <color name="news_details_toolbar_ll">#fff</color>
+    <color name="news_details_tv_title">#000</color>
 </resources>

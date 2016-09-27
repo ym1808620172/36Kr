@@ -1,12 +1,10 @@
 package com.sunhongxu.a36kr.controler.fragment;
 
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.VideoView;
 
 import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
@@ -23,13 +21,11 @@ import java.util.List;
  */
 public class VideoFragment extends AbsBaseFragment implements VolleyRequest, VideoRecyclerView {
 
-    private VideoView videoView;
     private RecyclerView recyclerView;
     private VideoAdapter adapter;
     private LinearLayout videoRoot;
 
     public static VideoFragment newInstance(String URL) {
-
         Bundle args = new Bundle();
         args.putString("URL", URL);
         VideoFragment fragment = new VideoFragment();
@@ -39,6 +35,7 @@ public class VideoFragment extends AbsBaseFragment implements VolleyRequest, Vid
 
     @Override
     protected int setLayout() {
+        getActivity().getWindow().setFormat(PixelFormat.TRANSLUCENT);
         return R.layout.fragment_video;
     }
 
@@ -55,7 +52,7 @@ public class VideoFragment extends AbsBaseFragment implements VolleyRequest, Vid
         VolleyInstance.getInstance().startInstance(URL, this);
         adapter = new VideoAdapter(context);
         recyclerView.setAdapter(adapter);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(context, 1, true);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(context, 1, false);
         recyclerView.setLayoutManager(manager);
         adapter.setRecyclerView(this);
         videoRoot.setPadding(0, MarginTop(), 0, 0);
@@ -77,6 +74,6 @@ public class VideoFragment extends AbsBaseFragment implements VolleyRequest, Vid
 
     @Override
     public void onClickVideoRecyclerView(int position, VideoBean.DataBean.DataBeans bean) {
-        
+
     }
 }

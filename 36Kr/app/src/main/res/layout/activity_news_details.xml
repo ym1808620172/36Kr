@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/details_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.sunhongxu.a36kr.controler.activity.NewsDetailsActivity">
+    android:layout_height="match_parent">
 
-
-    <ScrollView
+    <!--新闻详情页-->
+    <com.sunhongxu.a36kr.view.ObservableScrollView
+        android:id="@+id/news_details_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,14 +19,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="@dimen/news_details_padding">
 
                 <LinearLayout
                     android:id="@+id/author_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingBottom="20dp">
+                    android:paddingBottom="@dimen/news_details_padding_buttom">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/details_circleimg"
@@ -38,29 +36,29 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/news_details_margin_left"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginBottom="@dimen/news_details_margin_left"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/author_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
-                                android:textSize="15sp" />
+                                android:layout_marginRight="@dimen/news_details_margin_left"
+                                android:textSize="@dimen/news_details_author_name_tv_size" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="作者"
-                                android:textColor="#15c23b" />
+                                android:layout_marginLeft="@dimen/news_details_margin_left"
+                                android:text="@string/news_details_author_tv"
+                                android:textColor="@color/news_details_author_tv" />
                         </LinearLayout>
 
                         <TextView
@@ -70,7 +68,7 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:minLines="1"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/news_details_author_name_tv_size" />
                     </LinearLayout>
 
                     <ImageView
@@ -85,33 +83,33 @@
                     android:id="@+id/webview_tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="#000"
-                    android:textSize="20sp" />
+                    android:layout_marginBottom="@dimen/news_details_margin_buttom_tv_title"
+                    android:textColor="@color/news_details_tv_title"
+                    android:textSize="@dimen/news_details_tv_title_size" />
 
                 <TextView
                     android:id="@+id/webview_tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    android:textSize="12sp" />
+                    android:layout_marginBottom="@dimen/news_details_margin_buttom_tv_time"
+                    android:textSize="@dimen/news_details_tv_time_size" />
 
                 <WebView
                     android:id="@+id/details_webview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></WebView>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-
+    </com.sunhongxu.a36kr.view.ObservableScrollView>
 
     <LinearLayout
+        android:id="@+id/news_toolbar_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="#fff"
+        android:background="@color/news_details_toolbar_ll"
         android:orientation="horizontal"
-        android:padding="17dp">
+        android:padding="@dimen/news_details_padding">
 
         <ImageView
             android:id="@+id/details_back_img"

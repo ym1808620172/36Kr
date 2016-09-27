@@ -13,5 +13,19 @@
     <string name="title_tv">早期项目</string>
     <!--标题活动Pop-->
     <string name="title_atying">关注投资人</string>
+    <!--寻找投资人-->
+    <string name="title_find_tv">寻找投资人</string>
+    <string name="visibity_tv">111111</string>
+    <!--我是创业者-->
+    <string name="business_person_project_tv">项目动态</string>
+    <string name="business_person_report_tv">寻求报道</string>
+    <string name="business_person_financing_tv">申请融资</string>
+    <string name="business_person_apply_tv">氪空间报名</string>
+    <!--我是专业投资人界面-->
+    <string name="my_equity_person_index">36氪指数</string>
+    <string name="my_equity_person_explosive_power">最具爆发力的项目</string>
+    <string name="my_equity_person_new_progect">最新涌现的项目</string>
+    <!--新闻详情页-->
+    <string name="news_details_author_tv">作者</string>
 
 </resources>

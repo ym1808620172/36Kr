@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rotate_root_aty"
+    android:orientation="vertical"
+    tools:context="com.sunhongxu.a36kr.controler.activity.RotateDerailsActivity">
+    <!--轮播图详情界面-->
+    <WebView
+        android:id="@+id/rotate_web"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

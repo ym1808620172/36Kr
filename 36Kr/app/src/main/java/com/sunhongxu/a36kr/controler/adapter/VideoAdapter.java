@@ -2,11 +2,9 @@ package com.sunhongxu.a36kr.controler.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +15,10 @@ import com.sunhongxu.a36kr.utils.ScreenSizeConstants;
 import com.sunhongxu.a36kr.utils.VideoRecyclerView;
 
 import java.util.List;
+
+import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.widget.MediaController;
+import io.vov.vitamio.widget.VideoView;
 
 /**
  * Created by dllo on 16/9/26.
@@ -55,7 +57,18 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 holder.titleTv.setText(dataBeanses.get(position).getGroup().getTitle());
             }
             Picasso.with(context).load(dataBeanses.get(position).getGroup().getUser().getAvatar_url()).resize(width / 10, height / 10).into(holder.cirImg);
-            Picasso.with(context).load(dataBeanses.get(position).getGroup().getLarge_cover().getUrl_list().get(0).getUrl()).resize(width, height / 3).error(R.mipmap.bj).into(holder.videoImg);
+            MediaController mediaco = new MediaController(context);
+//            VideoView与MediaController进行关联
+            holder.videoView.setMediaController(mediaco);
+            mediaco.setMediaPlayer(holder.videoView);
+            //让VideiView获取焦点
+            holder.videoView.requestFocus();
+            holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.setPlaybackSpeed(1.0f);
+                }
+            });
             holder.nameTv.setText(dataBeanses.get(position).getGroup().getUser().getName());
             holder.typeTv.setText(dataBeanses.get(position).getGroup().getStatus_desc());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +76,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 public void onClick(View v) {
                     int position = holder.getLayoutPosition();
                     VideoBean.DataBean.DataBeans dataBeans = dataBeanses.get(position);
-                    Log.d("VideoAdapter", "dataBeans:" + dataBeans);
-                    recyclerView.onClickVideoRecyclerView(position,dataBeans);
+                    recyclerView.onClickVideoRecyclerView(position, dataBeans);
                 }
             });
         }
@@ -82,7 +94,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         private final TextView nameTv;
         private final TextView titleTv;
         private final TextView typeTv;
-        private final ImageView videoImg;
+        private final VideoView videoView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -90,7 +102,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             nameTv = (TextView) itemView.findViewById(R.id.video_name_tv);
             titleTv = (TextView) itemView.findViewById(R.id.video_title_tv);
             typeTv = (TextView) itemView.findViewById(R.id.video_type_tv);
-            videoImg = (ImageView) itemView.findViewById(R.id.video_video_img);
+            videoView = (VideoView) itemView.findViewById(R.id.video_view);
         }
     }
 }

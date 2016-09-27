@@ -53,12 +53,12 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
     private Runnable changeRunnable;
     //发布任务的消息处理者
     private Handler handler;//引包 android.os
-    private PopupWindow popupWindow = new PopupWindow();
-    private String etContent;
-    private LinearLayout serachEtLl;
-    private NewsAllAdapter newsAllAdapter;
-    private boolean startSearch = false;
-    private TextView searchHistoryTv;
+    private PopupWindow popupWindow = new PopupWindow();//定义Pop
+    private String etContent;//EditText里的内容
+    private LinearLayout serachEtLl;//定义根布局
+    private NewsAllAdapter newsAllAdapter;//定义数据的适配器,用于Pop
+    private boolean startSearch = false;//是否开始搜索
+    private TextView searchHistoryTv;//历史搜索Tv
 
     //绑定布局
     @Override
@@ -129,35 +129,48 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
         changeRunnable = new Runnable() {
             @Override
             public void run() {
+                //获得输入框里的内容,如果不为空,进入判断
                 etContent = searchEt.getText().toString();
                 if (!etContent.isEmpty() && !startSearch) {
+                    //设置Pop宽高
                     popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
                     popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+                    //加载一个布局,设置在Pop里
                     final View view = getLayoutInflater().inflate(R.layout.item_search_list_pop, null);
                     final ListView PopList = (ListView) view.findViewById(R.id.item_search_list_pop);
+                    //初始化适配器,并绑定
                     newsAllAdapter = new NewsAllAdapter(SearchActivity.this, null);
                     PopList.setAdapter(newsAllAdapter);
+                    //网络请求数据
                     VolleyInstance.getInstance().startInstance(NetConstants.SEARCHNET + etContent + NetConstants.SEARCHNETEND, new VolleyRequest() {
                         @Override
                         public void success(String result) {
+                            //开始解析数据
                             Gson gson = new Gson();
                             NewsAllBean allBean = gson.fromJson(result, NewsAllBean.class);
                             List<NewsAllBean.DataBean.DataBeans> dataBeanses = allBean.getData().getData();
                             if (dataBeanses.size() > 0) {
+                                //当数据的内容大于3个的时候
                                 if (dataBeanses.size() > 3) {
+                                    //将数组截取为3的数据
                                     newsAllAdapter.setDatas(dataBeanses.subList(0, 3)
                                     );
+                                    //绑定布局并显示Pop
                                     popupWindow.setContentView(view);
                                     popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
                                 } else {
+                                    //如果小于3个的时候,设置数据
                                     newsAllAdapter.setDatas(dataBeanses);
                                     popupWindow.setContentView(view);
                                     popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
                                 }
+                                //对ListView的行布局设置点击事件
                                 PopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        //获得当前行布局的数据
                                         NewsAllBean.DataBean.DataBeans dataBeans = (NewsAllBean.DataBean.DataBeans) parent.getItemAtPosition(position);
+                                        //得到想要传过去的数据
                                         String FeedId = dataBeans.getFeedId();
                                         String title = dataBeans.getTitle();
                                         Bundle bundle = new Bundle();
@@ -173,6 +186,7 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
 
 
                             } else {
+                                //如果没有数据,显示搜索无结果
                                 listView.setVisibility(View.GONE);
                                 searchHistoryTv.setText("搜索无结果");
                             }
@@ -185,6 +199,7 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
                     });
 
                 }
+                //当内容为空,并且Pop已经打开时候,关闭Pop
                 if (etContent.isEmpty() && popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 }
@@ -193,12 +208,17 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
         };
     }
 
+    //当页面停止时候
     @Override
     protected void onStop() {
         super.onStop();
+        //如果EditText不为空
         if (!etContent.isEmpty()) {
+            //关闭线程
             handler.removeCallbacks(changeRunnable);
+            //清空内容
             searchEt.getText().clear();
+            //如果Pop显示,将其关闭
             if (popupWindow.isShowing()) {
                 popupWindow.dismiss();
             }

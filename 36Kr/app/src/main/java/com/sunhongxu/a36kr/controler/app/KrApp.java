@@ -5,7 +5,7 @@ import android.content.Context;
 
 /**
  * Created by dllo on 16/9/8.
- *
+ *  获得应用的Context
  * @author sunhongxu
  */
 public class KrApp extends Application {
@@ -16,7 +16,7 @@ public class KrApp extends Application {
         super.onCreate();
         context = getApplicationContext();
     }
-
+    //提供get方法
     public static Context getContext() {
         return context;
     }
