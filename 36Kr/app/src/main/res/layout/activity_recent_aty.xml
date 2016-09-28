@@ -9,16 +9,57 @@
     <!--近期活动界面-->
     <include layout="@layout/item_find_title" />
 
-    <com.sunhongxu.a36kr.view.RefreshLayout
-        android:id="@+id/recent_swipe"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <ListView
-            android:id="@+id/recent_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.sunhongxu.a36kr.view.RefreshLayout>
+        <LinearLayout
+            android:id="@+id/recent_type"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="活动类型" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_down" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/recent_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="活动时间" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_down" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/recent_aty_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

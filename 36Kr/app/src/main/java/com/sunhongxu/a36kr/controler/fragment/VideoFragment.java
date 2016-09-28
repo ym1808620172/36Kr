@@ -1,13 +1,16 @@
 package com.sunhongxu.a36kr.controler.fragment;
 
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
+import com.sunhongxu.a36kr.controler.activity.VideoActivity;
 import com.sunhongxu.a36kr.controler.adapter.VideoAdapter;
 import com.sunhongxu.a36kr.model.bean.VideoBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
@@ -61,6 +64,7 @@ public class VideoFragment extends AbsBaseFragment implements VolleyRequest, Vid
 
     @Override
     public void success(String result) {
+        Log.d("aaaa", result + "xxx");
         Gson gson = new Gson();
         VideoBean videoBean = gson.fromJson(result, VideoBean.class);
         List<VideoBean.DataBean.DataBeans> dataBeanses = videoBean.getData().getDatas();
@@ -74,6 +78,8 @@ public class VideoFragment extends AbsBaseFragment implements VolleyRequest, Vid
 
     @Override
     public void onClickVideoRecyclerView(int position, VideoBean.DataBean.DataBeans bean) {
-
+        Bundle bundle = new Bundle();
+        bundle.putString("URL",bean.getGroup().getMp4_url());
+        goTo(VideoActivity.class,bundle);
     }
 }

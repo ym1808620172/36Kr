@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
+    <!--新闻主界面-->
     <include layout="@layout/item_titles" />
     <FrameLayout
         android:layout_width="match_parent"

@@ -55,7 +55,7 @@ public class NewsAllFragment extends AbsBaseFragment implements VolleyRequest, V
     private com.sunhongxu.a36kr.view.RefreshLayout swipeLayout;//定义Swipe,下拉刷新
     private List<NewsAllBean.DataBean.DataBeans> dataBeanses;//定义数据数组
 
-    int a = 0;
+    int a = 1;
 
 
     @Override

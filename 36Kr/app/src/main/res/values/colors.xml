@@ -26,4 +26,17 @@
     <color name="news_details_author_tv">#15c23b</color>
     <color name="news_details_toolbar_ll">#fff</color>
     <color name="news_details_tv_title">#000</color>
+    <!--搜索界面-->
+    <color name="activity_search_et_color">#000</color>
+    <color name="activity_search_cancel_color">#3253c2</color>
+    <!--股权投资界面-->
+    <color name="equity_fragment_tab_text">#1d3aa4</color>
+    <color name="equity_fragment_tab_indicator">#1d3aa4</color>
+    <!--搜索界面的Pop-->
+    <color name="search_list_pop_back">#fff</color>
+    <!--近期活动界面-->
+    <color name="recent_list_title_tv_color">#000</color>
+    <color name="recent_list_now_tv_text_color">#fff</color>
+    <!--作者详情的ListView的行布局-->
+    <color name="item_author_list_text_color">#000</color>
 </resources>

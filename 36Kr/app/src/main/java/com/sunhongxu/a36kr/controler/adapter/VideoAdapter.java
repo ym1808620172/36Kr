@@ -1,7 +1,9 @@
 package com.sunhongxu.a36kr.controler.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +18,6 @@ import com.sunhongxu.a36kr.utils.VideoRecyclerView;
 
 import java.util.List;
 
-import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.widget.MediaController;
-import io.vov.vitamio.widget.VideoView;
 
 /**
  * Created by dllo on 16/9/26.
@@ -57,18 +56,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 holder.titleTv.setText(dataBeanses.get(position).getGroup().getTitle());
             }
             Picasso.with(context).load(dataBeanses.get(position).getGroup().getUser().getAvatar_url()).resize(width / 10, height / 10).into(holder.cirImg);
-            MediaController mediaco = new MediaController(context);
-//            VideoView与MediaController进行关联
-            holder.videoView.setMediaController(mediaco);
-            mediaco.setMediaPlayer(holder.videoView);
-            //让VideiView获取焦点
-            holder.videoView.requestFocus();
-            holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mediaPlayer.setPlaybackSpeed(1.0f);
-                }
-            });
+            Picasso.with(context).load(dataBeanses.get(position).getGroup().getLarge_cover().getUrl_list().get(0).getUrl()).into(holder.videoViewImg);
             holder.nameTv.setText(dataBeanses.get(position).getGroup().getUser().getName());
             holder.typeTv.setText(dataBeanses.get(position).getGroup().getStatus_desc());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +68,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 }
             });
         }
-
     }
-
     @Override
     public int getItemCount() {
         return dataBeanses != null && dataBeanses.size() > 0 ? dataBeanses.size() : 0;
@@ -94,7 +80,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         private final TextView nameTv;
         private final TextView titleTv;
         private final TextView typeTv;
-        private final VideoView videoView;
+        private final ImageView videoViewImg;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -102,7 +88,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             nameTv = (TextView) itemView.findViewById(R.id.video_name_tv);
             titleTv = (TextView) itemView.findViewById(R.id.video_title_tv);
             typeTv = (TextView) itemView.findViewById(R.id.video_type_tv);
-            videoView = (VideoView) itemView.findViewById(R.id.video_view);
+            videoViewImg = (ImageView) itemView.findViewById(R.id.video_view_img);
         }
     }
 }

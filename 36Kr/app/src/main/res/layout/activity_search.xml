@@ -11,13 +11,13 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="@dimen/activity_search_padding">
 
         <ImageView
             android:id="@+id/search_aty_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/activity_search_padding"
             android:src="@mipmap/seaarch_nav_icon_search" />
 
         <com.sunhongxu.a36kr.view.SearchEditText
@@ -28,18 +28,18 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="搜索新闻/用户/公司"
-            android:textColor="#000"
-            android:textSize="16sp" />
+            android:hint="@string/activity_search_et_hint"
+            android:textColor="@color/activity_search_et_color"
+            android:textSize="@dimen/activity_search_et_size" />
 
         <TextView
             android:id="@+id/search_aty_tv_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="取消"
-            android:textColor="#3253c2"
-            android:textSize="16sp" />
+            android:text="@string/activity_search_tv_cancel"
+            android:textColor="@color/activity_search_cancel_color"
+            android:textSize="@dimen/activity_search_tv_cancel" />
     </LinearLayout>
 
     <LinearLayout
@@ -58,28 +58,27 @@
             android:id="@+id/history_search_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="无搜索记录" />
+            android:text="@string/activity_search_tv_history" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/search_aty_list_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/activity_search_padding"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/history_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="历史搜索"
-            android:textSize="20sp" />
+            android:text="@string/activity_search_tv_history_list"
+            android:textSize="@dimen/activity_search_tv_history_list" />
 
         <ListView
             android:id="@+id/search_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 
 </LinearLayout>

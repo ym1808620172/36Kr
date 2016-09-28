@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--搜索界面ListView行布局-->
     <TextView
         android:id="@+id/search_list_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="18sp" />
+        android:padding="@dimen/item_list_search_padding"
+        android:textSize="@dimen/item_list_search_text_size" />
 
 </LinearLayout>

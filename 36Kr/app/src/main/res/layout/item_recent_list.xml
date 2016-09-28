@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp">
-
+    <!--近期活动界面-->
     <ImageView
         android:id="@+id/item_recent_img_big"
         android:layout_width="match_parent"
@@ -13,44 +13,45 @@
         android:src="@mipmap/bj" />
 
     <TextView
-        android:layout_marginBottom="10dp"
         android:id="@+id/item_recent_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:textSize="20sp" />
+        android:layout_marginBottom="@dimen/recent_list_margin_buttom"
+        android:textColor="@color/recent_list_title_tv_color"
+        android:textSize="@dimen/recent_list_title_size" />
 
     <TextView
-        android:layout_marginBottom="10dp"
         android:id="@+id/item_recent_tv_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/recent_list_margin_buttom" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/recent_list_margin_buttom"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/item_recent_tv_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textColor="#fff"
+            android:layout_marginRight="@dimen/recent_list_margin_buttom"
             android:background="@drawable/shape_recent_tv"
-            android:textSize="10sp" />
+            android:textColor="@color/recent_list_now_tv_text_color"
+            android:textSize="@dimen/recent_list_now_size" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/common_icon_location" />
+
         <TextView
             android:id="@+id/item_recent_tv_where"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="10sp" />
+            android:textSize="@dimen/recent_list_now_size" />
 
         <TextView
             android:id="@+id/item_recent_tv_time"

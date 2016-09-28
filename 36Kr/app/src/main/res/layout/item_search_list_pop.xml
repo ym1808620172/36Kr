@@ -2,26 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/search_list_pop_back"
     android:orientation="vertical">
+    <!--搜索界面的Pop-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="@dimen/search_list_pop_padding">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="搜索新闻"
-            android:textSize="18sp" />
+            android:text="@string/search_list_pop_news_tv"
+            android:textSize="@dimen/search_list_pop_news_tv_size" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="更多" />
+            android:text="@string/search_list_pop_more_tv" />
 
         <ImageView
             android:layout_width="wrap_content"

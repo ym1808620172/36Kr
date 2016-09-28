@@ -27,5 +27,12 @@
     <string name="my_equity_person_new_progect">最新涌现的项目</string>
     <!--新闻详情页-->
     <string name="news_details_author_tv">作者</string>
-
+    <!--搜索界面-->
+    <string name="activity_search_et_hint">搜索新闻/用户/公司</string>
+    <string name="activity_search_tv_cancel">取消</string>
+    <string name="activity_search_tv_history">无搜索记录</string>
+    <string name="activity_search_tv_history_list">历史搜索</string>
+    <!--搜索界面的Pop-->
+    <string name="search_list_pop_news_tv">搜索新闻</string>
+    <string name="search_list_pop_more_tv">更多</string>
 </resources>
