@@ -1,20 +1,15 @@
 package com.sunhongxu.a36kr.controler.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 
-import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.app.KrApp;
 
 /**

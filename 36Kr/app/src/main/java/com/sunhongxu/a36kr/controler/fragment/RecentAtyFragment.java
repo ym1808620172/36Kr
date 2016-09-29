@@ -10,20 +10,24 @@ import com.google.gson.Gson;
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.controler.activity.RotateDerailsActivity;
 import com.sunhongxu.a36kr.controler.adapter.RecentAtyAdapter;
+import com.sunhongxu.a36kr.model.bean.NewsAllBean;
 import com.sunhongxu.a36kr.model.bean.RecentAtyBean;
 import com.sunhongxu.a36kr.model.net.VolleyInstance;
 import com.sunhongxu.a36kr.model.net.VolleyRequest;
 import com.sunhongxu.a36kr.utils.NetConstants;
+import com.sunhongxu.a36kr.view.RefreshLayout;
 
 import java.util.List;
 
 /**
  * Created by dllo on 16/9/28.
  */
-public class RecentAtyFragment extends AbsBaseFragment implements VolleyRequest, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
+public class RecentAtyFragment extends AbsBaseFragment implements VolleyRequest, SwipeRefreshLayout.OnRefreshListener, RefreshLayout.OnLoadListener, AdapterView.OnItemClickListener {
     private ListView recentList;//定义ListView
     private RecentAtyAdapter atyAdapter;//定义适配器
     private com.sunhongxu.a36kr.view.RefreshLayout refreshLayout;//定义RefreshLayout下拉刷新
+    private int a = 1;
+    private String url;
 
     public static RecentAtyFragment newInstance(String url) {
         Bundle args = new Bundle();
@@ -47,12 +51,12 @@ public class RecentAtyFragment extends AbsBaseFragment implements VolleyRequest,
     @Override
     protected void initDatas() {
         Bundle bundle = getArguments();
-        String URL = bundle.getString("URL");
+        url = bundle.getString("URL");
         //初始化适配器并绑定
         atyAdapter = new RecentAtyAdapter(context);
         recentList.setAdapter(atyAdapter);
         //网络请求数据
-        VolleyInstance.getInstance().startInstance(NetConstants.RECENTATY + URL , this);
+        VolleyInstance.getInstance().startInstance(NetConstants.RECENTATY + url, this);
         //设置下拉刷新的小圈圈的颜色
         refreshLayout.setColorSchemeResources(android.R.color.holo_orange_dark,
                 android.R.color.holo_green_light,
@@ -63,6 +67,7 @@ public class RecentAtyFragment extends AbsBaseFragment implements VolleyRequest,
         refreshLayout.setOnRefreshListener(this);
         //设置ListView的行布局点击监听
         recentList.setOnItemClickListener(this);
+        refreshLayout.setOnLoadListener(this);
     }
 
     @Override
@@ -95,6 +100,54 @@ public class RecentAtyFragment extends AbsBaseFragment implements VolleyRequest,
                         atyAdapter.setDataBeanses(dataBeanses);
                         //成功后将小圈圈隐藏
                         refreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void failure() {
+
+                    }
+                });
+            }
+        }).start();
+    }
+
+    //上啦加载
+    @Override
+    public void onLoad() {
+        a++;
+        //定义网址
+        final String URL = NetConstants.RECENTATY + url;
+        //定义StringBuffer,字符串查询等
+        StringBuffer buffer = new StringBuffer();
+        //添加数据
+        buffer.append(URL);
+        //查找20在的位置,20为加载多少了条数据,加载就让他+10
+        int index = buffer.indexOf("20");
+        //定义加载了多少条数据
+        int more = 0, how = 20;
+        for (int i = 0; i < a; i++) {
+            //上啦几次,加几个10
+            how = how + 10;
+        }
+        //将how赋给另一个参数
+        more = how;
+        //转为String类型
+        String end = String.valueOf(more);
+        //20替换为改变后的数
+        final String endUrl = String.valueOf(buffer.replace(index, index + 2, end));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //用新的网址请求网络数据并解析
+                VolleyInstance.getInstance().startInstance(endUrl, new VolleyRequest() {
+                    @Override
+                    public void success(String result) {
+                        Gson gson = new Gson();
+                        RecentAtyBean atyBean = gson.fromJson(result, RecentAtyBean.class);
+                        List<RecentAtyBean.DataBean.DataBeans> dataBeanses = atyBean.getData().getData();
+                        atyAdapter.setDataBeanses(dataBeanses);
+                        //成功后将小圈圈隐藏
+                        refreshLayout.setLoading(false);
                     }
 
                     @Override

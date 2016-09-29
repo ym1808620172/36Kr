@@ -1,56 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
     android:id="@+id/set_root"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <!--设置界面-->
-    <include layout="@layout/item_find_title"/>
+    <include layout="@layout/item_find_title" />
+
     <TextView
+        android:background="@drawable/shape_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="消息设置"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="15dp"
         android:paddingLeft="10dp"
         android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:text="消息设置" />
+
     <LinearLayout
-        android:paddingTop="15dp"
+        android:background="@drawable/shape_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:paddingBottom="15dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingTop="15dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="允许非WI-FI网络下播放视频"
-            />
+            android:layout_weight="1"
+            android:text="允许非WI-FI网络下播放视频" />
+
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
     <LinearLayout
-        android:paddingTop="15dp"
+        android:background="@drawable/shape_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:paddingBottom="15dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:paddingTop="15dp">
+
         <TextView
-            android:text="清理缓存"
+            android:id="@+id/set_data_clean_tv"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:text="清理缓存" />
+
         <TextView
+            android:id="@+id/set_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6.98MB"
-            />
+            android:text="6.98MB" />
     </LinearLayout>
+
+    <TextView
+        android:background="@drawable/shape_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:text="关于36氪" />
+
+    <TextView
+        android:background="@drawable/shape_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:text="检查版本更新" />
+
+    <TextView
+        android:background="@drawable/shape_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:text="意见反馈" />
 
 </LinearLayout>

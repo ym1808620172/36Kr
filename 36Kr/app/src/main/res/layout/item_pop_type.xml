@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/pop_type_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -15,6 +16,7 @@
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/pop_type_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -24,6 +26,7 @@
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/pop_type_space"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -33,6 +36,7 @@
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/pop_type_equity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -42,6 +46,7 @@
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/pop_type_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -51,6 +56,7 @@
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/pop_type_quity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"

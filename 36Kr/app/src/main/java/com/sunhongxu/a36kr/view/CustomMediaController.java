@@ -62,6 +62,7 @@ public class CustomMediaController extends MediaController {
         }
     };
     private ImageView img_screen;
+    private static String content;
 
     public interface changeScreen {
         void OnChangeScreen(int index);
@@ -86,8 +87,10 @@ public class CustomMediaController extends MediaController {
         //获取控件
         img_back = (ImageButton) v.findViewById(R.id.mediacontroller_top_back);
         mFileName = (TextView) v.findViewById(R.id.mediacontroller_filename);
+        if (content != null) {
+            mFileName.setText(content);
+        }
         img_screen = (ImageView) v.findViewById(R.id.mediacontroller_all_screen);
-
         //声音控制
         mVolumeBrightnessLayout = v.findViewById(R.id.operation_volume_brightness);
         mOperationBg = (ImageView) v.findViewById(R.id.operation_bg);
@@ -111,6 +114,9 @@ public class CustomMediaController extends MediaController {
         return v;
     }
 
+    public static void getTextString(String string) {
+        content = string;
+    }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
@@ -120,14 +126,13 @@ public class CustomMediaController extends MediaController {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (mGestureDetector.onTouchEvent(event)) return true;        // 处理手势结束
+        if (mGestureDetector.onTouchEvent(event)) return true;// 处理手势结束
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_UP:
                 break;
         }
         return super.onTouchEvent(event);
     }
-
 
 
     private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -143,7 +148,6 @@ public class CustomMediaController extends MediaController {
          * 因为点击事件被控制器拦截，无法传递到下层的VideoView，
          * 所以 原来的单机隐藏会失效，作为代替，
          * 在手势监听中onSingleTapConfirmed（）添加自定义的隐藏/显示，
-
          */
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
@@ -157,19 +161,6 @@ public class CustomMediaController extends MediaController {
             return true;
         }
 
-        //滑动事件监听
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            float mOldX = e1.getX(), mOldY = e1.getY();
-            int y = (int) e2.getRawY();
-            int x = (int) e2.getRawX();
-            Display disp = activity.getWindowManager().getDefaultDisplay();
-            int windowWidth = disp.getWidth();
-            int windowHeight = disp.getHeight();
-
-            return super.onScroll(e1, e2, distanceX, distanceY);
-        }
-
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             playOrPause();
@@ -181,7 +172,6 @@ public class CustomMediaController extends MediaController {
             return super.onFling(e1, e2, velocityX, velocityY);
         }
     }
-
 
 
     /**

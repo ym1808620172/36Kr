@@ -27,7 +27,7 @@ import java.util.Map;
  * Created by dllo on 16/9/13.
  * 股权投资界面新闻的适配器
  */
-public class EquiteNewsAdapter extends BaseAdapter {
+public class EquiteNewsAdapter extends BaseAdapter  {
     private Context context;
     private List<EquityBean.DataBean.DataBeans> datas;
 
@@ -35,6 +35,7 @@ public class EquiteNewsAdapter extends BaseAdapter {
         this.context = context;
 
     }
+
     public void setDatas(List<EquityBean.DataBean.DataBeans> datas) {
         this.datas = datas;
         notifyDataSetChanged();
@@ -59,6 +60,7 @@ public class EquiteNewsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
+
             convertView = LayoutInflater.from(context).inflate(R.layout.item_equity_list, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
@@ -89,10 +91,24 @@ public class EquiteNewsAdapter extends BaseAdapter {
             viewHolder.companyBrief.setText(dataBeans.getCompany_brief());
             //完成进度
             viewHolder.rate.setText("已募资" + (int) (dataBeans.getRate() * 100) + "%");
-            //进度条
-            viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));
+            if (dataBeans.getRate()>1){
+                viewHolder.seekBar.setSelected(false);
+                Resources resource = context.getResources();
+                ColorStateList descColor = resource.getColorStateList(R.color.rate_color_end);
+                viewHolder.rate.setTextColor(descColor);//简介
+                //进度条
+                viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));
+            }else {
+                Resources resource = context.getResources();
+                ColorStateList descColor = resource.getColorStateList(R.color.desc_color_end);
+                viewHolder.rate.setTextColor(descColor);//简介
+                viewHolder.seekBar.setSelected(true);
+                //进度条
+                viewHolder.seekBar.setProgress((int) (dataBeans.getRate() * 100));
+            }
+
+            viewHolder.seekBar.setEnabled(false);
             String descAll = dataBeans.getFundStatus().getDesc();
-            Log.d("aaaa", descAll+position);
             //根据类型设置颜色
             if (descAll.equals("募资中")) {
                 viewHolder.introductionBtn.setSelected(true);
@@ -103,8 +119,7 @@ public class EquiteNewsAdapter extends BaseAdapter {
                 viewHolder.introductionBtn.setText("认购");
                 ColorStateList descColorBtn = resource.getColorStateList(R.color.introduction_color_btn_tv);
                 viewHolder.introductionBtn.setTextColor(descColorBtn);
-            } else  {
-                Log.d("aaaa", "执行了"+position);
+            } else {
                 viewHolder.introductionBtn.setSelected(false);
                 Resources resource = context.getResources();
                 ColorStateList descColor = resource.getColorStateList(R.color.desc_color_end);
@@ -114,6 +129,7 @@ public class EquiteNewsAdapter extends BaseAdapter {
                 ColorStateList descColorBtn = resource.getColorStateList(R.color.introduction_color_btn_tv_end);
                 viewHolder.introductionBtn.setTextColor(descColorBtn);
             }
+
         }
         return convertView;
     }

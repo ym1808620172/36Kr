@@ -1,6 +1,5 @@
 package com.sunhongxu.a36kr.controler.fragment;
 
-import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -80,6 +79,7 @@ public class VideoFragment extends AbsBaseFragment implements VolleyRequest, Vid
     public void onClickVideoRecyclerView(int position, VideoBean.DataBean.DataBeans bean) {
         Bundle bundle = new Bundle();
         bundle.putString("URL",bean.getGroup().getMp4_url());
+        bundle.putString("titile",bean.getGroup().getTitle());
         goTo(VideoActivity.class,bundle);
     }
 }

@@ -53,7 +53,13 @@ public class VideoActivity extends AbsBaseActivity implements MediaPlayer.OnInfo
     protected void initDatas() {
         Intent intent = getIntent();
         String url = intent.getStringExtra("URL");
-        setDatas(url);
+        String title = intent.getStringExtra("titile");
+        if (!url.isEmpty()) {
+            setDatas(url);
+        }
+        if (!title.isEmpty()) {
+            CustomMediaController.getTextString(title);
+        }
 
     }
 
@@ -84,13 +90,13 @@ public class VideoActivity extends AbsBaseActivity implements MediaPlayer.OnInfo
                 }
                 break;
             case MediaPlayer.MEDIA_INFO_BUFFERING_END:
-                if (!isPlay){
+                if (!isPlay) {
                     mVideoView.pause();
                     pb.setVisibility(View.GONE);
                     downloadRateView.setVisibility(View.GONE);
                     loadRateView.setVisibility(View.GONE);
                     isPlay = true;
-                }else {
+                } else {
                     mVideoView.start();
                     pb.setVisibility(View.GONE);
                     downloadRateView.setVisibility(View.GONE);

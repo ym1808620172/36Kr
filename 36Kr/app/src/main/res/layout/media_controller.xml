@@ -16,10 +16,10 @@
             <ImageButton
                 android:id="@+id/mediacontroller_top_back"
                 android:layout_width="50dp"
-                android:src="@mipmap/news_toolbar_icon_back"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
-                android:background="@null" />
+                android:background="@null"
+                android:src="@mipmap/news_toolbar_icon_back" />
 
             <TextView
                 android:id="@+id/mediacontroller_filename"
@@ -30,8 +30,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/mediacontroller_top_back"
                 android:ellipsize="marquee"
-                android:singleLine="true"
-                android:text="file name" />
+                android:singleLine="true" />
 
             <ImageButton
                 android:id="@+id/mediacontroller_share"
@@ -90,6 +89,7 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:background="#77000000">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -109,8 +109,8 @@
                     android:id="@+id/mediacontroller_seekbar"
                     style="@style/MediaController_SeekBar"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:focusable="true"
                     android:max="1000" />
 
@@ -120,13 +120,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="33:33:33" />
+
                 <ImageView
                     android:id="@+id/mediacontroller_all_screen"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/mediacontroller_all"/>
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/mediacontroller_all" />
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>

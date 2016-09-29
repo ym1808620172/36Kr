@@ -6,17 +6,21 @@
     <item android:id="@android:id/secondaryProgress">
         <clip>
             <shape>
-                <corners android:radius="2.0dip" />
+                <corners android:radius="10.0dip" />
                 <gradient
                     android:angle="270.0"
-                    android:centerColor="#80ffb600"
-                    android:centerY="0.75"
-                    android:endColor="#a0ffcb00"
-                    android:startColor="#80ffd300" />
+                    android:centerColor="#8066645f"
+                    android:endColor="#8066645f"
+                    android:startColor="#8066645f" />
             </shape>
         </clip>
     </item>
     <item android:id="@android:id/progress">
-        <clip android:drawable="@mipmap/seek" />
+        <clip android:drawable="@mipmap/seek">
+            <shape>
+                <corners android:radius="10.0dip" />
+                <solid android:color ="@color/seekbar_color"/>
+            </shape>
+        </clip>
     </item>
 </layer-list>

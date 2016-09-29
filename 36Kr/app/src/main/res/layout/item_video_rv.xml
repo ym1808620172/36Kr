@@ -62,10 +62,41 @@
             android:textSize="12sp" />
 
     </LinearLayout>
-    <ImageView
-        android:layout_gravity="center"
-        android:scaleType="fitXY"
-        android:id="@+id/video_view_img"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="250dp"
+        android:descendantFocusability="blocksDescendants"
+        android:background="#000000"
+        >
+        <VideoView
+            android:id="@+id/videoview"
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            />
+        <ImageView
+            android:id="@+id/video_image"
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:contentDescription="this is an image about the movie"
+            android:scaleType="centerCrop"
+            />
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
+
+        <ImageButton
+            android:id="@+id/video_play_btn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/ic_play_video"
+            android:contentDescription="this is a button and play a video"
+            />
+    </RelativeLayout>
 </LinearLayout>

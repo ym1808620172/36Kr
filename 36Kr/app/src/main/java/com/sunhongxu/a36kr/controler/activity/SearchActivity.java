@@ -150,41 +150,10 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
                             NewsAllBean allBean = gson.fromJson(result, NewsAllBean.class);
                             List<NewsAllBean.DataBean.DataBeans> dataBeanses = allBean.getData().getData();
                             if (dataBeanses.size() > 0) {
-                                //当数据的内容大于3个的时候
-                                if (dataBeanses.size() > 3) {
-                                    //将数组截取为3的数据
-                                    newsAllAdapter.setDatas(dataBeanses.subList(0, 3)
-                                    );
-                                    //绑定布局并显示Pop
-                                    popupWindow.setContentView(view);
-                                    popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
-                                } else {
-                                    //如果小于3个的时候,设置数据
-                                    newsAllAdapter.setDatas(dataBeanses);
-                                    popupWindow.setContentView(view);
-                                    popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
-                                }
+                                //根据数组长度取数据
+                                setList(dataBeanses, view);
                                 //对ListView的行布局设置点击事件
-                                PopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        //获得当前行布局的数据
-                                        NewsAllBean.DataBean.DataBeans dataBeans = (NewsAllBean.DataBean.DataBeans) parent.getItemAtPosition(position);
-                                        //得到想要传过去的数据
-                                        String FeedId = dataBeans.getFeedId();
-                                        String title = dataBeans.getTitle();
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("FeedId", FeedId);
-                                        bundle.putString("title", title);
-                                        TextView textView = (TextView) view.findViewById(R.id.news_all_list_time);
-                                        String time = textView.getText().toString();
-                                        bundle.putString("time", time);
-                                        //用ListView的行点击事件,跳转到详情页界面,将需要拼接的网址传过去
-                                        goTo(SearchActivity.this, NewsDetailsActivity.class, bundle);
-                                    }
-                                });
-
-
+                                ListViewOnClick(PopList);
                             } else {
                                 //如果没有数据,显示搜索无结果
                                 listView.setVisibility(View.GONE);
@@ -208,10 +177,68 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
         };
     }
 
-    //当页面停止时候
+    private void ListViewOnClick(ListView popList) {
+        popList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //获得当前行布局的数据
+                IntentData(parent, view, position);
+                //将搜索的内容保存
+                saveSp();
+
+
+            }
+        });
+    }
+    //将搜索的内容保存
+    private void saveSp() {
+        //获得Et的内容
+        String contentEt = searchEt.getText().toString();
+        //不为空的话将内容存储到sp里,key值也为内容
+        SharedPreferences preferences = getSharedPreferences("text", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(contentEt, contentEt);
+        //将是否有值存为true
+        editor.putBoolean("ishave", true);
+        editor.commit();
+    }
+
+    //跳转传值
+    private void IntentData(AdapterView<?> parent, View view, int position) {
+        NewsAllBean.DataBean.DataBeans dataBeans = (NewsAllBean.DataBean.DataBeans) parent.getItemAtPosition(position);
+        //得到想要传过去的数据
+        String FeedId = dataBeans.getFeedId();
+        String title = dataBeans.getTitle();
+        Bundle bundle = new Bundle();
+        bundle.putString("FeedId", FeedId);
+        bundle.putString("title", title);
+        TextView textView = (TextView) view.findViewById(R.id.news_all_list_time);
+        String time = textView.getText().toString();
+        bundle.putString("time", time);
+        //用ListView的行点击事件,跳转到详情页界面,将需要拼接的网址传过去
+        goTo(SearchActivity.this, NewsDetailsActivity.class, bundle);
+    }
+
+    private void setList(List<NewsAllBean.DataBean.DataBeans> dataBeanses, View view) {
+        //当数据的内容大于3个的时候
+        if (dataBeanses.size() > 3) {
+            //将数组截取为3的数据
+            newsAllAdapter.setDatas(dataBeanses.subList(0, 3)
+            );
+            //绑定布局并显示Pop
+            popupWindow.setContentView(view);
+            popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
+        } else {
+            //如果小于3个的时候,设置数据
+            newsAllAdapter.setDatas(dataBeanses);
+            popupWindow.setContentView(view);
+            popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, MarginTop() + serachEtLl.getHeight());
+        }
+    }
+
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         //如果EditText不为空
         if (!etContent.isEmpty()) {
             //关闭线程
@@ -277,5 +304,6 @@ public class SearchActivity extends AbsBaseActivity implements View.OnClickListe
 
         }
     }
+
 
 }

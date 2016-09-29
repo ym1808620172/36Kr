@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.sunhongxu.a36kr.R;
 import com.sunhongxu.a36kr.model.bean.RecentAtyBean;
+import com.sunhongxu.a36kr.utils.ScreenSizeConstants;
 
 import java.util.List;
 
@@ -50,6 +51,8 @@ public class RecentAtyAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
+        int width = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.WIDTH);
+        int hegiht = ScreenSizeConstants.getScreenSize(context, ScreenSizeConstants.ScreenState.HEIGHT);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_recent_list, parent, false);
             viewHolder = new ViewHolder(convertView);
@@ -68,7 +71,7 @@ public class RecentAtyAdapter extends BaseAdapter {
             //设置新闻时间
             viewHolder.recentTime.setText(dataBeans.getActivityTime());
             //设置图片
-            Picasso.with(context).load(dataBeans.getActivityImg()).into(viewHolder.recentImgBig);
+            Picasso.with(context).load(dataBeans.getActivityImg()).resize(width,hegiht/3).into(viewHolder.recentImgBig);
             //根据Status设置背景颜色
             String Status = dataBeans.getActivityStatus();
             switch (Status) {

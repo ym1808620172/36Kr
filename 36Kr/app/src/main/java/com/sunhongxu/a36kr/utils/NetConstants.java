@@ -47,6 +47,6 @@ public final class NetConstants {
     /**
      * 近期活动网址
      */
-    public static final String RECENTATY = "https://rong.36kr.com/api/mobi/activity/list?page=1&categoryid=";//全部网址
-    public static final String RECENTATYEND = "&pagesize=20";//后半部分
+    public static final String RECENTATY = "https://rong.36kr.com/api/mobi/activity/list?page=1&categoryId=";//全部网址
+    public static final String RECENTATYEND = "&pageSize=20";//后半部分
 }
